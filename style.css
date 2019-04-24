@@ -310,31 +310,32 @@ textarea:focus {
 .header-area {
   position: relative;
   z-index: 100;
-  width: 100%; }
+  width: 100%;  }
   .header-area .top-header-area {
     width: 100%;
-    height: 100px;
-    background-color: #2196f3;
+    height: 80px;
+    background-color: #ffffff;
     position: relative;
-    z-index: 1; }
+    z-index: 1; 
+    box-shadow: 1px 2px 3px #888888}
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .header-area .top-header-area {
-        height: 70px; } }
+        height: 40px; } }
     @media only screen and (max-width: 767px) {
       .header-area .top-header-area {
-        height: 70px; } }
+        height: 40px; } }
     .header-area .top-header-area .top-header-content {
       width: 100%;
-      height: 100px;
-      background-color: #2196f3;
+      height: 80px;
+      background-color: #ffffff;
       position: relative;
       z-index: 1; }
       @media only screen and (min-width: 768px) and (max-width: 991px) {
         .header-area .top-header-area .top-header-content {
-          height: 70px; } }
+          height: 40px; } }
       @media only screen and (max-width: 767px) {
         .header-area .top-header-area .top-header-content {
-          height: 70px; } }
+          height: 40px; } }
       .header-area .top-header-area .top-header-content .logo a {
         display: block; }
         @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -343,6 +344,12 @@ textarea:focus {
         @media only screen and (max-width: 767px) {
           .header-area .top-header-area .top-header-content .logo a {
             display: none; } }
+            .header-area .top-header-area .top-header-content .logo a img{
+              padding: 15px;
+              max-height: 80px;
+              width:auto;
+              scale: center;
+            }
     .header-area .top-header-area .login-search-area {
       position: relative;
       z-index: 1; }
@@ -352,7 +359,8 @@ textarea:focus {
       .header-area .top-header-area .login-search-area .login a {
         display: inline-block;
         padding: 0 10px;
-        color: #fff; }
+        font-weight: 600;
+        color: #2196f3; }
       .header-area .top-header-area .login-search-area .search-form form {
         width: 250px;
         height: 40px;
@@ -376,13 +384,13 @@ textarea:focus {
         .header-area .top-header-area .login-search-area .search-form form input {
           width: 100%;
           height: 100%;
-          border: 1px solid #fff;
+          border: 1px solid #2196f3;
           border-radius: 5px;
           background-color: transparent;
           padding: 0 15px;
           font-size: 12px;
           font-style: italic;
-          color: #fff; }
+          color: #2196f3; }
           .header-area .top-header-area .login-search-area .search-form form input.form-control {
             box-shadow: none; }
         .header-area .top-header-area .login-search-area .search-form form button {
@@ -394,23 +402,23 @@ textarea:focus {
           z-index: 10;
           border: none;
           background-color: transparent;
-          color: #fff;
+          color: #2196f3;
           cursor: pointer;
           outline: none; }
         .header-area .top-header-area .login-search-area .search-form form .form-control::-webkit-input-placeholder {
-          color: #fff;
+          color: #2196f3;
           opacity: 1; }
         .header-area .top-header-area .login-search-area .search-form form .form-control::-moz-placeholder {
-          color: #fff;
+          color: #2196f3;
           opacity: 1; }
         .header-area .top-header-area .login-search-area .search-form form .form-control:-ms-input-placeholder {
-          color: #fff;
+          color: #2196f3;
           opacity: 1; }
         .header-area .top-header-area .login-search-area .search-form form .form-control::-ms-input-placeholder {
-          color: #fff;
+          color: #2196f3;
           opacity: 1; }
         .header-area .top-header-area .login-search-area .search-form form .form-control::placeholder {
-          color: #fff;
+          color: #2196f3;
           opacity: 1; }
   .header-area .newspaper-main-menu {
     position: relative;
@@ -422,10 +430,10 @@ textarea:focus {
   }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .header-area .newspaper-main-menu {
-        background-color: #152535; } }
+        background-color: #2196f3; } }
     @media only screen and (max-width: 767px) {
       .header-area .newspaper-main-menu {
-        background-color: #152535;
+        background-color: #2196f3;
         height: 48px; } }
         /* height: 70px; } } */
     .header-area .newspaper-main-menu .classy-nav-container {
@@ -470,9 +478,9 @@ textarea:focus {
         z-index: 1;
         color: #1c1c1c;
         font-weight: 700; }
-        .header-area .newspaper-main-menu .classy-navbar .classynav > ul > li.active > a::before {
+        /* .header-area .newspaper-main-menu .classy-navbar .classynav > ul > li.active > a::before {
           background-color: #1c1c1c;
-          /* background-color: #f7f7f7; */
+          background-color: #f7f7f7;
           width: 100%;
           height: 2px;
           position: absolute;
@@ -485,7 +493,7 @@ textarea:focus {
               display: none; } }
           @media only screen and (max-width: 767px) {
             .header-area .newspaper-main-menu .classy-navbar .classynav > ul > li.active > a::before {
-              display: none; } }
+              display: none; } } */
   .header-area .is-sticky #stickyMenu {
     background-color: #fff;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
