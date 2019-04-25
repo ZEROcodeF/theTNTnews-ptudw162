@@ -11,6 +11,11 @@
         $(".searchbar").hide();
     });
 
+    $('html').click(function(){
+        $(".searchbar").fadeOut(300);
+        $(this).find("i").removeClass('fa-close');
+    })
+
     // :: 2.0 Newsticker Active Code
     $.simpleTicker($("#breakingNewsTicker"), {
         speed: 1000,
@@ -71,10 +76,14 @@
     });
 
     // :: 10.0 Toggle new search bar
-    $("#toggle-search-bar").click(function() {
+    $("#toggle-search-bar").click(function(event) {
         $(".searchbar").fadeToggle(300);
         $(".searchbar").find("input[type='text']").focus();
         $(this).find("i").toggleClass('fa-close');
+        event.stopPropagation();
       });
+    $(".searchbar").click(function(event){
+        event.stopPropagation();
+    })
 
 })(jQuery);
