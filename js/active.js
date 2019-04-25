@@ -8,6 +8,7 @@
         $('#preloader').fadeOut('slow', function () {
             $(this).remove();
         });
+        $(".searchbar").hide();
     });
 
     // :: 2.0 Newsticker Active Code
@@ -68,5 +69,12 @@
     $('a[href="#"]').click(function ($) {
         $.preventDefault()
     });
+
+    // :: 10.0 Toggle new search bar
+    $("#toggle-search-bar").click(function() {
+        $(".searchbar").fadeToggle(300);
+        $(".searchbar").find("input[type='text']").focus();
+        $(this).find("i").toggleClass('fa-close');
+      });
 
 })(jQuery);
