@@ -624,7 +624,7 @@ textarea:focus {
             @media only screen and (max-width: 767px) {
               .hero-area .breaking-news-area .ticker ul li a {
                 font-size: 12px; } }
-
+  
 /* .hero-add {
   position: relative;
   z-index: 1; }
@@ -645,7 +645,7 @@ textarea:focus {
     display: block; }
   .single-blog-post .post-data {
     padding: 30px 0; }
-    .single-blog-post .post-data .post-catagory {
+    .single-blog-post .post-data .post-category {
       font-size: 14px;
       color: #2196f3;
       text-transform: uppercase;
@@ -773,7 +773,7 @@ textarea:focus {
       margin-right: 15px; }
     .single-blog-post.small-featured-post .post-data {
       padding: 0; }
-      .single-blog-post.small-featured-post .post-data .post-catagory {
+      .single-blog-post.small-featured-post .post-data .post-category {
         margin-bottom: 10px;
         line-height: 1; }
       .single-blog-post.small-featured-post .post-data .post-title h6 {
