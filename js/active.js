@@ -96,6 +96,10 @@
         $('.single-slider-post img').css("width",$('.container').width());
         $('.owl-carousel').owlCarousel({
             center: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            smartSpeed: 750,
+            autoplayHoverPause: true,
             loop:true,
             margin:5,
             items: 1,
