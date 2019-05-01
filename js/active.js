@@ -97,10 +97,10 @@
         $('.owl-carousel').owlCarousel({
             center: true,
             loop:true,
-            margin:0,
+            margin:5,
             items: 1,
             autoWidth: true,
-            dots: true
+            dots: true,
         });
     }
 

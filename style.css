@@ -654,15 +654,44 @@ textarea:focus {
     }
     .slider-area .owl-carousel .single-slide-content{
       position: absolute;
+      width: 100%;
+      height: 50%;
       left: 50%;
-      top: calc(50%);
+      top: calc(75%);
       -webkit-transform: translate(-50%, -50%);
       -moz-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       -o-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      max-width: 780px;
       background: rgba(0, 0, 0, 0.5)
+    }
+
+    .slider-area .owl-carousel .single-slide-content .post-category{
+      display: inline-block;
+      margin: 10px;
+    }
+    
+    .slider-area .owl-carousel .single-slide-content .post-category a{
+      display: block;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #ffffff;
+      padding: 5px;    
+    }
+
+    .slider-area .owl-carousel .single-slide-content .slider-post-title{
+      margin-left: 10px;
+    }
+
+    .slider-area .owl-carousel .single-slide-content .slider-post-title a{
+      display: block;
+      font-size: 32px;
+      color: #ffffff;
+
+    }
+
+    .soccer-category{
+      background-color: #ffca28;
     }
 
     .slider-area .owl-carousel .owl-dots{
