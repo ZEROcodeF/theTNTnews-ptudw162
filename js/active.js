@@ -9,6 +9,11 @@
             $(this).remove();
         });
         $(".searchbar").hide();
+        initSlider();
+    });
+
+    browserWindow.on('resize',function(){
+        initSlider();
     });
 
     $('html').click(function(){
@@ -85,5 +90,18 @@
     $(".searchbar").click(function(event){
         event.stopPropagation();
     })
+
+    // :: 11.0 Slider of Featured Posts
+    var initSlider = function(){
+        $('.single-slider-post img').css("width",$('.container').width());
+        $('.owl-carousel').owlCarousel({
+            center: true,
+            loop:true,
+            margin:0,
+            items: 1,
+            autoWidth: true,
+            dots: true
+        });
+    }
 
 })(jQuery);

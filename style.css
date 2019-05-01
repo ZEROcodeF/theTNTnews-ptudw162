@@ -23,6 +23,7 @@
 /* :: 2.0 Import All CSS */
 @import url(css/bootstrap.min.css);
 @import url(css/owl.carousel.min.css);
+@import url(css/owl.theme.default.min.css);
 @import url(css/animate.css);
 @import url(css/magnific-popup.css);
 @import url(css/font-awesome.min.css);
@@ -636,6 +637,43 @@ textarea:focus {
     .hero-add {
       margin-top: 80px;
       text-align: center; } } */
+
+/* Slider */
+.slider-area{
+  height: 300px;
+}
+.slider-area .owl-carousel{
+  height:100%;
+}
+  .slider-area .owl-carousel .single-slider-post{
+    height: 100%;
+  }
+    .slider-area .owl-carousel .single-slider-post img{
+      max-height: 300px;
+      object-fit: cover;
+    }
+    .slider-area .owl-carousel .single-slide-content{
+      position: absolute;
+      left: 50%;
+      top: calc(50%);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      max-width: 780px;
+      background: rgba(0, 0, 0, 0.5)
+    }
+
+    .slider-area .owl-carousel .owl-dots{
+      position: relative;
+      top: -30px;
+      -webkit-transform: translate(0%, -50%);
+      -moz-transform: translate(0%, -50%);
+      -ms-transform: translate(0%, -50%);
+      -o-transform: translate(0%, -50%);
+      transform: translate(0%, -50%);
+    }
 
 /* :: 6.0 Blog Post Area */
 .single-blog-post {
