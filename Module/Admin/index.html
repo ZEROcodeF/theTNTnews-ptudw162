@@ -65,6 +65,12 @@
                 <span>Hiệu chỉnh bài viết</span>
               </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link " href="#">
+                  <i class="material-icons">#</i>
+                  <span>Danh sách bài viết</span>
+                </a>
+              </li>
           </ul>
         </div>
       </aside>
@@ -168,7 +174,7 @@
                 <div class="card-body p-0 d-flex">
                   <div class="d-flex flex-column m-auto">
                     <div class="stats-small__data text-center">
-                      <span class="stats-small__label text-uppercase">Posts</span>
+                      <span class="stats-small__label text-uppercase">Bài đăng</span>
                       <h6 class="stats-small__value count my-3">2,390</h6>
                     </div>
                     <div class="stats-small__data">
@@ -179,28 +185,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg col-md-6 col-sm-6 mb-4">
-              <div class="stats-small stats-small--1 card card-small">
-                <div class="card-body p-0 d-flex">
-                  <div class="d-flex flex-column m-auto">
-                    <div class="stats-small__data text-center">
-                      <span class="stats-small__label text-uppercase">Pages</span>
-                      <h6 class="stats-small__value count my-3">182</h6>
-                    </div>
-                    <div class="stats-small__data">
-                      <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
-                    </div>
-                  </div>
-                  <canvas height="120" class="blog-overview-stats-small-2"></canvas>
-                </div>
-              </div>
-            </div>
             <div class="col-lg col-md-4 col-sm-6 mb-4">
               <div class="stats-small stats-small--1 card card-small">
                 <div class="card-body p-0 d-flex">
                   <div class="d-flex flex-column m-auto">
                     <div class="stats-small__data text-center">
-                      <span class="stats-small__label text-uppercase">Comments</span>
+                      <span class="stats-small__label text-uppercase">Bình luận</span>
                       <h6 class="stats-small__value count my-3">8,147</h6>
                     </div>
                     <div class="stats-small__data">
@@ -211,12 +201,28 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg col-md-6 col-sm-6 mb-4">
+                <div class="stats-small stats-small--1 card card-small">
+                  <div class="card-body p-0 d-flex">
+                    <div class="d-flex flex-column m-auto">
+                      <div class="stats-small__data text-center">
+                        <span class="stats-small__label text-uppercase">Phóng viên</span>
+                        <h6 class="stats-small__value count my-3">182</h6>
+                      </div>
+                      <div class="stats-small__data">
+                        <span class="stats-small__percentage stats-small__percentage--increase">12.4%</span>
+                      </div>
+                    </div>
+                    <canvas height="120" class="blog-overview-stats-small-2"></canvas>
+                  </div>
+                </div>
+              </div>
             <div class="col-lg col-md-4 col-sm-6 mb-4">
               <div class="stats-small stats-small--1 card card-small">
                 <div class="card-body p-0 d-flex">
                   <div class="d-flex flex-column m-auto">
                     <div class="stats-small__data text-center">
-                      <span class="stats-small__label text-uppercase">Users</span>
+                      <span class="stats-small__label text-uppercase">Người đăng ký</span>
                       <h6 class="stats-small__value count my-3">2,413</h6>
                     </div>
                     <div class="stats-small__data">
@@ -232,8 +238,8 @@
                 <div class="card-body p-0 d-flex">
                   <div class="d-flex flex-column m-auto">
                     <div class="stats-small__data text-center">
-                      <span class="stats-small__label text-uppercase">Subscribers</span>
-                      <h6 class="stats-small__value count my-3">17,281</h6>
+                      <span class="stats-small__label text-uppercase">Biên tập viên</span>
+                      <h6 class="stats-small__value count my-3">81</h6>
                     </div>
                     <div class="stats-small__data">
                       <span class="stats-small__percentage stats-small__percentage--decrease">2.4%</span>
@@ -257,10 +263,10 @@
                   <form class="quick-post-form">
                     <div class="form-group">
                       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Brave New World"> </div>
+                        placeholder="Tiêu đề"> </div>
                     <div class="form-group">
                       <textarea class="form-control"
-                        placeholder="Words can be like X-rays if you use them properly..."></textarea>
+                        placeholder="Nội dung"></textarea>
                     </div>
                     <div class="form-group mb-0">
                       <button type="submit" class="btn btn-accent">Tạo mới</button>
@@ -275,7 +281,7 @@
                               <div class="col-lg-6 col-md-12 col-sm-12 mb-4">
                                 <div class="card card-small blog-comments">
                                   <div class="card-header border-bottom">
-                                    <h6 class="m-0">Discussions</h6>
+                                    <h6 class="m-0">Quản lý bài viết</h6>
                                   </div>
                                   <div class="card-body p-0">
                                     <div class="blog-comments__item d-flex p-3">
@@ -283,25 +289,25 @@
                                         <img src="images/avatars/1.jpg" alt="User avatar" /> </div>
                                         <div class="blog-comments__content">
                                           <div class="blog-comments__meta text-muted">
-                                            <a class="text-secondary" href="#">James Johnson</a> on
-                                            <a class="text-secondary" href="#">Hello World!</a>
-                                            <span class="text-muted">– 3 days ago</span>
+                                            <a class="text-secondary" href="#">Trần Minh Nhật</a> đã đăng
+                                            <a class="text-secondary" href="#">Giá xăng tăng</a>
+                                            <span class="text-muted">– 3 ngày trước</span>
                                           </div>
-                                          <p class="m-0 my-1 mb-2 text-muted">Well, the way they make shows is, they make one show ...</p>
+                                          <p class="m-0 my-1 mb-2 text-muted">Giá xăng tăng...</p>
                                           <div class="blog-comments__actions">
                                             <div class="btn-group btn-group-sm">
                                               <button type="button" class="btn btn-white">
                                                 <span class="text-success">
                                                   <i class="material-icons">check</i>
-                                                </span> Approve </button>
+                                                </span> Duyệt </button>
                                                 <button type="button" class="btn btn-white">
                                                   <span class="text-danger">
                                                     <i class="material-icons">clear</i>
-                                                  </span> Reject </button>
+                                                  </span> Từ chối </button>
                                                   <button type="button" class="btn btn-white">
                                                     <span class="text-light">
                                                       <i class="material-icons">more_vert</i>
-                                                    </span> Edit </button>
+                                                    </span> Chỉnh sửa </button>
                                                   </div>
                                                 </div>
                                               </div>
@@ -311,25 +317,25 @@
                                                 <img src="images/avatars/2.jpg" alt="User avatar" /> </div>
                                                 <div class="blog-comments__content">
                                                   <div class="blog-comments__meta text-muted">
-                                                    <a class="text-secondary" href="#">James Johnson</a> on
-                                                    <a class="text-secondary" href="#">Hello World!</a>
-                                                    <span class="text-muted">– 4 days ago</span>
+                                                    <a class="text-secondary" href="#">Nguyễn Hồng Tới</a> đã đăng
+                                                    <a class="text-secondary" href="#">Giá điện tăng</a>
+                                                    <span class="text-muted">– 4 ngày trước</span>
                                                   </div>
-                                                  <p class="m-0 my-1 mb-2 text-muted">After the avalanche, it took us a week to climb out. Now...</p>
+                                                  <p class="m-0 my-1 mb-2 text-muted">Giá điện tăng...</p>
                                                   <div class="blog-comments__actions">
                                                     <div class="btn-group btn-group-sm">
                                                       <button type="button" class="btn btn-white">
                                                         <span class="text-success">
                                                           <i class="material-icons">check</i>
-                                                        </span> Approve </button>
+                                                        </span> Duyệt </button>
                                                         <button type="button" class="btn btn-white">
                                                           <span class="text-danger">
                                                             <i class="material-icons">clear</i>
-                                                          </span> Reject </button>
+                                                          </span> Từ chối </button>
                                                           <button type="button" class="btn btn-white">
                                                             <span class="text-light">
                                                               <i class="material-icons">more_vert</i>
-                                                            </span> Edit </button>
+                                                            </span> Chỉnh sửa </button>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -339,25 +345,25 @@
                                                         <img src="images/avatars/3.jpg" alt="User avatar" /> </div>
                                                         <div class="blog-comments__content">
                                                           <div class="blog-comments__meta text-muted">
-                                                            <a class="text-secondary" href="#">James Johnson</a> on
-                                                            <a class="text-secondary" href="#">Hello World!</a>
-                                                            <span class="text-muted">– 5 days ago</span>
+                                                            <a class="text-secondary" href="#">Nguyễn Thanh Trí</a> on
+                                                            <a class="text-secondary" href="#">Quốc tang Đại tướng Lê Đức Anh</a>
+                                                            <span class="text-muted">-1 ngày trước</span>
                                                           </div>
-                                                          <p class="m-0 my-1 mb-2 text-muted">My money's in that office, right? If she start giving me...</p>
+                                                          <p class="m-0 my-1 mb-2 text-muted">Tại đại tướng băng hà mà bố không được xem End Game</p>
                                                           <div class="blog-comments__actions">
                                                             <div class="btn-group btn-group-sm">
                                                               <button type="button" class="btn btn-white">
                                                                 <span class="text-success">
                                                                   <i class="material-icons">check</i>
-                                                                </span> Approve </button>
+                                                                </span> Duyệt </button>
                                                                 <button type="button" class="btn btn-white">
                                                                   <span class="text-danger">
                                                                     <i class="material-icons">clear</i>
-                                                                  </span> Reject </button>
+                                                                  </span> Từ chối </button>
                                                                   <button type="button" class="btn btn-white">
                                                                     <span class="text-light">
                                                                       <i class="material-icons">more_vert</i>
-                                                                    </span> Edit </button>
+                                                                    </span> Chỉnh sửa </button>
                                                                   </div>
                                                                 </div>
                                                               </div>
@@ -366,7 +372,7 @@
                                                           <div class="card-footer border-top">
                                                             <div class="row">
                                                               <div class="col text-center view-report">
-                                                                <button type="submit" class="btn btn-white">View All Comments</button>
+                                                                <button type="submit" class="btn btn-white">Xem tất cả bài đăng</button>
                                                               </div>
                                                             </div>
                                                           </div>
@@ -379,7 +385,7 @@
     </div>
     <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
       <span class="copyright ml-auto my-auto mr-2">Copyright © 2019
-        <a href="https://designrevision.com" rel="nofollow">DesignRevision</a>
+        <a href="https://designrevision.com" rel="nofollow">TNT News</a>
       </span>
     </footer>
     </main>
