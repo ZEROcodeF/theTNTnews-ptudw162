@@ -56,14 +56,6 @@
         });
     }
 
-    // :: 6.0 CouterUp Active Code
-    if ($.fn.counterUp) {
-        $('.counter').counterUp({
-            delay: 10,
-            time: 2000
-        });
-    }
-
     // :: 7.0 Sticky Active Code
     if ($.fn.sticky) {
         $("#stickyMenu").sticky({

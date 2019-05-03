@@ -349,7 +349,7 @@ input:focus, textarea:focus {
   font-weight: 700;
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms;
-  text-transform: capitalize;
+  text-transform: uppercase;
   background-color: #2196f3;
 }
 
@@ -831,6 +831,7 @@ input:focus, textarea:focus {
 
 .slider-area .owl-carousel .single-slide-content .post-category {
   display: inline-block;
+  line-height: 1;
   margin-top: 10px;
   margin-left: 30px;
 }
@@ -883,9 +884,10 @@ input:focus, textarea:focus {
 
 .single-blog-post .post-data .post-category {
   display: inline-block;
+  line-height: 1;
   font-size: 14px;
   color: #ffffff;
-  text-transform: capitalize;
+  text-transform: uppercase;
   background: #ff0000;
   padding: 5px 10px;
   -webkit-transition-duration: 500ms;
@@ -1055,7 +1057,6 @@ input:focus, textarea:focus {
 .single-blog-post.featured-post-2 .post-data .post-title h6 {
   font-size: 18px;
   line-height: 1.55;
-  margin-bottom: 20px;
   font-weight: 700;
 }
 
@@ -1577,9 +1578,10 @@ input:focus, textarea:focus {
 
 .top-category-post-area .single-top-category-post .post-category {
   display: inline-block;
+  line-height: 1;
   font-size: 14px;
   color: #ffffff;
-  text-transform: capitalize;
+  text-transform: uppercase;
   background: #ff0000;
   padding: 5px 10px;
   -webkit-transition-duration: 500ms;
@@ -1595,6 +1597,11 @@ input:focus, textarea:focus {
   max-width: 250px;
   max-height: 200px;
   object-fit: cover;
+}
+
+.top-category-post-area .single-top-category-post .post-date{
+  color: #ffffff;
+  font-weight: 400;
 }
 
 @media only screen and (max-width:767){
@@ -1675,12 +1682,15 @@ input:focus, textarea:focus {
 .about-area {
   position: relative;
   z-index: 1;
+  margin-bottom: 100px; 
 }
 
 .about-area h2 {
   font-weight: 500;
-  margin-bottom: 50px;
+  width: 100%;
+  margin: 30px 0;
   font-size: 40px;
+  color:#2196f3;
 }
 
 @media only screen and (max-width: 767px) {
@@ -1691,20 +1701,18 @@ input:focus, textarea:focus {
 
 .about-area p {
   font-weight: 500;
-}
-
-.single-cool-fact {
-  position: relative;
-  z-index: 1;
+  padding: 0 15px;
 }
 
 .single-team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   z-index: 1;
 }
 
 .single-team-member .team-info {
-  padding: 50px 0;
   text-align: center;
 }
 
@@ -1720,37 +1728,14 @@ input:focus, textarea:focus {
   color: #656565;
 }
 
+.single-team-member img{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+}
 /* :: 11.0 Cool Facts */
-
-.single-cool-fact {
-  position: relative;
-  text-align: center;
-  z-index: 1;
-  margin-bottom: 80px;
-}
-
-.single-cool-fact h3 {
-  font-size: 60px;
-  margin-bottom: 0;
-  color: #a5a5a5;
-  font-weight: 700;
-  margin-right: 15px;
-}
-
-.single-cool-fact .cf-text {
-  text-align: left;
-}
-
-.single-cool-fact .cf-text h6 {
-  font-size: 18px;
-  margin-bottom: 5px;
-  color: #393939;
-}
-
-.single-cool-fact .cf-text span {
-  font-size: 12px;
-  color: #656565;
-}
 
 /* :: 12.0 Contact Area */
 
