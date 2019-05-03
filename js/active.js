@@ -10,6 +10,7 @@
         });
         $(".searchbar").hide();
         initSlider();
+        initTopCategorySlider();
     });
 
     browserWindow.on('resize',function(){
@@ -94,7 +95,7 @@
     // :: 11.0 Slider of Featured Posts
     var initSlider = function(){
         $('.single-slider-post img').css("width",$('.container').width());
-        $('.owl-carousel').owlCarousel({
+        $('#featured-post-slider').owlCarousel({
             center: true,
             autoplay: true,
             autoplayTimeout: 4000,
@@ -105,6 +106,21 @@
             items: 1,
             autoWidth: true,
             dots: true,
+        });
+    }
+
+    var initTopCategorySlider = function(){
+        $('#top-category-posts-slider').owlCarousel({
+            loop:true,
+            margin:0,
+            responsive:{
+                0:{
+                    items:1
+                },
+                992:{
+                    items:3
+                }
+            }
         });
     }
 
