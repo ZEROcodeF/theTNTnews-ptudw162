@@ -113,6 +113,7 @@
         $('#top-category-posts-slider').owlCarousel({
             loop:true,
             margin:0,
+            dots: false,
             responsive:{
                 0:{
                     items:1
@@ -123,5 +124,14 @@
             }
         });
     }
+
+    var owl2 = $('#top-category-posts-slider');
+    $('#top-cat-slider-button-prev').click(function(){
+        owl2.trigger('prev.owl.carousel');
+    });
+
+    $('#top-cat-slider-button-next').click(function(){
+        owl2.trigger('next.owl.carousel');
+    });
 
 })(jQuery);
