@@ -113,13 +113,20 @@
         $('#top-category-posts-slider').owlCarousel({
             loop:true,
             margin:0,
+            center: true,
             dots: false,
             responsive:{
                 0:{
                     items:1
                 },
-                992:{
-                    items:3
+                530:{
+                    items: 2
+                },
+                996: {
+                    items: 3
+                },
+                1200:{
+                    items:4
                 }
             }
         });

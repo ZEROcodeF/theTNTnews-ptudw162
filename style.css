@@ -560,6 +560,20 @@ input:focus, textarea:focus {
     width: auto;
     padding: 3px;
   }
+
+  .header-area .newspaper-main-menu .classy-navbar .classynav .megamenu-container{
+    display: none;
+  }
+
+  .header-area .newspaper-main-menu .classy-navbar .classynav .collapsed-menu-item{
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 991px) {
+  .header-area .newspaper-main-menu .classy-navbar .classynav .collapsed-menu-item{
+    display: none;
+  }
 }
 
 .header-area .newspaper-main-menu .classy-navbar .classynav ul li a {
@@ -1557,7 +1571,7 @@ input:focus, textarea:focus {
 
 .top-category-post-area .single-top-category-post {
   margin: 20px;
-  width: 300px;
+  width: 250px;
   height: auto;
 }
 
@@ -1578,9 +1592,20 @@ input:focus, textarea:focus {
 }
 
 .top-category-post-area .single-top-category-post img {
-  max-width: 300px;
+  max-width: 250px;
   max-height: 200px;
   object-fit: cover;
+}
+
+@media only screen and (max-width:767){
+  .top-category-post-area .single-top-category-post {
+    width: 100%;
+  }
+  .top-category-post-area .single-top-category-post img{
+    width: 100%;
+    object-fit: cover;
+  }
+  
 }
 
 .top-category-post-area .single-top-category-post .top-cat-post-title {
@@ -1619,8 +1644,28 @@ input:focus, textarea:focus {
   padding: 20px 0;
 }
 
+.footer-area .footer-nav{
+  width: 50%;
+}
+@media only screen and (max-width: 767px){
+  .footer-area .footer-nav{
+    width: 80%;
+  }
+}
+
+.footer-area .footer-nav a {
+  padding-bottom: 20px;
+  font-weight: 600;
+  transition-duration: 500ms;
+  -webkit-transition-duration: 500ms;
+}
+
+.footer-area .footer-nav a:hover{
+  color:#2196f3;
+}
+
 .footer-area img {
-  max-width: 100px;
+  max-width: 60px;
   height: auto;
   padding: 10px 0;
 }
