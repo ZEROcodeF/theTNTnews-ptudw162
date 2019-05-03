@@ -4,9 +4,9 @@
  |--------------------------------------------------------------------------
  */
 
-'use strict';
+ 'use strict';
 
-(function ($) {
+ (function ($) {
   $(document).ready(function () {
 
     var toolbarOptions = [
@@ -16,8 +16,15 @@
       [{ 'header': 1 }, { 'header': 2 }],               // custom button values
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
       [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent                                       // remove formatting button
-    ];
+      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent 
+      [ 'link', 'image', 'video', 'formula' ],          // add's image support
+
+      
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'font': [] }]
+      ];
+
 
     // Init the Quill RTE
     var quill = new Quill('#editor-container', {
