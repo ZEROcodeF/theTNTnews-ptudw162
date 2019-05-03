@@ -48,12 +48,6 @@
                 <span>Danh sách bài viết</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link " href="form-components.html">
-                <i class="material-icons">view_module</i>
-                <span>Hiệu chỉnh bài viết</span>
-              </a>
-            </li>
           </ul>
         </div>
       </aside>
@@ -160,14 +154,14 @@
                                 <p class="card-text d-inline-block mb-3">However venture pursuit he am mr cordial. Forming musical am hearing studied be luckily. But in for determine what would see...</p>
                                 <span class="text-muted">28 February 2019</span>
                                 <div class="btn-group btn-group-sm">
-                                  <button type="button" class="btn btn-white">
+                                  <a href="add-new-post.html"class="btn btn-white">
                                     <span class="text-success">
                                       <i class="material-icons">check</i>
-                                    </span> Approve </button>
-                                    <button type="button" class="btn btn-white">
+                                    </span> Approve </a>
+                                    <a href="#" class="btn btn-white" data-toggle="modal" data-target="#comment">
                                       <span class="text-danger">
                                         <i class="material-icons">clear</i>
-                                      </span> Reject </button>
+                                      </span> Reject </a>
                                     </div>
                                   </div>
                                 </div>
@@ -423,6 +417,34 @@
                                                                 </span>
                                                               </footer>
                                                             </main>
+                                                          </div>
+                                                        </div>
+                                                        <!--Comment-->
+                                                        <div class="modal fade" id="comment">
+                                                          <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+
+                                                              <div class="modal-header bg-success text-white">
+                                                                <h5 class="modal-title">Comment<h5>
+                                                                <button class="close" data-dismiss="modal">
+                                                                  <span>&times;</span>
+                                                                </button>
+                                                              </div>
+
+                                                              <div class="modal-body">
+                                                                <form>
+                                                                  <div class="form-group">
+                                                                    <label for="title">Comment...</label>
+                                                                    <input type="text" class="form-control">
+                                                                  </div>
+                                                                </form>
+                                                              </div>
+
+                                                              <div class="modal-footer">
+                                                                <button class="btn btn-success" data-dismiss="modal">Submit</button>
+                                                              </div>
+
+                                                            </div>
                                                           </div>
                                                         </div>
                                                         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
