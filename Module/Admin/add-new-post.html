@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>TNT News - Writer</title>
+  <title>TNT News - Admin</title>
   <meta name="description"
     content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -172,13 +172,8 @@
               <div class="card card-small mb-3">
                 <div class="card-body">
                   <form class="add-new-post">
-
-                    <div class="card-header border-bottom">
-                      <h5 class="m-0">Tiêu đề</h5>
-                    </div>
-                    <input class="form-control form-control-lg mb-3" type="text" placeholder="Tiêu đề bài viết">
-                    <input class="form-control form-control-lg mb-3" type="text" placeholder="Tag bài viết">
-                    <input class="form-control form-control-lg mb-3" type="text" placeholder="Tóm tắt">
+                    <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title">
+                    <input class="form-control form-control-lg mb-3" type="text" placeholder="Your Tags">
                     <div id="editor-container" class="add-new-post__editor mb-1"></div>
                   </form>
                 </div>
@@ -233,49 +228,49 @@
                 </div>
                 <div class='card-body p-0'>
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item px-3 pb-2">
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category1" checked>
-                        <label class="custom-control-label" for="category1">Thời sự</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category2" checked>
-                        <label class="custom-control-label" for="category2">Pháp Luật</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category3">
-                        <label class="custom-control-label" for="category3">Thế giới</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category4">
-                        <label class="custom-control-label" for="category4">Kinh doanh</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category5">
-                        <label class="custom-control-label" for="category5">Công nghệ</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category6">
-                        <label class="custom-control-label" for="category5">Thể thao</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category7">
-                        <label class="custom-control-label" for="category5">Giải trí</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category8">
-                        <label class="custom-control-label" for="category5">Âm nhạc</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category9">
-                        <label class="custom-control-label" for="category5">Phim ảnh</label>
-                      </div>
-                      <div class="custom-control custom-checkbox mb-1">
-                        <input type="checkbox" class="custom-control-input" id="category10">
-                        <label class="custom-control-label" for="category5">Sống trẻ</label>
-                      </div>
-                    </li>
-                    <!--Add new Category
+                      <li class="list-group-item px-3 pb-2">
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category1" checked>
+                            <label class="custom-control-label" for="category1">Thời sự</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category2" checked>
+                            <label class="custom-control-label" for="category2">Pháp Luật</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category3">
+                            <label class="custom-control-label" for="category3">Thế giới</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category4">
+                            <label class="custom-control-label" for="category4">Kinh doanh</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category5">
+                            <label class="custom-control-label" for="category5">Công nghệ</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category6">
+                            <label class="custom-control-label" for="category5">Thể thao</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category7">
+                            <label class="custom-control-label" for="category5">Giải trí</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category8">
+                            <label class="custom-control-label" for="category5">Âm nhạc</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category9">
+                            <label class="custom-control-label" for="category5">Phim ảnh</label>
+                          </div>
+                          <div class="custom-control custom-checkbox mb-1">
+                            <input type="checkbox" class="custom-control-input" id="category10">
+                            <label class="custom-control-label" for="category5">Sống trẻ</label>
+                          </div>
+                        </li>
+                    <!--Add new Category-->
                     <li class="list-group-item d-flex px-3">
                       <div class="input-group">
                         <input type="text" class="form-control" placeholder="New category" aria-label="Add new category"
@@ -287,7 +282,7 @@
                         </div>
                       </div>
                     </li>
-                  -->
+
                   </ul>
                 </div>
               </div>
