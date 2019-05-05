@@ -16,8 +16,8 @@
 
 :: 9.0 Footer Area
 :: 10.0 About Area
-:: 11.0 Cool Facts
-:: 12.0 Contact Area
+
+:: 12.0 Login Area
 */
 
 /* :: 1.0 Import Fonts */
@@ -560,18 +560,16 @@ input:focus, textarea:focus {
     width: auto;
     padding: 3px;
   }
-
-  .header-area .newspaper-main-menu .classy-navbar .classynav .megamenu-container{
+  .header-area .newspaper-main-menu .classy-navbar .classynav .megamenu-container {
     display: none;
   }
-
-  .header-area .newspaper-main-menu .classy-navbar .classynav .collapsed-menu-item{
+  .header-area .newspaper-main-menu .classy-navbar .classynav .collapsed-menu-item {
     display: block;
   }
 }
 
 @media only screen and (min-width: 991px) {
-  .header-area .newspaper-main-menu .classy-navbar .classynav .collapsed-menu-item{
+  .header-area .newspaper-main-menu .classy-navbar .classynav .collapsed-menu-item {
     display: none;
   }
 }
@@ -1544,7 +1542,8 @@ input:focus, textarea:focus {
   width: 100%;
   height: auto;
 }
-.top-category-post-area .top-category-post-heading{
+
+.top-category-post-area .top-category-post-heading {
   padding: 25px 0 0 15px;
 }
 
@@ -1554,18 +1553,18 @@ input:focus, textarea:focus {
   color: #ffffff;
 }
 
-.top-category-post-area .top-category-post-heading .top-cat-slider-control .top-cat-slider-button{
+.top-category-post-area .top-category-post-heading .top-cat-slider-control .top-cat-slider-button {
   display: inline-block;
   width: 40px;
   height: 40px;
 }
 
-.top-category-post-area .top-category-post-heading .top-cat-slider-control .top-cat-slider-button{
+.top-category-post-area .top-category-post-heading .top-cat-slider-control .top-cat-slider-button {
   background: transparent;
   border: none;
 }
 
-.top-category-post-area .top-category-post-heading .top-cat-slider-control .top-cat-slider-button i{
+.top-category-post-area .top-category-post-heading .top-cat-slider-control .top-cat-slider-button i {
   color: #ffffff;
   font-size: 3em;
 }
@@ -1599,20 +1598,19 @@ input:focus, textarea:focus {
   object-fit: cover;
 }
 
-.top-category-post-area .single-top-category-post .post-date{
+.top-category-post-area .single-top-category-post .post-date {
   color: #ffffff;
   font-weight: 400;
 }
 
-@media only screen and (max-width:767){
+@media only screen and (max-width:767) {
   .top-category-post-area .single-top-category-post {
     width: 100%;
   }
-  .top-category-post-area .single-top-category-post img{
+  .top-category-post-area .single-top-category-post img {
     width: 100%;
     object-fit: cover;
   }
-  
 }
 
 .top-category-post-area .single-top-category-post .top-cat-post-title {
@@ -1651,11 +1649,12 @@ input:focus, textarea:focus {
   padding: 20px 0;
 }
 
-.footer-area .footer-nav{
+.footer-area .footer-nav {
   width: 50%;
 }
-@media only screen and (max-width: 767px){
-  .footer-area .footer-nav{
+
+@media only screen and (max-width: 767px) {
+  .footer-area .footer-nav {
     width: 80%;
   }
 }
@@ -1667,8 +1666,8 @@ input:focus, textarea:focus {
   -webkit-transition-duration: 500ms;
 }
 
-.footer-area .footer-nav a:hover{
-  color:#2196f3;
+.footer-area .footer-nav a:hover {
+  color: #2196f3;
 }
 
 .footer-area img {
@@ -1682,7 +1681,7 @@ input:focus, textarea:focus {
 .about-area {
   position: relative;
   z-index: 1;
-  margin-bottom: 100px; 
+  margin-bottom: 100px;
 }
 
 .about-area h2 {
@@ -1690,7 +1689,7 @@ input:focus, textarea:focus {
   width: 100%;
   margin: 30px 0;
   font-size: 40px;
-  color:#2196f3;
+  color: #2196f3;
 }
 
 @media only screen and (max-width: 767px) {
@@ -1728,104 +1727,178 @@ input:focus, textarea:focus {
   color: #656565;
 }
 
-.single-team-member img{
+.single-team-member img {
   width: 200px;
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
   overflow: hidden;
 }
+
 /* :: 11.0 Cool Facts */
 
-/* :: 12.0 Contact Area */
+/* :: 12.0 Login Area */
 
-.map-area {
-  position: relative;
-  z-index: 2;
-  margin-top: 80px;
+.login-container, .login-container .row {
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.map-area #googleMap {
+.login-left-area {
   width: 100%;
-  height: 680px;
+  height: 100%;
+  background:url("img/bg-img/bg-login.jpg") 0 0 no-repeat;
+  padding: 0 !important;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .map-area #googleMap {
-    height: 500px;
-  }
+.login-left-area .area-overlay{
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(33, 150, 243, 0.95) 0%, rgba(16, 75, 121, 0.95) 45%);
 }
 
-@media only screen and (max-width: 767px) {
-  .map-area #googleMap {
-    height: 350px;
-  }
+.login-right-area {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
 }
 
-.single-contact-information {
-  position: relative;
-  z-index: 1;
+.login-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 66%;
+}
+.login-right-area .login-box .logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.single-contact-information h6 {
-  font-size: 14px;
-  border-bottom: 2px solid #2196f3;
-  display: inline-block;
+.login-right-area .login-box .logo img{
+  height: auto; 
+  width: 100px;
+  margin: 30px;
+}
+
+.login-right-area .login-box .login-title{
+  width: 100%;
+  text-align: center;
+}
+
+.login-right-area .login-box .box-center{
+  display: flex;
+  justify-content: center;
+}
+
+.login-right-area .login-box .box-center a{
   color: #2196f3;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .contact-form-area {
-    margin-bottom: 80px;
-  }
+.login-right-area .login-box .box-center a:hover{
+  color: #0D47A1;
 }
 
-@media only screen and (max-width: 767px) {
-  .contact-form-area {
-    margin-bottom: 80px;
-  }
+.login-right-area .login-box .btn{
+  background-color: #2196f3;
 }
 
-.contact-form-area .form-control {
-  height: 45px;
-  width: 100%;
-  background-color: #f3f5f8;
-  font-size: 12px;
-  font-style: italic;
-  margin-bottom: 15px;
+.login-right-area .login-box .box-center .social-btn{
+  background: transparent;
   border: none;
   border-radius: 0;
-  padding: 0 20px;
-  -webkit-transition-duration: 500ms;
+  color: #656565;
   transition-duration: 500ms;
-}
-
-.contact-form-area .form-control:focus {
-  box-shadow: none;
-}
-
-.contact-form-area textarea.form-control {
-  height: 200px;
-  padding: 15px 20px;
   -webkit-transition-duration: 500ms;
+  font-size: 1.5rem;
+  margin: 5px;
+}
+
+.login-right-area .login-box .box-center .social-btn:hover{
+  color: #2196f3;
+}
+
+/* :: 13.0 Signup Area */
+
+.signup-container, .signup-container .row {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.signup-left-area {
+  width: 100%;
+  height: 100%;
+  background:url("img/bg-img/bg-login.jpg") 0 0 no-repeat;
+  padding: 0 !important;
+}
+
+.signup-left-area .area-overlay{
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(33, 150, 243, 0.95) 0%, rgba(16, 75, 121, 0.95) 45%);
+}
+
+.signup-right-area {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.signup-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 66%;
+}
+.signup-right-area .signup-box .logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-right-area .signup-box .logo img{
+  height: auto; 
+  width: 50px;
+  margin: 10px;
+}
+
+.signup-right-area .signup-box .signup-title{
+  width: 100%;
+  text-align: center;
+}
+
+.signup-right-area .signup-box .box-center{
+  display: flex;
+  justify-content: center;
+}
+
+.signup-right-area .signup-box .box-center a{
+  color: #2196f3;
+}
+
+.signup-right-area .signup-box .box-center a:hover{
+  color: #0D47A1;
+}
+
+.signup-right-area .signup-box .btn{
+  background-color: #2196f3;
+}
+
+.signup-right-area .signup-box .box-center .social-btn{
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #656565;
   transition-duration: 500ms;
+  -webkit-transition-duration: 500ms;
+  font-size: 1.5rem;
+  margin: 5px;
 }
 
-.contact-area {
-  position: relative;
-  z-index: 1;
+.signup-right-area .signup-box .box-center .social-btn:hover{
+  color: #2196f3;
 }
 
-.contact-area .contact-title h2 {
-  font-size: 40px;
-  color: #393939;
-  margin-bottom: 80px;
-}
 
-@media only screen and (max-width: 767px) {
-  .contact-area .contact-title h2 {
-    font-size: 30px;
-  }
-}
 
 /*# sourceMappingURL=style.css.map */
