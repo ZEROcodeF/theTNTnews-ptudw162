@@ -179,6 +179,17 @@
                     <input class="form-control form-control-lg mb-3" type="text" placeholder="Tiêu đề bài viết">
                     <input class="form-control form-control-lg mb-3" type="text" placeholder="Tag bài viết">
                     <input class="form-control form-control-lg mb-3" type="text" placeholder="Tóm tắt">
+                    <div style="height:0px;overflow:hidden">
+                      <input type="file" id="fileInput" name="fileInput" />
+                    </div>
+                    <iframe src="http://www.youtube.com/embed/W7qWa52k-nE" width="560" height="315" frameborder="0"
+                      allowfullscreen></iframe>
+                    <li class="list-group-item">
+                      <button class="btn btn-sm btn-outline-accent" onclick="chooseFile();">
+                        <i class="material-icons"></i>Tải ảnh lên</button>
+                      <button class="btn btn-sm btn-outline-accent">
+                        <i class="material-icons"></i> Youtube</button>
+                    </li>
                     <div id="editor-container" class="add-new-post__editor mb-1"></div>
                   </form>
                 </div>
@@ -292,6 +303,7 @@
                 </div>
               </div>
               <!-- / Post Overview -->
+
             </div>
           </div>
         </div>
@@ -303,6 +315,12 @@
       </main>
     </div>
   </div>
+  <!--Upload image-->
+  <script>
+    function chooseFile() {
+      $("#fileInput").click();
+    }
+  </script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
