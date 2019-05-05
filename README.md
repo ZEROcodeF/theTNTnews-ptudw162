@@ -1,7 +1,7 @@
 ﻿# Phase 1
 ## _Hệ thống trang tĩnh của Báo Điện Tử TH16-News(TNT News)_
 ## Website có thể xem tại: (http://tntnewsstatic.herokuapp.com/)
-##Phân hệ khách vãng lai & phân hệ subriber:
+##Trang chủ & Phân hệ khách vãng lai & phân hệ subriber:
 	+ Trang chủ(index.html)
 	+ Xem danh sách bài viết(catgories-post.html)
 	+ Xem chi tiết bài viết(single-post.html)
