@@ -1899,6 +1899,33 @@ input:focus, textarea:focus {
   color: #2196f3;
 }
 
+/* 14 Contact form area */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .contact-form-area {
+    margin-bottom: 80px; } }
+@media only screen and (max-width: 767px) {
+  .contact-form-area {
+    margin-bottom: 80px; } }
+.contact-form-area .form-control {
+  height: 45px;
+  width: 100%;
+  background-color: #f3f5f8;
+  font-size: 12px;
+  font-style: italic;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 0;
+  padding: 0 20px;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms; }
+  .contact-form-area .form-control:focus {
+    box-shadow: none; }
+.contact-form-area textarea.form-control {
+  height: 200px;
+  padding: 15px 20px;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms; }
 
 
 /*# sourceMappingURL=style.css.map */
