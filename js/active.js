@@ -12,7 +12,7 @@
         initSlider();
         initTopCategorySlider();
     });
-
+    
     browserWindow.on('resize',function(){
         initSlider();
     });
