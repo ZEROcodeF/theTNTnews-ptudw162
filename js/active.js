@@ -98,6 +98,14 @@
             items: 1,
             autoWidth: true,
             dots: true,
+            responsive:{
+                0:{
+                    dots: false,
+                },
+                768:{
+                    dots: true,
+                }
+            }
         });
     }
 
