@@ -1,0 +1,19 @@
+{
+  "name": "thetntnews-ptudw162",
+  "version": "1.0.0",
+  "description": "Final project of the TNT Team in Web Development 16CTT3 class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZEROcodeF/theTNTnews-ptudw162.git"
+  },
+  "author": "TNT Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZEROcodeF/theTNTnews-ptudw162/issues"
+  },
+  "homepage": "https://github.com/ZEROcodeF/theTNTnews-ptudw162#readme"
+}
