@@ -46,4 +46,28 @@
     e.preventDefault();
   });
 
+  //Quilljs editor
+   $(document).ready(function () {
+
+    var toolbarOptions = [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent 
+      [ 'link', 'image', 'video' ],          // add's image support
+      [{ 'font': []}]
+      ];
+
+
+    // Init the Quill RTE
+    var quill = new Quill('#editor', {
+      modules: {
+        toolbar: toolbarOptions
+      },
+      placeholder: 'Words can be like x-rays if you use them properly...',
+      theme: 'snow'
+    });
+
+  });
 })(jQuery); // End of use strict

@@ -2239,6 +2239,9 @@ textarea.form-control {
   background-color: rgba(28, 200, 138, 0.9);
   border-radius: 0.35rem;
 }
+/*My Style*/
+.write-new-post__editor {
+  min-height: 400px; }
 
 .was-validated .form-control:valid, .form-control.is-valid {
   border-color: #1cc88a;
