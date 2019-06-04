@@ -380,15 +380,15 @@ input:focus, textarea:focus {
   background-color: #7B1FA2 !important;
 }
 
-/* Thế giới: quân sự, tư liệu, phân tích, người Việt 4 phương */
+/* Thế giới: quân sự, tư liệu, phân tích */
 
-.cat-thegioi, .cat-quansu, .cat-tulieu, .cat-phantich, .cat-nguoiviet4phuong {
+.cat-thegioi, .cat-quansu, .cat-tulieu, .cat-phantich{
   background-color: #00695C !important;
 }
 
-/* Kinh doanh: bất động sản, hàng không, tài chính, tiêu dùng, doanh nhân */
+/* Kinh doanh: bất động sản, hàng không, tài chính*/
 
-.cat-kinhdoanh, .cat-batdongsan, .cat-hangkhong, .cat-taichinh, .cat-tieudung, .cat-doanhnhan {
+.cat-kinhdoanh, .cat-batdongsan, .cat-hangkhong, .cat-taichinh {
   background-color: #1B5E20 !important;
 }
 
@@ -400,7 +400,7 @@ input:focus, textarea:focus {
 
 /* Thể thao: Việt Nam, Ngoại hạng Anh, C1, Hậu trường thể thao */
 
-.cat-thethao, .cat-thethaovietnam, .cat-ngoaihanganh, .cat-championsleague, .cat-hautruongthethao {
+.cat-thethao, .cat-thethaovietnam, .cat-ngoaihanganh, .cat-championsleague {
   background-color: #FF6F00 !important;
 }
 
