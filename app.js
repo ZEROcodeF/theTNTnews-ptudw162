@@ -10,6 +10,8 @@ app.use(express.static('public'));
 
 require('./middlewares/view-engine')(app);
 
+app.use(require('./middlewares/local.middlewares'));
+
 app.get('/',(req,res)=>{
     res.render('home',{
       PageTitle: "Trang chủ TNT News"
