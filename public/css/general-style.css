@@ -25,15 +25,13 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
 /* :: 2.0 Import All CSS */
 
-@import url(css/bootstrap.min.css);
-@import url(css/owl.carousel.min.css);
-@import url(css/owl.theme.default.min.css);
-@import url(css/animate.css);
-@import url(css/magnific-popup.css);
-@import url(css/font-awesome.min.css);
-@import url(css/custom-icon.css);
-@import url(css/classy-nav.min.css);
-@import url(css/nice-select.min.css);
+@import url(./bootstrap.min.css);
+@import url(./owl.carousel.min.css);
+@import url(./owl.theme.default.min.css);
+@import url(./animate.css);
+@import url(./font-awesome.min.css);
+@import url(./custom-icon.css);
+@import url(./classy-nav.min.css);
 /* :: 3.0 Base CSS */
 
 * {
@@ -227,6 +225,7 @@ img {
   /* text-align: center;  */
 }
 
+/* mscr */
 @media only screen and (max-width: 767px) {
   .section-heading h6 {
     text-align: center;
