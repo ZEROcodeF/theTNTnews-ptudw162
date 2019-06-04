@@ -19,8 +19,5 @@ module.exports = {
 
   delete: id => {
     return db.delete('CATEGORY', 'CatID', id);
-  },
-  getCatWithParentId: parentid => {
-    return db.load(`select * from CATEGORY where category_parent = ${parentid}`);
   }
 };
