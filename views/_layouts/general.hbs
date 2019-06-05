@@ -15,7 +15,7 @@
     <link rel="icon" href="/img/core-img/favicon.ico">
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="css/general-style.min.css">
+    <link rel="stylesheet" href="/css/general-style.min.css">
 
 </head>
 
@@ -30,13 +30,13 @@
                         <div class="top-header-content d-flex align-items-center justify-content-between">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="img/core-img/logo.png" alt="" /></a>
+                                <a href="/"><img src="/img/core-img/logo.png" alt="" /></a>
                             </div>
                             <!-- Login Search Area -->
                             <!-- Login -->
                             <div class="login d-flex d-flex align-items-center">
-                                <a href="login.html">Đăng nhập</a>
-                                <a href="signup.html">Đăng ký</a>
+                                <a href="/login">Đăng nhập</a>
+                                <a href="/register">Đăng ký</a>
                             </div>
                         </div>
                     </div>
@@ -66,21 +66,21 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li class="active"><a href="index.html">Trang chủ</a></li>
-                                    {{#each localCategories as |row rindex|}}
+                                    <li class="active"><a href="/">Trang chủ</a></li>
+                                    {{#each localGroupedCategories as |row rindex|}}
                                     <li>
-                                        <a href="categories-post.html">{{row.0.category_name}}</a>
+                                        <a href="/category/{{row.0.category_id}}">{{row.0.category_name}}</a>
                                         <ul class="dropdown">
                                             {{#each row}}
                                             {{#if @first}}
                                             {{else}}
-                                            <li><a href="categories-post.html">{{this.category_name}}</a></li>
+                                            <li><a href="/category/{{this.category_id}}">{{this.category_name}}</a></li>
                                             {{/if}}
                                             {{/each}}
                                         </ul>
                                     </li>
                                     {{/each}}
-                                    
+
                                 </ul>
                             </div>
                             <!-- Nav End -->
@@ -88,7 +88,7 @@
 
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="img/core-img/logo-white.png" alt=""></a>
+                            <a href="/"><img src="/img/core-img/logo-white.png" alt=""></a>
                         </div>
 
                         <button type="button" id="toggle-search-bar"><i class="fa fa-search"></i></button>
@@ -104,63 +104,40 @@
     </header>
     <!-- ##### Header Area End ##### -->
 
-    <!-- ##### Hero Area Start ##### -->
-    <div class="hero-area">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-lg-12">
-                    <!-- Breaking News Widget -->
-                    <div class="breaking-news-area d-flex align-items-center">
-                        <div class="news-title">
-                            <p>Tin cập nhật</p>
-                        </div>
-                        <div id="breakingNewsTicker" class="ticker">
-                            <ul>
-                                <li><a href="single-post.html">Xem xét kỷ luật nguyên Phó thủ tướng Vũ Văn Ninh</a></li>
-                                <li><a href="single-post.html">Giá điện tăng mạnh, thấp nhất hơn 8.000 đồng 1KWh</a></li>
-                                <li><a href="single-post.html">Giá ga tăng lên 1.000.000 đồng 1 bình 12l</a></li>
-                                <li><a href="single-post.html">Được nâng 30 điểm, thí sinh ở Hà Giang nói gì?</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ##### Hero Area End ##### -->
-
+    <div class="mt-15">
         {{{body}}}
+    </div>
 
-        <!-- ##### Footer Area Start ##### -->
-        <div class="footer-divider"></div>
-        <footer class="footer-area">
-            <div class="footer-nav container d-flex justify-content-between align-items-center">
-                <a href="index.html">Trang chủ</a>
-                <a href="about.html">Về chúng tôi</a>
-                <a href="about.html">FAQ</a>
-                <a href="www.facebook.com"><i class="fa fa-facebook-f"></i></a>
-                <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
-                <a href="www.twitter.com"><i class="fa fa-twitter"></i></a>
-            </div>
-            <img src="img/core-img/logo.png">
-            <div>Bản quyền &copy; 2019 thuộc về TNT News Team. All rights reserved.</div>
-        </footer>
-        <!-- ##### Footer Area End ##### -->
+    <!-- ##### Footer Area Start ##### -->
+    <div class="footer-divider"></div>
+    <footer class="footer-area">
+        <div class="footer-nav container d-flex justify-content-between align-items-center">
+            <a href="/">Trang chủ</a>
+            <a href="/about">Về chúng tôi</a>
+            <a href="www.facebook.com"><i class="fa fa-facebook-f"></i></a>
+            <a href="www.instagram.com"><i class="fa fa-instagram"></i></a>
+            <a href="www.twitter.com"><i class="fa fa-twitter"></i></a>
+        </div>
+        <img src="/img/core-img/logo.png">
+        <div>Bản quyền &copy; 2019 thuộc về TNT News Team. All rights reserved.</div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
 
-        <!-- ##### All Javascript Files ##### -->
-        <!-- jQuery-2.2.4 js -->
-        <script src="js/jquery/jquery-2.2.4.min.js"></script>
-        <!-- Popper js -->
-        <script src="js/bootstrap/popper.min.js"></script>
-        <!-- Bootstrap js -->
-        <script src="js/bootstrap/bootstrap.min.js"></script>
-        <!-- All Plugins js -->
-        <script src="js/plugins/plugins.js"></script>
-        <!-- Active js -->
-        <script src="js/active.js"></script>
-        <!-- Homepage js -->
-        <script src="js/homepage.js"></script>
-        <!-- Owl Carousel js-->
-        <script src="js/owlcarousel/owl.carousel.min.js"></script>
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="/js/active.js"></script>
+    <!-- Homepage js -->
+    <script src="/js/homepage.js"></script>
+    <!-- Owl Carousel js-->
+    <script src="/js/owlcarousel/owl.carousel.min.js"></script>
 </body>
 
 </html>
