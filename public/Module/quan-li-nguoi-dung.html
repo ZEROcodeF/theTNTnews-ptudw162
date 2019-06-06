@@ -34,7 +34,7 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="blank.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -58,8 +58,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="quan-li-chuyen-muc.html">Quản lí chuyên mục</a>
                         <a class="collapse-item" href="quan-li-nhan-dan.html">Quản lí nhãn</a>
-                        <a class="collapse-item" href="#">Quản lí bài viết</a>
-                        <a class="collapse-item" href="#">Quản lí người dùng</a>
+                        <a class="collapse-item" href="quan-li-bai-viet.html">Quản lí bài viết</a>
+                        <a class="collapse-item" href="quan-li-nguoi-dung.html">Quản lí người dùng</a>
                     </div>
                 </div>
             </li>
@@ -279,23 +279,70 @@
                 <div class="container-fluid">
                     <h1>Add HBS here!</h1>
                     <div class="card shadow mb-4">
-                        <h2 class="card-header">Thêm nhãn dán mới</h2>
-                        <div class="card-body">
-                            <form method="POST">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Tên nhãn dán</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên nhãn dán">
+                        <h2 class="card-header">Danh sách người dùng</h2>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên tài khoản</th>
+                                                <th>Email</th>
+                                                <th>Số điện thoại</th>
+                                                <th>Quyền truy cập</th>
+                                                <th>Số bài đăng</th>
+                                                <th>
+                                                    <a href="#" class="btn btn-outline-success"
+                                                    data-toggle="modal" data-target="#addUserModal">
+                                                        <i class="fa fa-plus"></i>
+                                                        Thêm người dùng
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Adam</td>
+                                                <td>adam123@gmail.com</td>
+                                                <td>0123461823</td>
+                                                <td>Admin</td>
+                                                <td>12</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-sm btn-primary"
+                                                    data-toggle="modal" data-target="#updateUserModal">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Eva</td>
+                                                <td>eva456@gmail.com</td>
+                                                <td>0347121823</td>
+                                                <td>Editor</td>
+                                                <td>2</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-sm btn-primary"
+                                                    data-toggle="modal" data-target="#updateUserModal">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tom</td>
+                                                <td>tomLA@gmail.com</td>
+                                                <td>0947252610</td>
+                                                <td>Writer</td>
+                                                <td>1</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-sm btn-primary"
+                                                    data-toggle="modal" data-target="#updateUserModal">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <a href="#" class="btn btn-primary">
-                                    <i class="fa fa-reply"></i>
-                                    Quay lại
-                                </a>
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-check"></i>
-                                    Lưu
-                                </button>
-                            </form>
-                        </div>
+                            </div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -318,6 +365,112 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <!-- Add User Modal-->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm người dùng mới</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Họ và tên</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập họ và tên">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Email</label>
+                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Nhập Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail3">Số điện thoại</label>
+                            <input type="phone" class="form-control" id="exampleInputEmail3" placeholder="Nhập số điện thoại">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail4">Tài khoản</label>
+                            <input type="text" class="form-control" id="exampleInputEmail4" placeholder="Nhập tên tài khoản">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail5">Mật khẩu</label>
+                            <input type="password" class="form-control" id="exampleInputEmail5" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail">Quyền truy cập</label>
+                            <select>
+                                <option>Admin</option>
+                                <option>Biên tập viên</option>
+                                <option>Phóng viên</option>
+                                <option>Độc giả</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                        Lưu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit & Delete User Modal-->
+    <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhật người dùng</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Họ và tên</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập họ và tên">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Email</label>
+                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Nhập Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail3">Số điện thoại</label>
+                            <input type="phone" class="form-control" id="exampleInputEmail3" placeholder="Nhập số điện thoại">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail4">Tài khoản</label>
+                            <input type="text" class="form-control" id="exampleInputEmail4" placeholder="Nhập tên tài khoản">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail5">Mật khẩu</label>
+                            <input type="password" class="form-control" id="exampleInputEmail5" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Quyền truy cập</label>
+                            <select>
+                                <option>Admin</option>
+                                <option>Biên tập viên</option>
+                                <option>Phóng viên</option>
+                                <option>Độc giả</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                        Xóa
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-check"></i>
+                        Cập nhật
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
