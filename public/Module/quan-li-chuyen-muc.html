@@ -13,19 +13,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- TinyMCE Editor 
-    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=your_API_key"></script>
-    <script src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=your_API_key'></script>
-    <script>
-        tinymce.init({
-        selector: '#mytiny',
-        height: 500,
-        menubar: false,
-        plugins: 'paste image link autolink lists table media',
-        toolbar: 'unredo | bold italic strikethrough | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | table link image media pageembed ',
-    });
-    </script>
--->
 </head>
 
 <body id="page-top">
@@ -277,7 +264,6 @@
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <h1>Add HBS here!</h1>
                     <div class="card shadow mb-4">
                         <h6 class="card-header">Danh sách các chuyên mục</h6>
                         <div class="card-body">
@@ -287,10 +273,12 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Chuyên mục</th>
-                                            <th><a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#addCatModal">
+                                            <th>
+                                                <a href="#" class="btn btn-outline-success" data-toggle="modal" data-target="#addCatModal">
                                                     <i class="fa fa-plus"></i>
                                                     Thêm chuyên mục
-                                                </a></th>
+                                                </a>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -329,6 +317,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
     <!-- Add Category Modal-->
     <div class="modal fade" id="addCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -338,20 +327,22 @@
                 </div>
                 <div class="modal-body">
                     <form method="POST">
-                        <label for="exampleInputEmail1">Tên chuyên mục</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên chuyên mục">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
-                    <button type="submit" class="btn btn-success">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên chuyên mục</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên chuyên mục">
+                        </div>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát
+                        </button>
+                        <button type="submit" class="btn btn-success">
                         <i class="fa fa-check"></i>
                         Lưu
                     </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Edit & Delete Category Modal-->
     <div class="modal fade" id="updateCatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -369,22 +360,21 @@
                             <label for="exampleInputEmail2">Tên chuyên mục</label>
                             <input type="text" class="form-control" id="exampleInputEmail2" placeholder="this.categories.CatName">
                         </div>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                            Xóa
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i>
+                            Cập nhật
+                        </button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
-                    <button type="submit" class="btn btn-outline-danger">
-                        <i class="fa fa-trash"></i>
-                        Xóa
-                    </button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-check"></i>
-                        Cập nhật
-                    </button>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

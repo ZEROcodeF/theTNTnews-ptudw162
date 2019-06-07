@@ -13,19 +13,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- TinyMCE Editor 
-    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=your_API_key"></script>
-    <script src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=your_API_key'></script>
-    <script>
-        tinymce.init({
-        selector: '#mytiny',
-        height: 500,
-        menubar: false,
-        plugins: 'paste image link autolink lists table media',
-        toolbar: 'unredo | bold italic strikethrough | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | table link image media pageembed ',
-    });
-    </script>
--->
 </head>
 
 <body id="page-top">
@@ -298,7 +285,8 @@
                                             <td>1</td>
                                             <td>Công nghệ</td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#updateTagModal">
+                                                <a href="#" class="btn btn-sm btn-primary"
+                                                data-toggle="modal" data-target="#updateTagModal">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             </td>
@@ -329,6 +317,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
     <!-- Add Tag Modal-->
     <div class="modal fade" id="addTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -341,8 +330,6 @@
                         <label for="exampleInputEmail1">Tên nhãn dán</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên nhãn dán">
                     </form>
-                </div>
-                <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
                     <button type="submit" class="btn btn-success">
                         <i class="fa fa-check"></i>
@@ -352,6 +339,7 @@
             </div>
         </div>
     </div>
+
     <!-- Edit & Delete Tag Modal-->
     <div class="modal fade" id="updateTagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -369,22 +357,21 @@
                             <label for="exampleInputEmail2">Tên nhãn dán</label>
                             <input type="text" class="form-control" id="exampleInputEmail2" placeholder="this.tags.TagName">
                         </div>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fa fa-trash"></i>
+                            Xóa
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i>
+                            Cập nhật
+                        </button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Thoát</button>
-                    <button type="submit" class="btn btn-outline-danger">
-                        <i class="fa fa-trash"></i>
-                        Xóa
-                    </button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa fa-check"></i>
-                        Cập nhật
-                    </button>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

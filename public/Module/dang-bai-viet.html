@@ -17,13 +17,32 @@
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=your_API_key"></script>
     <script src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=your_API_key'></script>
     <script>
-        tinymce.init({
-            selector: '#mytiny',
-            height: 500,
-            menubar: false,
-            plugins: 'paste image link autolink lists table media',
-            toolbar: 'unredo | bold italic strikethrough | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | table link image media pageembed ',
-        });
+    tinymce.init({
+        selector: '#mytiny',
+        height: 500,
+        menubar: false,
+        plugins: 'paste image link autolink lists table media',
+        toolbar: 'unredo | bold italic strikethrough | table link image media pageembed',
+    });
+    </script>
+    <script type="text/javascript">
+    function validateForm() {
+        var u = document.getElementById("username").value;
+        var p = document.getElementById("password").value;
+
+        if (u == "") {
+            alert("Please enter your Username");
+            return false;
+        }
+        if (p == "") {
+            alert("Please enter you Password");
+            return false;
+        }
+
+        alert("All datas are valid!, send it to the server!")
+
+        return true;
+    }
     </script>
 </head>
 
@@ -33,7 +52,7 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="blank.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -57,8 +76,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="quan-li-chuyen-muc.html">Quản lí chuyên mục</a>
                         <a class="collapse-item" href="quan-li-nhan-dan.html">Quản lí nhãn</a>
-                        <a class="collapse-item" href="quan-li-bai-viet.html">Quản lí bài viết</a>
-                        <a class="collapse-item" href="quan-li-nguoi-dung.html">Quản lí người dùng</a>
+                        <a class="collapse-item" href="#">Quản lí bài viết</a>
+                        <a class="collapse-item" href="#">Quản lí người dùng</a>
                     </div>
                 </div>
             </li>
@@ -276,128 +295,53 @@
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <h1>Add HBS here!</h1>
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <!-- Add New Post Form -->
-                            <div class="card mb-4 shadow">
-                                <div class="card-header">
-                                    <i class="fas fa-book"></i>
-                                    Add New Post
-                                </div>
-                                <div class="card-body">
-                                    <form method="post">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Tiêu đề bài viết">
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Tag bài viết">
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Tóm tắt">
-                                        </div>
-                                        <textarea id="mytiny"></textarea>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- / Add New Post Form -->
+                    <!-- Add New Post Form -->
+                    <div class="card mb-4 shadow">
+                        <div class="card-header">
+                            <i class="fas fa-book"></i>
+                            Viết bài
                         </div>
-                        <div class="col-lg-4">
-                            <!-- Post Overview -->
-                            <div class="card mb-4 shadow">
-                                <div class="card-header">
-                                    Hoạt động
+                        <div class="card-body">
+                            <form method="POST" action="#">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Tiêu đề bài viết" required>
                                 </div>
-                                <div class="card-body">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <div class="d-flex mb-2">
-                                                <strong class="card-text"><i class="fa fa-flag"></i>
-                                                    Trạng thái:</strong> &nbsp;Bản thảo
-                                                <a class="ml-auto" href="#">Sửa</a>
-                                            </div>
-                                            <div class="d-flex mb-2">
-                                                <strong class="card-text"><i class="fa fa-eye-slash"></i>
-                                                    Phạm vi:</strong>
-                                                <strong class="text-success">&nbsp;Public</strong>
-                                                <a class="ml-auto" href="#">Sửa</a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Tag bài viết" required>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <a href="#" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-check"></i>
-                                                Lưu bản thảo
-                                            </a>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <a href="#" class="btn btn-sm btn-success">
-                                                <i class="fa fa-file-alt"></i>
-                                                Đăng bản thảo
-                                            </a>
-                                        </div>
-                                    </div>
+                                <div class="form-group">
+                                    <select class="custom-select" required>
+                                        <option value="">Chuyên mục</option>
+                                        <option value="1">Thời sự</option>
+                                        <option value="2">Pháp Luật</option>
+                                        <option value="3">Thế giới</option>
+                                        <option value="4">Kinh doanh</option>
+                                        <option value="5">Công nghệ</option>
+                                        <option value="6">Thể thao</option>
+                                        <option value="7">Giải trí</option>
+                                        <option value="8">Âm nhạc</option>
+                                        <option value="9">Phim ảnh</option>
+                                        <option value="10">Sống trẻ</option>
+                                    </select>
                                 </div>
-                            </div>
-                            <!-- / Post Overview -->
-                            <!-- Post Overview -->
-                            <div class="card mb-4 shadow">
-                                <div class="card-header">
-                                    Chuyên mục
+                                <div class="form-group">
+                                    <input class="form-control" type="text" placeholder="Tóm tắt">
                                 </div>
-                                <div class="card-body">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category1" checked>
-                                                <label class="custom-control-label" for="category1">Thời sự</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category2" checked>
-                                                <label class="custom-control-label" for="category2">Pháp Luật</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category3">
-                                                <label class="custom-control-label" for="category3">Thế giới</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category4">
-                                                <label class="custom-control-label" for="category4">Kinh doanh</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category5">
-                                                <label class="custom-control-label" for="category5">Công nghệ</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category6">
-                                                <label class="custom-control-label" for="category6">Thể thao</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category7">
-                                                <label class="custom-control-label" for="category7">Giải trí</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category8">
-                                                <label class="custom-control-label" for="category8">Âm nhạc</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category9">
-                                                <label class="custom-control-label" for="category9">Phim ảnh</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="category10">
-                                                <label class="custom-control-label" for="category10">Sống trẻ</label>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <div class="form-group">
+                                    <textarea id="mytiny" required></textarea>
                                 </div>
-                            </div>
-                            <!-- / Post Overview -->
+                                <button type="button" name="btn" class="btn btn-primary">
+                                    <i class="fa fa-check"></i>
+                                    Lưu bản thảo
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-file-alt"></i>
+                                    Đăng bản thảo
+                                </button>
+                            </form>
                         </div>
                     </div>
+                    <!-- / Add New Post Form -->
                 </div>
                 <!-- /.container-fluid -->
             </div>
