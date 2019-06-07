@@ -12,11 +12,8 @@ require('./middlewares/view-engine')(app);
 
 app.use(require('./middlewares/local.middlewares'));
 
-app.get('/', (req, res) => {
-  res.render('home', {
-    PageTitle: "Trang chủ TNT News"
-  });
-});
+//GET:
+app.get('/', require('./routes/home.route'));
 
 app.get('/about', (req, res) => {
   res.render('about', {
@@ -34,6 +31,13 @@ app.get('/testCate', (req, res) => {
 app.get('/testSingle', (req, res) => {
   res.render('testsingle', {
     PageTitle: "Trang chủ TNT News"
+  });
+});
+
+app.get('/testdashboard', (req, res) => {
+  res.render('_layouts/dashboard', {
+    layout:false,
+    PageTitle: "Trang quản lý &minus; TNT News"
   });
 });
 
