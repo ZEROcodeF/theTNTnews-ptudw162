@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     });
     res.locals.localGroupedCategories = groupedCates;
     res.locals.localCategories = cates;
-    // console.log(res.locals.localCategories);
+    console.log(res.locals.localCategories);
     // console.log(res.locals.localGroupedCategories);
     next();
   })

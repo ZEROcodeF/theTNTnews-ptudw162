@@ -28,20 +28,13 @@ module.exports = {
 
   //END For Homepage.
 
-  allInfoPublishPostByCat: catId => {
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name from post join category on post_category = category_id where post_status = 'publish'`);
+  //Get publish post info: PARENT CATID accepted!
+  fullInfoPublishPostByCat: (catId, limit, offset) => {
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and (post_category = ${catId} or category_parent = ${catId}) limit ${limit} offset ${offset}`);
   },
 
   allByCat: catId => {
     return db.load(`select * from post where post_category = ${catId}`);
-  },
-
-  pageByCat: (catId, limit, offset) => {
-    return db.load(`select * from post where post_category = ${catId} limit ${limit} offset ${offset}`);
-  },
-
-  countByCat: catId => {
-    return db.load(`select count(*) as total from post where post_category = ${catId}`);
   },
 
   single: id => {

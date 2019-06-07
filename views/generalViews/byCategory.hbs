@@ -1,0 +1,50 @@
+<!-- ##### Blog Area Start ##### -->
+<div class="blog-area">
+    <div class="container">
+        <div class="section-heading text-center">
+            <h6>Chuyên mục "{{categoryName}}"</h6>
+            <div style="margin: 0 200px; height:2px; background-color:#2196f3;"></div>
+        </div>
+        <div class="blog-posts-area mr-50 ml-30">
+            <!-- Single Featured Post -->
+            {{#each PostsInfo}}
+            <div class="single-blog-post featured-post">
+                <div class="row d-flex align-items-center col 12">
+                    <div class="post-thumb col-md-4">
+                        <a href="/post/{{this.post_id}}"><img src="/img/bg-img/25.jpg" alt="{{this.post_title}}"></a>
+                    </div>
+                    <div class="post-data col-md-8">
+                        <a href="/category/{{this.post_category}}" class="post-category {{this.category_class}}">{{this.category_name}}</a>
+
+                        <a href="/post/{{this.post_id}}" class="post-title">
+                            <h6>{{this.post_title}}</h6>
+                        </a>
+
+                        <div class="post-meta">
+                            <p class="post-date">Ngày {{formatDate post_time}}</p>
+                            <p class="post-excerp">{{this.post_summary}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-30 " style="height:1px; background-color:lightgrey;"></div>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="row d-flex justify-content-center m-3">
+            <nav aria-label="Phân trang">
+                <ul class="pagination mt-50">
+                    {{#each pages}}
+                    {{#if active}}
+                    <li class="page-item active"><a class="page-link" href="javascript:;">{{value}}</a></li>
+                    {{else}}
+                    <li class="page-item"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                    {{/if}}
+                    {{/each}}
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+<!-- ##### Blog Area End ##### -->

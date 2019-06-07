@@ -13,8 +13,7 @@ module.exports = function(app){
             isPremiumPost: postType =>{
                 if (postType == 'premium') return '<a class="post-category post_premium" style="margin-left:5px;"><i class="fa fa-star" aria-hidden="true" title="Bài viết Premium"></i></a>';
                 return;
-            },
-            section: hbs_sections()
+            }
         }
     }));
     app.set('view engine','hbs');

@@ -2,11 +2,54 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>404 - TNTNews</title>
+        <title>404 - TNT News</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+        <style>
+            html,
+            body{
+                width:100%;
+                height:100%;
+                font-family: 'Open Sans','sans-serif';
+                background-color:#2196f3;
+                background-image:-webkit-gradient(linear,left top,left bottom,color-stop(10%,#2196f3),to(#1565c0));
+            }
+
+            .container{
+                display: flex;
+                width:100%;
+                height:100%;
+                flex-direction: column;
+                justify-content: center;           
+            }
+            h1 {
+                color: #fff;
+                font-size:5rem;
+                font-weight: 800;
+                text-align: center;
+            }
+            h2 {
+                color: #fff;
+                font-size: 1.5em;
+                text-align: center;
+                font-weight: 300;
+            }
+            a {
+                text-decoration: none;
+                color: #fff;
+                font-size: 1.5em;
+                text-align: center;
+            }
+            img {
+                width: 50px;
+            }
+        </style>
     </head>
     <body>
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="container">
             <h1>404</h1>
+            <h2>Trang bạn yêu cầu không tồn tại</h2>
+            <a href="/"><p>Quay lại trang chủ</p></a>
+            <a href="/"><img src="/img/core-img/logo-white.png" alt"logo"></a>
         </div>
     </body>
 </html>

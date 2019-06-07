@@ -21,13 +21,6 @@ app.get('/about', (req, res) => {
   });
 });
 
-app.get('/testCate', (req, res) => {
-  res.render('generalViews/post/byCategory', {
-    PageTitle: "Trang chủ TNT News"
-  });
-});
-
-
 app.get('/testSingle', (req, res) => {
   res.render('testsingle', {
     PageTitle: "Trang chủ TNT News"
