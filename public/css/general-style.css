@@ -1536,11 +1536,13 @@ input:focus, textarea:focus {
   display: flex;
   flex-direction: column;
   align-content: center;
-  position: relative;
+  position: absolute;
+  bottom: 0;
   z-index: 1;
   width: 100%;
   background-color: #fefefe;
   padding: 20px 0;
+
 }
 
 .footer-area .footer-nav {

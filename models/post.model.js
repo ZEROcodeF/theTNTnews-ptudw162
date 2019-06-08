@@ -33,9 +33,15 @@ module.exports = {
     return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and (post_category = ${catId} or category_parent = ${catId}) limit ${limit} offset ${offset}`);
   },
 
-  allByCat: catId => {
-    return db.load(`select * from post where post_category = ${catId}`);
+  //BEGIN Single page
+  fullSinglePublishPost: postId =>{
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and post_id = ${postId}`);
   },
+
+  sameCategoryPublishPosts: postId => {
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from post join category on post_category = category_id where post_category = (select post_category from post where post_id=${postId}) and post_id != ${postId} and post_status = 'publish' order by post_time desc limit 5`);
+  },
+  //END: Single page
 
   single: id => {
     return db.load(`select * from post where post_category = ${id}`);

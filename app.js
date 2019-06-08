@@ -47,6 +47,7 @@ app.get('/forgotpassword', (req, res) => {
 });
 
 app.use('/category', require('./routes/category.route'));
+app.use('/post', require('./routes/post.route'));
 
 app.use((req, res, next) => {
   res.render('_nolayout/404', { layout: false });
