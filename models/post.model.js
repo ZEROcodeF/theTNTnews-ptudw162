@@ -8,22 +8,22 @@ module.exports = {
   //BEGIN For Homepage:
   //Featured Posts:  FOUR posts which have most viewed last week (exact 7 days from 'now')
   featuredPosts: () =>{
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from (select * from post where post_time between date_sub(now(), interval 7 day) and now()) p join category on p.post_category=category_id where post_status ='publish' order by post_viewcount desc limit 4`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from (select * from post where post_time between date_sub(now(), interval 7 day) and now()) p join category on p.post_category=category_id where post_status ='publish' and now() >=  post_time order by post_viewcount desc limit 4`);
   },
 
   //latestPosts: TEN posts which have latest publish time
   latestPosts: () => {
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' order by post_time desc limit 10`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and now() >=  post_time order by post_time desc limit 10`);
   },
 
   //mostViewPost: TEN post which have most 'viewcount' all time
   mostViewPost: () => {
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' order by post_viewcount desc limit 10`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and now() >=  post_time order by post_viewcount desc limit 10`);
   },
 
   //postOfTopCategory: TEN post which latest in each top TEN categories 
   postOfTopCategory: () =>{
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from (select * from post inner join (select max(post_id) as maxpid from (select post_id,post_category,max(post_time) from post group by post_category, post_id)mpd group by post_category)mpi on post_id = maxpid)p join (select category_id, category_name, category_class, sum(post_viewcount)as category_viewcount from category join post on category_id = post_category group by post_category order by category_viewcount desc limit 10)c on post_category = category_id`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from (select * from post inner join (select max(post_id) as maxpid from (select post_id,post_category,max(post_time) from post where post_status='publish' and now() >=  post_time group by post_category, post_id)mpd group by post_category)mpi on post_id = maxpid)p join (select category_id, category_name, category_class, sum(post_viewcount)as category_viewcount from category join post on category_id = post_category group by post_category order by category_viewcount desc limit 10)c on post_category = category_id`);
   },
 
   //END For Homepage.
@@ -35,7 +35,7 @@ module.exports = {
 
   //BEGIN Single page
   fullSinglePublishPost: postId =>{
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and post_id = ${postId}`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and now() >= post_time and post_id = ${postId}`);
   },
 
   sameCategoryPublishPosts: postId => {
@@ -43,6 +43,11 @@ module.exports = {
   },
   //END: Single page
 
+  //BEGIN Writer: 
+  writerListPost: (writerId,limit,offset) =>{
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} limit ${limit} offset ${offset}`);
+  },
+  //END Writer:
   single: id => {
     return db.load(`select * from post where post_category = ${id}`);
   },
@@ -52,10 +57,10 @@ module.exports = {
   },
 
   update: entity => {
-    return db.update('post', 'ProID', entity);
+    return db.update('post', 'post_id', entity);
   },
 
   delete: id => {
-    return db.delete('post', 'ProID', id);
+    return db.delete('post', 'post_id', id);
   },
 };

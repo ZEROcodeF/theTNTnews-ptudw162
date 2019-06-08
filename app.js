@@ -12,15 +12,15 @@ require('./middlewares/view-engine')(app);
 
 app.use(require('./middlewares/local.middlewares'));
 
-//GET:
-app.get('/', require('./routes/home.route'));
+//GET General User:
+app.use('/', require('./routes/home.route'));
 
-app.get('/about', (req, res) => {
-  res.render('about', {
-    PageTitle: "Trang chủ TNT News"
-  });
-});
+//GET Special User:
+// app.use('/admin',require('./routes/admin/admin.route'));
+app.use('/writer',require('./routes/writer/writer.route'));
+// app.use('/editor',require('./routes/edtior/editor.route'));
 
+//TEST:
 app.get('/testSingle', (req, res) => {
   res.render('testsingle', {
     PageTitle: "Trang chủ TNT News"
@@ -33,21 +33,6 @@ app.get('/testdashboard', (req, res) => {
     PageTitle: "Trang quản lý &minus; TNT News"
   });
 });
-
-app.get('/login', (req, res) => {
-  res.render('_nolayout/login', {layout:false});
-});
-
-app.get('/register', (req, res) => {
-  res.render('_nolayout/register', {layout:false});
-});
-
-app.get('/forgotpassword', (req, res) => {
-  res.render('_nolayout/forgotpassword', {layout:false});
-});
-
-app.use('/category', require('./routes/category.route'));
-app.use('/post', require('./routes/post.route'));
 
 app.use((req, res, next) => {
   res.render('_nolayout/404', { layout: false });
