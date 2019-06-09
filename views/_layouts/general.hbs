@@ -67,9 +67,9 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li class="active"><a href="/">Trang chủ</a></li>
+                                    <li {{#if activeNavCat}}{{else}}class="active"{{/if}}><a href="/">Trang chủ</a></li>
                                     {{#each localGroupedCategories as |row rindex|}}
-                                    <li>
+                                    <li class="{{#ifEquals ../activeNavCat row.0.category_id}}active{{/ifEquals}}">
                                         <a href="/category/{{row.0.category_id}}">{{row.0.category_name}}</a>
                                         <ul class="dropdown">
                                             {{#each row}}

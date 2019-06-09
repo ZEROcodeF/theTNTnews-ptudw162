@@ -1,5 +1,6 @@
 var express = require('express');
 var morgan = require('morgan');
+var auth = require('./middlewares/auth.middlewares');
 
 var app = express();
 
@@ -16,9 +17,9 @@ app.use(require('./middlewares/local.middlewares'));
 app.use('/', require('./routes/home.route'));
 
 //GET Special User:
-// app.use('/admin',require('./routes/admin/admin.route'));
-app.use('/writer',require('./routes/writer/writer.route'));
-app.use('/editor',require('./routes/editor/editor.route'));
+app.use('/admin',auth.admin,require('./routes/admin/admin.route'));
+app.use('/writer',auth.writer,require('./routes/writer/writer.route'));
+app.use('/editor',auth.editor,require('./routes/editor/editor.route'));
 
 //TEST:
 app.get('/testSingle', (req, res) => {
@@ -36,7 +37,7 @@ app.get('/testdashboard', (req, res) => {
 
 app.use((req, res, next) => {
   res.render('_nolayout/404', { layout: false });
-})
+});
 
 app.use((error, req, res, next) => {
   res.render('error', {
@@ -44,8 +45,8 @@ app.use((error, req, res, next) => {
     message: error.message,
     error
   })
-})
+});
 
 app.listen(3000, () => {
   console.log('Server is running at http://localhost:3000');
-})
+});

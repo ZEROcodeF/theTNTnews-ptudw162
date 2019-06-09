@@ -7,12 +7,18 @@ router.get('/:id', (req,res,next) => {
     var id = req.params.id;
     var page = req.query.page || 1;
     var catName = '';
+    var activeNavCat = 0;
 
     if(page < 1) page = 1;
 
     for(const c of res.locals.localCategories){
       if(c.category_id === +id){
         catName = c.category_name;
+        if(c.category_parent == 0){
+          activeNavCat = c.category_id;
+        } else {
+          activeNavCat = c.category_parent;
+        }  
       }
     }
 
@@ -40,13 +46,12 @@ router.get('/:id', (req,res,next) => {
           }
 
           res.render('generalViews/byCategory', {
+            activeNavCat,
             pages,
             categoryName: catName,
             PageTitle: 'Chuyên mục ' + catName,
             PostsInfo: rows
           });
-          
-          console.log(total + ' ' + pages);
 
       }).catch(next);
     }

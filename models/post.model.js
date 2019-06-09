@@ -39,7 +39,7 @@ module.exports = {
 
   //BEGIN Single page
   fullSinglePublishPost: postId =>{
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and now() >= post_time and post_id = ${postId}`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, category_parent, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and now() >= post_time and post_id = ${postId}`);
   },
 
   sameCategoryPublishPosts: postId => {
@@ -66,6 +66,18 @@ module.exports = {
     return db.load(`select count(post_id) as total from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId})`);
   },
   //END Editor.
+
+  //BEGIN Admin:
+  adminPostList: (limit, offset) => {
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, a1.acc_pseudonym as writer_pseudonym, a2.acc_fullname as editor_name from post join account a1 on post_writer = a1.acc_id join account a2 on post_editor = a2.acc_id join category on post_category = category_id order by post_time desc limit ${limit} offset ${offset}`);
+  },
+
+  countAdminPostList: () => {
+    return db.load(`select count(post_id) as total from post join account a1 on post_writer = a1.acc_id join account a2 on post_editor = a2.acc_id join category on post_category = category_id`);
+  },
+
+  //END Admin
+
 
   single: id => {
     return db.load(`select * from post where post_category = ${id}`);

@@ -11,18 +11,16 @@
                 <h6 class="m-0 text-success font-weight-bold"><i class="fa fa-check-circle mr-1"></i>Đã xuất bản</h6>
                 {{else}}
                 {{#ifEquals post_status 'publish'}}
-                <h6 class="m-0 text-success"><i class="fa fa-check-circle mr-1"></i>Đã được duyệt bởi <span
-                        class="font-weight-bold">{{editor_name}}</span></h6>
+                <h6 class="m-0 text-success font-weight-bold"><i class="fa fa-check-circle mr-1"></i>Đã được duyệt</h6>
                 {{/ifEquals}}
-                {{/if}}
+                {{/ifEquals}}
                 {{#ifEquals post_status 'deny'}}
-                <h6 class="m-0 text-danger font-weight-bold"><i class="fa fa-times-circle mr-1"></i>Bị từ chối bởi
-                    {{editor_name}} lúc {{formatTime post_time}}</h6>
+                <h6 class="m-0 text-danger font-weight-bold"><i class="fa fa-times-circle mr-1"></i>Bị từ chối</h6>
                 {{/ifEquals}}
                 {{#ifEquals post_status 'wait'}}
                 <h6 class="m-0 text-warning font-weight-bold"><i class="fa fa-clock-circle mr-1"></i>Đang chờ duyệt</h6>
                 {{/ifEquals}}
-                <h6 class="m-0 text-dark font-weight-bold text-right">ID bài viết: {{post_id}}</h6>
+                <h6 class="m-0 text-dark font-weight-bold">ID bài viết: {{post_id}}</h6>
             </div>
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
@@ -36,30 +34,23 @@
                         style="border-radius:10px;width:128px;height:128px;object-fit:cover">
                 </div>
             </div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
+            <div class="card-footer">
+                {{#if (isPublished post_status post_time)}}
+                <h6 class="m-0 text-success"><i class="fa fa-info-circle mr-1"></i>Tác giả: {{writer_pseudonym}} &minus;
+                    Người duyệt: {{editor_name}}</h6>
+                {{else}}
                 {{#ifEquals post_status 'publish'}}
-                <p class="m-0 text-success"><i class="fas fa-info-circle mr-2"></i>Đăng vào ngày <span
-                        class="font-weight-bold">{{formatDate post_time}}</span></p>
-
+                <h6 class="m-0 text-success"><i class="fa fa-info-circle mr-1"></i>Tác giả: {{writer_pseudonym}} &minus;
+                    Người duyệt: {{editor_name}} &minus; Thời điểm xuất bản {{formatTime post_time}}</h6>
                 {{/ifEquals}}
+                {{/if}}
                 {{#ifEquals post_status 'deny'}}
-
-                <p class="m-0 text-danger"><i class="fas fa-info-circle mr-2"></i>Lý do: <span
-                        class="font-weight-bold">{{post_denyreason}}</span></p>
+                <h6 class="m-0 text-danger"><i class="fa fa-info-circle mr-1"></i>Tác giả: {{writer_pseudonym}} &minus;
+                    Người từ chối: {{editor_name}} &minus; Thời điểm từ chối {{formatTime post_time}}</h6>
                 {{/ifEquals}}
                 {{#ifEquals post_status 'wait'}}
-                <div></div>
-                {{/ifEquals}}
-                {{#ifEquals post_status 'publish'}}
-                {{else}}
-                <div>
-                    <a href="#" class="btn btn-primary btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-pen"></i>
-                        </span>
-                        <span class="text">Sửa bài viết</span>
-                    </a>
-                </div>
+                <h6 class="m-0 text-warning"><i class="fa fa-info-circle mr-1"></i>Tác giả: {{writer_pseudonym}} &minus;
+                    Thời điểm đăng bài: {{formatTime post_time}}</h6>
                 {{/ifEquals}}
             </div>
         </div>
