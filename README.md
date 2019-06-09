@@ -1,4 +1,24 @@
-﻿# Phase 1
+# Phase 2
+## _Cài đặt toàn bộ hệ thống website của Báo Điện Tử TH16-News(TNT News)_
+## Website chưa cài đặt online
+## URL mặc định (localhost:3000)
+## Trang chủ & Phân hệ khách vãng lai & phân hệ subriber:
+- Trang chủ(/)
+- Xem danh sách bài viết theo chuyên mục(/category/:id)
+- Xem chi tiết bài viết(/post/:id)
+- Đăng nhập (/login)
+- Đăng ký (/signup)
+## Phân hệ phóng viên:
++ Xem bài mình viết theo tiêu chí:
+++ tất cả bài viết (/writer/postlist/all)
+++ đã xuất bản (/writer/postlist/published)
+++ đã duyệt và chờ xuất bản (/writer/postlist/approved)
+++ bị từ chối (/writer/postlist/denied)
+++ đang chờ duyệt - DRAFT (/writer/postlist/wait)
+## Phân hệ biên tập viên:
++ Xem các bài viết DRAFT thuộc chuyên mục mình chịu trách nhiệm (/editor/postlist)
+--------------------------------------------------------
+# Phase 1
 ## _Hệ thống trang tĩnh của Báo Điện Tử TH16-News(TNT News)_
 ## Website có thể xem tại: [http://tntnewsstatic.herokuapp.com](http://tntnewsstatic.herokuapp.com)
 ## Trang chủ & Phân hệ khách vãng lai & phân hệ subriber:
