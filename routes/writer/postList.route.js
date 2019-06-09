@@ -5,7 +5,6 @@ var router = express.Router();
 
 router.get('/:filtertype', (req, res, next) => {
     var uId = 7;
-    var id = uId;
 
     var filterType = req.params.filtertype;
 
@@ -13,7 +12,7 @@ router.get('/:filtertype', (req, res, next) => {
 
     if (page < 1) page = 1;
 
-    var limit = 10;
+    var limit = 7;
     var offset = (page - 1) * limit;
 
     var filterString = ``;
@@ -41,8 +40,8 @@ router.get('/:filtertype', (req, res, next) => {
 
     if (filterString) {
         Promise.all(
-            [postModel.writerListPost(filterString,id,limit,offset),
-            postModel.countWriterListPost(filterString,id)]
+            [postModel.writerPostList(filterString,uId,limit,offset),
+            postModel.countWriterPostList(filterString,uId)]
         ).then(([rows, totalRow]) => {
     
             var total = totalRow[0].total;

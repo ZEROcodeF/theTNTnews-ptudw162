@@ -17,7 +17,7 @@ router.get('/:id', (req,res,next) => {
     }
 
     if(catName != ''){
-      var limit = 10;
+      var limit = 7;
       var offset = (page - 1)*limit;
 
       Promise.all(

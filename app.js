@@ -18,7 +18,7 @@ app.use('/', require('./routes/home.route'));
 //GET Special User:
 // app.use('/admin',require('./routes/admin/admin.route'));
 app.use('/writer',require('./routes/writer/writer.route'));
-// app.use('/editor',require('./routes/edtior/editor.route'));
+app.use('/editor',require('./routes/editor/editor.route'));
 
 //TEST:
 app.get('/testSingle', (req, res) => {

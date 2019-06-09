@@ -30,11 +30,11 @@ module.exports = {
 
   //Get publish post info: PARENT CATID accepted!
   fullInfoPublishPostByCat: (catId, limit, offset) => {
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and (post_category = ${catId} or category_parent = ${catId}) limit ${limit} offset ${offset}`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and now() >= post_time and (post_category = ${catId} or category_parent = ${catId}) limit ${limit} offset ${offset}`);
   },
 
   countFullInfoPublishPostByCat: (catId) => {
-    return db.load(`select count(post_id) as total from post join category on post_category = category_id where post_status = 'publish' and (post_category = ${catId} or category_parent = ${catId})`);
+    return db.load(`select count(post_id) as total from post join category on post_category = category_id where post_status = 'publish' and now() >= post_time and (post_category = ${catId} or category_parent = ${catId})`);
   },
 
   //BEGIN Single page
@@ -48,14 +48,25 @@ module.exports = {
   //END: Single page
 
   //BEGIN Writer: 
-  writerListPost: (filterType, writerId,limit,offset) =>{
-    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType}) limit ${limit} offset ${offset}`);
+  writerPostList: (filterType, writerId,limit,offset) =>{
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType}) order by post_time desc limit ${limit} offset ${offset}`);
   },
 
-  countWriterListPost: (filterType, writerId) =>{
+  countWriterPostList: (filterType, writerId) =>{
     return db.load(`select count(post_id) as 'total' from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType})`);
   },
-  //END Writer:
+  //END Writer.
+
+  //BEGIN Editor:
+  editorPostList: (editorId,limit,offset) =>{
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, acc_pseudonym as writer_pseudonym from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId}) order by post_time desc limit ${limit} offset ${offset}`);
+  },
+
+  countEditorPostList: editorId =>{
+    return db.load(`select count(post_id) as total from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId})`);
+  },
+  //END Editor.
+
   single: id => {
     return db.load(`select * from post where post_category = ${id}`);
   },

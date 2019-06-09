@@ -1,0 +1,52 @@
+{{#if pages}}
+{{else}}
+<h6 class="text-center">Không có bài nào</h6>
+{{/if}}
+{{#each this.PostsInfo}}
+<div class="card shadow mb-4 border-left-primary">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 text-primary font-weight-bold"><i class="fa fa-clock-circle mr-1"></i>Bởi phóng viên
+            {{writer_pseudonym}} lúc {{post_time}}</h6>
+    </div>
+    <div class="card-body d-flex align-items-center justify-content-between">
+        <div>
+            <span class="badge badge-pill badge-dark">{{category_name}}</span><br>
+            <a class="text-dark h4 font-weight-bold">{{post_title}}</a>
+            <p class="card-text">{{post_summary}}</p>
+        </div>
+        <div>
+            <img src="../../img/bg-img/12.jpg" style="border-radius:10px;width:128px;height:128px;object-fit:cover">
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <a href="#" class="btn btn-danger btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-times"></i>
+            </span>
+            <span class="text">Từ chối</span>
+        </a>
+        <a href="#" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text">Duyệt</span>
+        </a>
+    </div>
+</div>
+{{/each}}
+
+<nav class="d-flex justify-content-center" aria-label="...">
+    <ul class="pagination">
+        {{#each this.pages}}
+        {{#if active}}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="javascript:;">{{value}} <span class="sr-only">(current)</span></a>
+        </li>
+        {{else}}
+        <li class="page-item">
+            <a class="page-link" href="?page={{value}}">{{value}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+    </ul>
+</nav>
