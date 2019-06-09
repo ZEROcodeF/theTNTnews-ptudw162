@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     var groupedCates = [];
     var cates =[];
     rows.forEach(r => {
-      if(r.category_parent == 0){
+      if(r.category_parent == 0 && r.category_id !=0){
         var cate = [];
         cate.push(r);
         cates.push(r);

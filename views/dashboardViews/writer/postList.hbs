@@ -1,34 +1,61 @@
 {{#each this.PostsInfo}}
-<div class="card shadow mb-4 border-left-success">
-    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        {{{headerOfType post_status editor_name}}}
-        <div>
-            <a href="" class="btn btn-secondary" title="Xem trước">
-                <span class="icon text-white">
-                    <i class="fas fa-eye"></i>
-                </span>
-            </a>
-            <a href="#" class="btn btn-primary" title="Chỉnh sửa">
-                <span class="icon text-white">
-                    <i class="fas fa-pen"></i>
-                </span>
-            </a>
+{{#if (isStringEqual post_status 'publish')}}<div class="card shadow mb-4 border-left-success">{{/if}}
+    {{#if (isStringEqual post_status 'deny')}}<div class="card shadow mb-4 border-left-danger">{{/if}}
+        {{#if (isStringEqual post_status 'wait')}}<div class="card shadow mb-4 border-left-warning">{{/if}}
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                {{#if (isPublished post_status post_time)}}
+                <h6 class="m-0 text-success font-weight-bold"><i class="fa fa-check-circle mr-1"></i>Đã xuất bản</h6>
+                {{else}}
+                {{#if (isStringEqual post_status 'publish')}}
+                <h6 class="m-0 text-success"><i class="fa fa-check-circle mr-1"></i>Đã được duyệt bởi <span
+                        class="font-weight-bold">{{editor_name}}</span></h6>
+                {{/if}}
+                {{/if}}
+                {{#if (isStringEqual post_status 'deny')}}
+                <h6 class="m-0 text-danger font-weight-bold"><i class="fa fa-times-circle mr-1"></i>Bị từ chối bởi
+                    {{editor_name}} lúc {{post_time}}</h6>
+                {{/if}}
+                {{#if (isStringEqual post_status 'wait')}}
+                <h6 class="m-0 text-warning font-weight-bold"><i class="fa fa-clock-circle mr-1"></i>Đang chờ duyệt</h6>
+                {{/if}}
+                {{#if (isStringEqual post_status 'publish')}}
+                {{else}}
+                <div>
+                    <a href="#" class="btn btn-primary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-pen"></i>
+                        </span>
+                        <span class="text">Sửa bài viết</span>
+                    </a>
+                </div>
+                {{/if}}
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="badge badge-pill badge-dark">{{category_name}}</span><br>
+                    <a class="text-dark h4 font-weight-bold" {{#if (isPublished post_status post_time)}}href="/post/{{post_id}}"
+                        {{/if}}>{{post_title}}</a>
+                    {{#if (isStringEqual post_status 'publish')}}
+                    <p class="card-text font-weight-light">{{formatDate post_time}}</p>
+                    {{/if}}
+                    <p class="card-text">{{post_summary}}</p>
+                </div>
+                <div>
+                    <img src="../img/bg-img/12.jpg"
+                        style="border-radius:10px;width:128px;height:128px;object-fit:cover">
+                </div>
+            </div>
+            {{#if (isStringEqual post_status 'publish')}}
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <p class="m-0 text-success"><i class="fas fa-info-circle mr-2"></i>Đăng vào ngày <span
+                        class="font-weight-bold">{{formatDate post_time}}</span></p>
+            </div>
+            {{/if}}
+            {{#if (isStringEqual post_status 'deny')}}
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <p class="m-0 text-danger"><i class="fas fa-info-circle mr-2"></i>Lý do: <span
+                        class="font-weight-bold">{{post_denyreason}}</span></p>
+            </div>
+            {{/if}}
         </div>
-    </div>
-    <div class="card-body d-flex align-items-center justify-content-between">
-        <div>
-            <span class="badge badge-pill badge-primary">Kinh doanh</span><br>
-            <a class="text-primary h3" href="#">Việt nam vô địch Woldcup</a>
-            <p class="card-text font-weight-light">30 February 2019</p>
-            <p class="card-text">However venture pursuit he am mr cordial. Forming musical am
-                hearing studied be luckily. But in for determine what would see...</p>
-        </div>
-        <div>
-            <img src="../img/bg-img/12.jpg" style="border-radius:10px;width:128px;height:128px;object-fit:cover">
-        </div>
-    </div>
-    <div class="card-footer d-flex align-items-center justify-content-between">
-        {{{footerOfType post_status (formatDate post_time) post_denyreason}}}
-    </div>
-</div>
-{{/each}}
+        {{/each}}

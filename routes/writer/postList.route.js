@@ -36,30 +36,7 @@ router.get('/', (req, res, next) => {
             pages,
             PageTitle: 'Danh sách bài viết',
             PostsInfo: rows,
-            helpers: {
-                headerOfType:(post_status, editorName) => {
-                    switch (post_status) {
-                        case 'publish':
-                            return '<h6 class="m-0 text-success"><i class="fa fa-check-circle mr-1"></i>Đã được duyệt bởi '+editorName+'</h6>';
-                        case "deny":
-                            return '<h6 class="m-0 text-danger"><i class="fa fa-times-circle mr-1"></i>Bị từ chối từ '+editorName+'</h6>';
-                        case "wait":
-                            return '<h6 class="m-0 text-warning"><i class="fa fa-clock mr-1"></i>Đang chờ duyệt</h6>';
-                        default:
-                            break;
-                    }
-                },
-                footerOfType: (post_status, postDate, postDenyReason) => {
-                    switch (post_status) {
-                        case "publish":
-                            return '<p class="m-0 text-success"><i class="fas fa-info-circle mr-2"></i>Đăng vào ngày '+postDate+'</p>';
-                        case "deny":
-                            return '<p class="m-0 text-danger"><i class="fas fa-info-circle mr-2"></i>Lý do: '+postDenyReason+'</p>';
-                        default:
-                            break;
-                    }
-                }
-            }
+            UserRoleTitle: 'Phóng viên'
         });
 
         console.log(rows);
