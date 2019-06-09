@@ -33,6 +33,10 @@ module.exports = {
     return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and (post_category = ${catId} or category_parent = ${catId}) limit ${limit} offset ${offset}`);
   },
 
+  countFullInfoPublishPostByCat: (catId) => {
+    return db.load(`select count(post_id) as total from post join category on post_category = category_id where post_status = 'publish' and (post_category = ${catId} or category_parent = ${catId})`);
+  },
+
   //BEGIN Single page
   fullSinglePublishPost: postId =>{
     return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and now() >= post_time and post_id = ${postId}`);
@@ -44,8 +48,12 @@ module.exports = {
   //END: Single page
 
   //BEGIN Writer: 
-  writerListPost: (writerId,limit,offset) =>{
-    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} limit ${limit} offset ${offset}`);
+  writerListPost: (filterType, writerId,limit,offset) =>{
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType}) limit ${limit} offset ${offset}`);
+  },
+
+  countWriterListPost: (filterType, writerId) =>{
+    return db.load(`select count(post_id) as 'total' from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType})`);
   },
   //END Writer:
   single: id => {

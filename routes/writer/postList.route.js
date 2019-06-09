@@ -3,9 +3,12 @@ var postModel = require('../../models/post.model');
 
 var router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.get('/:filtertype', (req, res, next) => {
     var uId = 7;
     var id = uId;
+
+    var filterType = req.params.filtertype;
+
     var page = req.query.page || 1;
 
     if (page < 1) page = 1;
@@ -13,35 +16,63 @@ router.get('/', (req, res, next) => {
     var limit = 10;
     var offset = (page - 1) * limit;
 
-    Promise.all(
-        [postModel.writerListPost(id, limit, offset)]
-    ).then(([rows]) => {
+    var filterString = ``;
 
-        var total = 0;
+    switch (filterType) {
+        case 'all':
+            filterString = `'' OR 1`;
+            break;
+        case 'published':
+            filterString = `'publish' and now() >= post_time`;
+            break;
+        case 'approved':
+            filterString = `'publish' and now() < post_time`;
+            break;
+        case 'denied':
+            filterString = `'deny'`;
+            break;
+        case 'wait':
+            filterString = `'wait'`;
+            break;
+        default:
+            filterString = null;
+            break;
+    }
 
-        rows.forEach(row => {
-            ++total;
-        });
-
-        var nPages = Math.floor(total / limit);
-        if (total % limit > 0) nPages++;
-        var pages = [];
-        for (i = 1; i <= nPages; i++) {
-            var obj = { value: i, active: i === +page };
-            pages.push(obj);
-        }
-
-        res.render('dashboardViews/writer/postList', {
-            layout: 'dashboard.hbs',
-            pages,
-            PageTitle: 'Danh sách bài viết',
-            PostsInfo: rows,
-            UserRoleTitle: 'Phóng viên'
-        });
-
-        console.log(rows);
-
-    }).catch(next);
+    if (filterString) {
+        Promise.all(
+            [postModel.writerListPost(filterString,id,limit,offset),
+            postModel.countWriterListPost(filterString,id)]
+        ).then(([rows, totalRow]) => {
+    
+            var total = totalRow[0].total;
+    
+            rows.forEach(row => {
+                
+            });
+    
+            var nPages = Math.floor(total / limit);
+            if (total % limit > 0) nPages++;
+            var pages = [];
+            for (i = 1; i <= nPages; i++) {
+                var obj = { value: i, active: i === +page };
+                pages.push(obj);
+            }
+    
+            res.render('dashboardViews/writer/postList', {
+                layout: 'dashboard.hbs',
+                pages,
+                PageTitle: 'Danh sách bài viết',
+                PostsInfo: rows,
+                UserRoleTitle: 'Phóng viên'
+            });
+    
+            console.log(total +'  '+ pages);
+    
+        }).catch(next);
+    } else{
+        res.render('_noLayout/404',{layout:false});
+    }
 
 });
 

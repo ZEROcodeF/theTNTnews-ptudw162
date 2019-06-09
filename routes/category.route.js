@@ -21,13 +21,14 @@ router.get('/:id', (req,res,next) => {
       var offset = (page - 1)*limit;
 
       Promise.all(
-          [postModel.fullInfoPublishPostByCat(id,limit,offset)]
-        ).then(([rows]) => {
+          [postModel.fullInfoPublishPostByCat(id,limit,offset),
+          postModel.countFullInfoPublishPostByCat(id)]
+        ).then(([rows,totalRow]) => {
 
-          var total = 0;
+          var total = totalRow[0].total;
           
           rows.forEach(row => {
-            ++total;
+            
           });
 
           var nPages = Math.floor(total / limit);
@@ -45,7 +46,7 @@ router.get('/:id', (req,res,next) => {
             PostsInfo: rows
           });
           
-          console.log(rows);
+          console.log(total + ' ' + pages);
 
       }).catch(next);
     }
