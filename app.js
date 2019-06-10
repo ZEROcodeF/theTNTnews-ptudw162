@@ -14,9 +14,9 @@ require('./middlewares/session')(app);
 require('./middlewares/passport')(app); 
 
 app.use(require('./middlewares/local.middlewares'));
-app.use(auth.isAuthenticated);
+
 //GET General User:
-app.use('/',require('./routes/home.route'));
+app.use('/', require('./routes/home.route'));
 
 //GET Special User:
 app.use('/admin',auth.admin,require('./routes/admin/admin.route'));
