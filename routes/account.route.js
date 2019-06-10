@@ -1,6 +1,8 @@
 var express = require('express');
 var accountModel = require('../models/account.model');
 var passport = require('passport');
+var bcrypt = require('bcrypt');
+var moment = require('moment');
 
 var router = express.Router();
 
@@ -74,19 +76,31 @@ router.post('/login', (req, res, next) => {
 
 router.post('/register', (req, res, next) => {
     var saltRounds = 10;
-    var hash = bcrypt.hashSync(req.body.password, saltRounds);
-    var dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
+    var hash = bcrypt.hash(req.body.password, saltRounds);
+    var dob = moment(req.body.birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+
+    var strPermission = '0';
+    var strPseudonym = '';
+    if (req.body.iswriter)
+    {
+        strPermission = 'writer';    
+        strPseudonym = req.body.pseudonym;
+    }
+    else 
+    {
+    strPermission = 'subscriber';
+    }
 
     var entity = {
         acc_email: req.body.email,
         acc_hpw: hash,
         acc_fullname: req.body.fullname,
-        acc_birthdate: req.body.email,
-        f_DOB: dob,
-        f_Permission: 0
+        acc_birthdate: dob,
+        acc_pseudonym: strPseudonym,
+        acc_permission: strPermission
     }
 
-    userModel.add(entity).then(id => {
+    accountModel.add(entity).then(id => {
         res.redirect('/account/login');
     })
 })
