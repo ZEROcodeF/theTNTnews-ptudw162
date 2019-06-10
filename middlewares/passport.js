@@ -22,7 +22,7 @@ module.exports = function (app) {
             
             console.log(rows[0].acc_hpw);
             console.log(rows[0].acc_id);
-            var ret = bcrypt.compareSync(password, rows[0].acc_hpw);
+            var ret = bcrypt.compare(password, rows[0].acc_hpw);
             if (ret) {
                 return done(null, user);
             }
