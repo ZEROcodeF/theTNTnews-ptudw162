@@ -17,6 +17,10 @@ module.exports = {
     return db.load(`select acc_id from account where acc_pseudonym = '${pseudonym}'`);
   },
 
+  singleInfoByEmail: (email) => {
+    return db.load(`select acc_id,acc_permission,acc_hpw from account where acc_email = '${email}'`)
+  },
+
   all: () => {
     return db.load(`select * from account`);
   },

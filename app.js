@@ -10,6 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 require('./middlewares/view-engine')(app);
+require('./middlewares/session')(app);
+require('./middlewares/passport')(app); 
 
 app.use(require('./middlewares/local.middlewares'));
 
