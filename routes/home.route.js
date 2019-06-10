@@ -40,19 +40,6 @@ router.get('/', (req, res, next) => {
         }).catch(next);
 });
 
-
-router.get('/login', (req, res) => {
-    res.render('_nolayout/login', { layout: false });
-});
-
-router.get('/register', (req, res) => {
-    res.render('_nolayout/register', { layout: false });
-});
-
-router.get('/forgotpassword', (req, res) => {
-    res.render('_nolayout/forgotpassword', { layout: false });
-});
-
 router.use('/category', require('./category.route'));
 
 router.use('/post', require('./post.route'));

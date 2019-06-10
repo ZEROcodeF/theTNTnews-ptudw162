@@ -1,5 +1,5 @@
 var express = require('express');
-var accountModel = require('../../models/account.model');
+var categoryModel = require('../../models/category.model');
 
 var router = express.Router();
 
@@ -8,12 +8,12 @@ router.get('/', (req, res, next) => {
     var page = req.query.page || 1;
     if (page < 1) page = 1;
 
-    var limit = 12;
+    var limit = 15;
     var offset = (page - 1) * limit;
 
     Promise.all([
-        accountModel.accountInfoList(limit, offset),
-        accountModel.countAccountInfoList()
+        categoryModel.categoryInfoList(limit, offset),
+        categoryModel.countCategoryInfoList()
     ]).then(([rows, totalRow]) => {
 
         var total = totalRow[0].total;
@@ -26,11 +26,13 @@ router.get('/', (req, res, next) => {
             pages.push(obj);
         }
 
-        res.render('dashboardViews/admin/accountList', {
+        console.log(rows);
+
+        res.render('dashboardViews/admin/categoryList', {
             layout: 'dashboard.hbs',
             pages,
-            PageTitle: 'Danh sách người dùng',
-            AccInfo: rows,
+            PageTitle: 'Danh sách chuyên mục',
+            CatInfo: rows,
             UserRoleTitle: 'Quản trị viên'
         });
 

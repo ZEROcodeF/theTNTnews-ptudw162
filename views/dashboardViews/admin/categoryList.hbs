@@ -1,5 +1,5 @@
 <div class="m-3">
-    <a href="#" class="btn btn-block btn-primary text-white text-uppercase"><i class="fa fa-plus mr-3"></i>Thêm người dùng mới</a>
+    <a href="#" class="btn btn-block btn-primary text-white text-uppercase"><i class="fa fa-plus mr-3"></i>Thêm chuyên mục mới</a>
 </div>
 {{#if pages}}
 <div class="card shadow mb-4">
@@ -9,19 +9,17 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Email</th>
-                        <th>Họ tên/Bút danh</th>
-                        <th>Loại người dùng</th>
+                        <th>Tên chuyên mục</th>
+                        <th>Tên chuyên mục cha</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each AccInfo}}
+                    {{#each CatInfo}}
                     <tr>
-                        <td class="align-middle">{{acc_id}}</td>
-                        <td class="align-middle">{{acc_email}}</td>
-                        <td class="align-middle">{{acc_fullname}}{{#if acc_pseudonym}}/{{acc_pseudonym}}{{/if}}</td>
-                        <td class="align-middle">{{acc_permission}}</td>
+                        <td class="align-middle">{{category_id}}</td>
+                        <td class="align-middle">{{category_name}}</td>
+                        <td class="align-middle">{{#ifEquals category_parentname 'Không chuyên mục'}}Không có{{else}}{{../category_parentname}}{{/ifEquals}}</td>
                         <td class="align-middle text-center">
                             <button class="btn btn-md btn-danger m-1">
                                 <i class="fa fa-trash mr-1"></i> Xóa
@@ -53,5 +51,5 @@
     </ul>
 </nav>
 {{else}}
-<h6 class="text-center">Không có người dùng nào</h6>
+<h6 class="text-center">Không có chuyên mục nào</h6>
 {{/if}}

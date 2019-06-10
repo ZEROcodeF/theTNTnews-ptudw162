@@ -38,7 +38,6 @@ router.get('/',(req,res,next)=>{
             UserRoleTitle: 'Quản trị viên'
         });
 
-        console.log(total + '  ' + pages);
 
     }).catch(next);
 });

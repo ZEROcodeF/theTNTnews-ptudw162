@@ -22,6 +22,7 @@ module.exports = function (app) {
                     return options.fn(this);;
                 }
                 else {
+                    console.log(options.inverse(this));
                     return options.inverse(this);
                 }
             },

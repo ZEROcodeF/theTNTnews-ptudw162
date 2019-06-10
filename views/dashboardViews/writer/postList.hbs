@@ -1,7 +1,4 @@
 {{#if pages}}
-{{else}}
-<h6 class="text-center">Không có bài nào</h6>
-{{/if}}
 {{#each this.PostsInfo}}
 {{#ifEquals post_status 'publish'}}<div class="card shadow mb-4 border-left-success">{{/ifEquals}}
     {{#ifEquals post_status 'deny'}}<div class="card shadow mb-4 border-left-danger">{{/ifEquals}}
@@ -80,3 +77,6 @@
                 {{/each}}
             </ul>
         </nav>
+        {{else}}
+        <h6 class="text-center">Không có bài nào</h6>
+        {{/if}}

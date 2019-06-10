@@ -1,7 +1,9 @@
+<div class="m-3">
+    <a href="#" class="btn btn-block btn-primary text-white text-uppercase"><i class="fa fa-plus mr-3"></i>Thêm bài viết
+        mới</a>
+</div>
 {{#if pages}}
-{{else}}
-<h6 class="text-center">Không có bài nào</h6>
-{{/if}}
+
 {{#each this.PostsInfo}}
 {{#ifEquals post_status 'publish'}}<div class="card shadow mb-4 border-left-success">{{/ifEquals}}
     {{#ifEquals post_status 'deny'}}<div class="card shadow mb-4 border-left-danger">{{/ifEquals}}
@@ -13,7 +15,7 @@
                 {{#ifEquals post_status 'publish'}}
                 <h6 class="m-0 text-success font-weight-bold"><i class="fa fa-check-circle mr-1"></i>Đã được duyệt</h6>
                 {{/ifEquals}}
-                {{/ifEquals}}
+                {{/if}}
                 {{#ifEquals post_status 'deny'}}
                 <h6 class="m-0 text-danger font-weight-bold"><i class="fa fa-times-circle mr-1"></i>Bị từ chối</h6>
                 {{/ifEquals}}
@@ -34,7 +36,7 @@
                         style="border-radius:10px;width:128px;height:128px;object-fit:cover">
                 </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer d-flex align-items-center justify-content-between">
                 {{#if (isPublished post_status post_time)}}
                 <h6 class="m-0 text-success"><i class="fa fa-info-circle mr-1"></i>Tác giả: {{writer_pseudonym}} &minus;
                     Người duyệt: {{editor_name}}</h6>
@@ -52,6 +54,12 @@
                 <h6 class="m-0 text-warning"><i class="fa fa-info-circle mr-1"></i>Tác giả: {{writer_pseudonym}} &minus;
                     Thời điểm đăng bài: {{formatTime post_time}}</h6>
                 {{/ifEquals}}
+                <a href="#" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                    <span class="text">Chi tiết</span>
+                </a>
             </div>
         </div>
         {{/each}}
@@ -71,3 +79,6 @@
                 {{/each}}
             </ul>
         </nav>
+        {{else}}
+        <h6 class="text-center">Không có bài nào</h6>
+        {{/if}}
