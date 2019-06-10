@@ -20,7 +20,7 @@ app.use('/', require('./routes/home.route'));
 app.use('/admin',auth.admin,require('./routes/admin/admin.route'));
 app.use('/writer',auth.writer,require('./routes/writer/writer.route'));
 app.use('/editor',auth.editor,require('./routes/editor/editor.route'));
-app.use('/account',auth.editor,require('./routes/account.route'));
+app.use('/account',require('./routes/account.route'));
 
 //TEST:
 app.get('/testSingle', (req, res) => {

@@ -10,11 +10,11 @@ module.exports = {
   },
 
   singleByEmail: (email) =>{
-    return db.load(`select acc_id from account where acc_email = ${email}`);
+    return db.load(`select acc_id from account where acc_email = '${email}'`);
   },
 
   singleByPseudonym: (pseudonym) =>{
-    return db.load(`select acc_id from account where acc_pseudonym = ${pseudonym}`);
+    return db.load(`select acc_id from account where acc_pseudonym = '${pseudonym}'`);
   },
 
   all: () => {
