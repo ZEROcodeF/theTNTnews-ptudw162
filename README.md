@@ -17,6 +17,11 @@
   + đang chờ duyệt - DRAFT (/writer/postlist/wait)
 ## Phân hệ biên tập viên:
 + Xem các bài viết DRAFT thuộc chuyên mục mình chịu trách nhiệm (/editor/postlist)
+## Phân hệ quản trị viên:
++ Quản lý bài viết:
+  + Xem danh sách (/admin/postlist)
++ Quản lý tài khoản:
+  + Xem danh sách (/admin/accountlist)
 --------------------------------------------------------
 # Phase 1
 ## _Hệ thống trang tĩnh của Báo Điện Tử TH16-News(TNT News)_
