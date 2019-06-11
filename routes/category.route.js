@@ -1,10 +1,11 @@
 var express = require('express');
 var postModel = require('../models/post.model');
 var tagModel = require('../models/tag.model');
+var premiumCheck = require('../middlewares/auth.middlewares').premiumCheck;
 
 var router = express.Router();
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', premiumCheck, (req, res, next) => {
   var id = req.params.id;
   var page = req.query.page || 1;
   var catName = '';
@@ -27,8 +28,14 @@ router.get('/:id', (req, res, next) => {
     var limit = 7;
     var offset = (page - 1) * limit;
 
+    var catFunc = postModel.fullInfoPublishPostByCat(id, limit, offset);
+
+    if(req.user && req.isPremiumUser){
+      catFunc = postModel.fullInfoPublishPremiumPriorPostByCat(id, limit, offset);
+    }
+
     Promise.all(
-      [postModel.fullInfoPublishPostByCat(id, limit, offset),
+      [catFunc,
       postModel.countFullInfoPublishPostByCat(id)]
     ).then(([rows, totalRow]) => {
 
@@ -47,7 +54,7 @@ router.get('/:id', (req, res, next) => {
           var arr = [row, tags]; return arr
         })
       })).then(arrs => {
-        if(arrs.length == 0) arrs ='';
+        if (arrs.length == 0) arrs = '';
         res.render('generalViews/byCategory', {
           activeNavCat,
           pages,

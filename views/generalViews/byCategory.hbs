@@ -1,6 +1,6 @@
 <!-- ##### Blog Area Start ##### -->
 <div class="blog-area">
-    <div class="container-fluid">
+    <div class="container">
         <div class="section-heading text-center">
             <h6>Chuyên mục "{{categoryName}}"</h6>
             <div style="margin: 0 200px; height:2px; background-color:#2196f3;"></div>
@@ -21,7 +21,7 @@
                     <div class="post-data col-md-8">
                         <a href="/category/{{this.0.post_category}}"
                             class="post-category {{this.0.category_class}}">{{this.0.category_name}}</a>
-
+                        {{#ifEquals this.0.post_type 'premium'}} <a class="post-category post_premium" style="margin-left:5px;"><i class="fa fa-star" aria-hidden="true" title="Bài viết Premium"></i></a>{{/ifEquals}}
                         <a href="/post/{{this.0.post_id}}" class="post-title">
                             <h6>{{this.0.post_title}}</h6>
                         </a>

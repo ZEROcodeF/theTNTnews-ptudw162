@@ -2,7 +2,7 @@ var db = require('../utils/db');
 
 module.exports = {
   accountSubscription: (accID) =>{
-    return db.load(`select * from subscription where sub_accid = ${accID}`);
+    return db.load(`select * from subscription where sub_accid = ${accID} and now() <= date_add(now(), interval 7 day)`);
   },
 
   accountInfoList: (limit, offset) =>{
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   singleInfoByEmail: (email) => {
-    return db.load(`select acc_id,acc_permission,acc_hpw from account where acc_email = '${email}'`)
+    return db.load(`select acc_id,acc_permission,acc_fullname, acc_hpw from account where acc_email = '${email}'`)
   },
 
   all: () => {

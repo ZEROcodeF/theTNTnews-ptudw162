@@ -16,7 +16,7 @@ require('./middlewares/passport')(app);
 app.use(require('./middlewares/local.middlewares'));
 
 //GET General User:
-app.use('/',auth.admin, require('./routes/home.route'));
+app.use('/', auth.isAuth, require('./routes/home.route'));
 
 //GET Special User:
 app.use('/admin',auth.admin,require('./routes/admin/admin.route'));

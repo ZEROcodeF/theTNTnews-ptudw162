@@ -1,9 +1,15 @@
 var moment = require('moment');
 var accountModel = require('../models/account.model');
+var postModel = require('../models/post.model');
 
 module.exports.admin = (req, res, next) => {
-    console.log('---Admin required for ');
-    next();
+    if (req.user) {
+        if (req.user.acc_permission == 'admin') {
+            next();
+        } else {
+
+        }
+    }
 }
 
 module.exports.editor = (req, res, next) => {
@@ -18,23 +24,33 @@ module.exports.writer = (req, res, next) => {
     next();
 }
 
-module.exports.vipSubcriber = (req, res, next) => {
+module.exports.premiumCheck = (req, res, next) => {
     if (req.user) {
-        var uid = req.user.acc_id;
-        accountModel.accountSubscription(uid).then(rows => {
-            if (rows.length > 0) {
-                if (moment().isBefore(moment(rows[0].sub_time).add('7', 'days'))) {
+        accountModel.accountSubscription(req.user.acc_id).then(subs => {
+            if (subs.length > 0) {
+                req.isPremiumUser = true;
+                next();
+            } else {
+                if (req.user.acc_permission == 'admin') {
+                    req.isPremiumUser = true;
                     next();
                 }
-            } else {
-                res.render('_nolayout/subscriptionWarning', { layout: false, backUrl: '/' });
+                else next();
             }
         })
-    } else res.redirect('/account/login');
+    } else { next() }
 }
 
 module.exports.isAuth = (req, res, next) => {
-    if (!req.user) {
-        res.redirect('/account/login');
+    if (req.user) {
+        res.locals.isAuthenticated = true;
+        res.locals.accountName = req.user.acc_fullname;
+    } else { res.locals.isAuthenticated = false; }
+    next();
+}
+
+module.exports.notAuthRequired = (req, res, next) => {
+    if (req.user) {
+        redirect('/');
     } else next();
 }

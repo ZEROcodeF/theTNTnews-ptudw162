@@ -30,7 +30,11 @@ module.exports = {
 
   //Get publish post info: PARENT CATID accepted!
   fullInfoPublishPostByCat: (catId, limit, offset) => {
-    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and now() >= post_time and (post_category = ${catId} or category_parent = ${catId}) limit ${limit} offset ${offset}`);
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and now() >= post_time and (post_category = ${catId} or category_parent = ${catId}) order by post_time desc limit ${limit} offset ${offset}`);
+  },
+
+  fullInfoPublishPremiumPriorPostByCat: (catId, limit, offset) => {
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class from post join category on post_category = category_id where post_status = 'publish' and now() >= post_time and (post_category = ${catId} or category_parent = ${catId}) order by field(post_type, "premium") desc, post_time desc limit ${limit} offset ${offset}`);
   },
 
   countFullInfoPublishPostByCat: (catId) => {
