@@ -27,29 +27,39 @@ router.get('/is-pseudonym-available', (req, res, next) => {
 });
 
 router.get('/login', (req, res) => {
-    res.render('_nolayout/login', {
-        layout: false
-    });
+    if (req.user) {
+        res.redirect('/');
+    } else
+        res.render('_nolayout/login', {
+            layout: false
+        });
 });
 
 
 router.get('/register', (req, res) => {
-    res.render('_nolayout/register', {
-        layout: false
-    });
+    if (req.user) {
+        res.redirect('/');
+    } else {
+        res.render('_nolayout/register', {
+            layout: false
+        });
+    }
 });
 
 router.get('/forgotpassword', (req, res) => {
-    res.render('_nolayout/forgotpassword', {
-        layout: false
-    });
+    if (req.user) {
+        res.redirect('/');
+    } else {
+        res.render('_nolayout/forgotpassword', {
+            layout: false
+        });
+    }
 });
 
 
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-        if (err)
-        {
+        if (err) {
             console.log('error');
             return next(err);
         }
@@ -62,14 +72,15 @@ router.post('/login', (req, res, next) => {
         }
 
         req.logIn(user, err => {
-            if (err)
-            {
+            if (err) {
                 return next(err);
             }
-
             console.log('success!');
+            if(user.acc_permission=='admin')
+                var urlR = '/admin/postlist';
             return res.redirect('/');
         });
+
     })(req, res, next);
 })
 
@@ -81,14 +92,12 @@ router.post('/register', (req, res, next) => {
 
     var strPermission = '0';
     var strPseudonym = '';
-    if (req.body.iswriter)
-    {
-        strPermission = 'writer';    
+    if (req.body.iswriter) {
+        strPermission = 'writer';
         strPseudonym = req.body.pseudonym;
     }
-    else 
-    {
-    strPermission = 'subscriber';
+    else {
+        strPermission = 'subscriber';
     }
 
     var entity = {

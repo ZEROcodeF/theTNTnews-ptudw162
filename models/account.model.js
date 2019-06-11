@@ -1,6 +1,10 @@
 var db = require('../utils/db');
 
 module.exports = {
+  accountSubscription: (accID) =>{
+    return db.load(`select * from subscription where sub_accid = ${accID}`);
+  },
+
   accountInfoList: (limit, offset) =>{
     return db.load(`select acc_id, acc_email, acc_permission, acc_fullname, acc_pseudonym from account where acc_permission != 'admin' and acc_id != 0 limit ${limit} offset ${offset}`);
   },

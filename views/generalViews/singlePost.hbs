@@ -46,18 +46,17 @@
                                     ex. Interdum et malesuada fames ac ante ipsum pr imis in faucibus. Donec
                                     commodo quis enim ac auctor. Ut et mollis felis, sit amet ultricies est.
                                     Suspendisse sed faucibus tortor. </p>
-                                <div class="newspaper-post-like d-flex align-items-center justify-content-between">
-                                    <!-- Tags -->
-                                    <div class="newspaper-tags d-flex">
-                                        <span>Tags:</span>
-                                        <ul class="d-flex">
-                                            <li><a href="#">finacial,</a></li>
-                                            <li><a href="#">politics,</a></li>
-                                            <li><a href="#">stock market</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
+                            {{#if TagList}}
+                            <div>
+                                Nhãn bài viết:
+                                {{#each TagList}}
+                                <span class="post_tag">
+                                    <a href="{{this.tag_id}}">{{this.tag_name}}</a>
+                                </span>
+                                {{/each}}
+                            </div>
+                            {{/if}}
                         </div>
                     </div>
 
@@ -115,10 +114,12 @@
                         <!-- Single Featured Post -->
                         <div class="single-blog-post small-featured-post d-flex">
                             <div class="post-thumb">
-                                <a href="/post/{{this.post_id}}"><img src="/img/bg-img/19.jpg" alt="{{this.post_title}}"></a>
+                                <a href="/post/{{this.post_id}}"><img src="/img/bg-img/19.jpg"
+                                        alt="{{this.post_title}}"></a>
                             </div>
                             <div class="post-data">
-                                <a href="/category/{{this.post_category}}" class="post-category {{this.category_class}}">{{this.category_name}}</a>
+                                <a href="/category/{{this.post_category}}"
+                                    class="post-category {{this.category_class}}">{{this.category_name}}</a>
                                 <div class="post-meta">
                                     <a href="/post/{{this.post_id}}" class="post-title">
                                         <h6>{{this.post_title}}</h6>

@@ -1,6 +1,6 @@
 <!-- ##### Blog Area Start ##### -->
 <div class="blog-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="section-heading text-center">
             <h6>Chuyên mục "{{categoryName}}"</h6>
             <div style="margin: 0 200px; height:2px; background-color:#2196f3;"></div>
@@ -11,23 +11,31 @@
         </div>
         <div class="blog-posts-area mr-50 ml-30">
             <!-- Single Featured Post -->
-            {{#each PostsInfo}}
+            {{#each PostMetaData}}
             <div class="single-blog-post featured-post">
                 <div class="row d-flex align-items-center col 12">
                     <div class="post-thumb col-md-4">
-                        <a href="/post/{{this.post_id}}"><img src="/img/bg-img/25.jpg" alt="{{this.post_title}}"></a>
+                        <a href="/post/{{this.0.post_id}}"><img src="/img/bg-img/25.jpg"
+                                alt="{{this.0.post_title}}"></a>
                     </div>
                     <div class="post-data col-md-8">
-                        <a href="/category/{{this.post_category}}" class="post-category {{this.category_class}}">{{this.category_name}}</a>
+                        <a href="/category/{{this.0.post_category}}"
+                            class="post-category {{this.0.category_class}}">{{this.0.category_name}}</a>
 
-                        <a href="/post/{{this.post_id}}" class="post-title">
-                            <h6>{{this.post_title}}</h6>
+                        <a href="/post/{{this.0.post_id}}" class="post-title">
+                            <h6>{{this.0.post_title}}</h6>
                         </a>
-
                         <div class="post-meta">
-                            <p class="post-date">Ngày {{formatDate post_time}}</p>
-                            <p class="post-excerp">{{this.post_summary}}</p>
+                            <p class="post-date">Ngày {{formatDate this.0.post_time}}</p>
+                            <p class="post-excerp">{{this.0.post_summary}}</p>
                         </div>
+                        {{#if this.[1]}}
+                        {{#each this.[1]}}
+                        <span class="post_tag">
+                            <a href="{{this.tag_id}}">{{this.tag_name}}</a>
+                        </span>
+                        {{/each}}
+                        {{/if}}
                     </div>
                 </div>
                 <div class="m-30 " style="height:1px; background-color:lightgrey;"></div>
