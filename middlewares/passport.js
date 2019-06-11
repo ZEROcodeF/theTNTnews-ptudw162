@@ -17,12 +17,9 @@ module.exports = function (app) {
                     message: 'Invalid username.'
                 });
             }
-
             var user = rows[0];
-            
-            console.log(rows[0].acc_hpw);
-            console.log(rows[0].acc_id);
-            var ret = bcrypt.compare(password, toString(rows[0].acc_hpw));
+            var ret = bcrypt.compareSync(password,user.acc_hpw);
+
             if (ret) {
                 return done(null, user);
             }

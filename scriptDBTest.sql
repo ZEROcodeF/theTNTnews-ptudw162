@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jun 11, 2019 at 03:34 PM
+-- Generation Time: Jun 11, 2019 at 05:12 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS `account` (
   `acc_fullname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `acc_pseudonym` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `acc_birthdate` datetime DEFAULT NULL,
-  `acc_hpw` binary(60) DEFAULT NULL,
+  `acc_hpw` char(60) CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL,
   PRIMARY KEY (`acc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `account`
@@ -46,19 +46,21 @@ CREATE TABLE IF NOT EXISTS `account` (
 
 INSERT INTO `account` (`acc_id`, `acc_email`, `acc_permission`, `acc_fullname`, `acc_pseudonym`, `acc_birthdate`, `acc_hpw`) VALUES
 (0, 'nap@nap.nap', 'none', 'Không tồn tại', 'Không tồn tại', '2019-06-08 01:04:13', NULL),
-(1, 'admin@tntnews.com', 'admin', 'Admin', 'admin', '2019-06-02 15:12:00', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(2, 'nhateditor@tntnews.com', 'editor', 'Minh Nhật', 'nhateditor', '2019-05-26 16:15:01', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(3, 'toieditor@tntnews.com', 'editor', 'Hồng Tới', 'toieditor', '2019-05-27 06:05:51', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(4, 'trieditor@tntnews.com', 'editor', 'Thanh Trí', 'trieditor', '2019-05-31 14:59:08', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(5, 'demo@tntnews.com', 'writer', 'Đê Mô', 'demowriter', '2019-06-05 12:15:31', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(6, 'vanphong@tntnews.com', 'subscriber', 'Văn Phong', 'vanphong123', '2019-06-07 08:18:11', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(7, 'gsxoay@gmail.com', 'writer', 'Giáo Sư Xoay', 'giaosuxoay', '2019-08-05 12:15:31', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(8, 'hoangphongbkb@gmail.com', 'writer', 'Hoàng Phong', 'hoangphong', '2019-01-05 12:15:31', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(9, 'trungmm@gmail.com', 'writer', 'Minh Trung', 'minhtrung', '2019-06-05 12:23:38', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(10, 'thanhan1930@gmail.com', 'writer', 'Giáo Sư Xoay', 'thanhan', '2019-07-05 12:15:31', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(11, 'hoaittt@gmail.com', 'writer', 'Hoài Thương', 'thuonghoai', '2019-02-05 16:15:00', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(12, 'baka@gmail.com', 'writer', 'Khá Bảnh', 'bakha', '2019-10-05 11:11:11', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136),
-(13, 'bakavip@gmail.com', 'subscriber', 'Vip Quá', NULL, '2019-10-05 11:11:11', 0x243261243130244a326e6744366d3273544c516f5273386a3739476b4f57716f73703977485a726471796e396b56384b414a71776b52524b78343136);
+(1, 'admin@tntnews.com', 'admin', 'Admin', 'admin', '2019-06-02 15:12:00', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(2, 'nhateditor@tntnews.com', 'editor', 'Minh Nhật', 'nhateditor', '2019-05-26 16:15:01', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(3, 'toieditor@tntnews.com', 'editor', 'Hồng Tới', 'toieditor', '2019-05-27 06:05:51', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(4, 'trieditor@tntnews.com', 'editor', 'Thanh Trí', 'trieditor', '2019-05-31 14:59:08', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(5, 'demo@tntnews.com', 'writer', 'Đê Mô', 'demowriter', '2019-06-05 12:15:31', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(6, 'vanphong@tntnews.com', 'subscriber', 'Văn Phong', 'vanphong123', '2019-06-07 08:18:11', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(7, 'gsxoay@gmail.com', 'writer', 'Giáo Sư Xoay', 'giaosuxoay', '2019-08-05 12:15:31', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(8, 'hoangphongbkb@gmail.com', 'writer', 'Hoàng Phong', 'hoangphong', '2019-01-05 12:15:31', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(9, 'trungmm@gmail.com', 'writer', 'Minh Trung', 'minhtrung', '2019-06-05 12:23:38', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(10, 'thanhan1930@gmail.com', 'writer', 'Giáo Sư Xoay', 'thanhan', '2019-07-05 12:15:31', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(11, 'hoaittt@gmail.com', 'writer', 'Hoài Thương', 'thuonghoai', '2019-02-05 16:15:00', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(12, 'baka@gmail.com', 'writer', 'Khá Bảnh', 'bakha', '2019-10-05 11:11:11', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(13, 'bakavip@gmail.com', 'subscriber', 'Vip Quá', NULL, '2019-10-05 11:11:11', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(14, 'kenjikitano1b57e@gmail.com', 'subscriber', 'Kenji Kitano', '', '2019-06-27 00:00:00', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416'),
+(15, 'avc@gmail.com', 'subscriber', 'hgwg', '', '2019-06-13 00:00:00', '$2a$10$J2ngD6m2sTLQoRs8j79GkOWqosp9wHZrdqyn9kV8KAJqwkRRKx416');
 
 -- --------------------------------------------------------
 

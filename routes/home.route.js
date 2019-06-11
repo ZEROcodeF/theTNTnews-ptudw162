@@ -10,10 +10,6 @@ router.get('/', (req, res, next) => {
         postModel.mostViewPost(),
         postModel.postOfTopCategory()]).
         then(([frows, lrows, mrows, prows]) => {
-            console.log(frows);
-            // console.log(lrows);
-            // console.log(mrows);
-            // console.log(prows);
 
             var groupedLRows = [];
             var i = 0;
@@ -27,8 +23,6 @@ router.get('/', (req, res, next) => {
                 } else
                     i++;
             });
-
-            console.log(groupedLRows);
 
             res.render('home', {
                 PageTitle: 'Trang chủ TNTNews',

@@ -50,15 +50,15 @@ router.get('/forgotpassword', notAuth, (req, res) => {
 });
 
 
-router.post('/login',notAuth, (req, res, next) => {
+router.post('/login', notAuth, (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            console.log('error');
+            //console.log('error');
             return next(err);
         }
 
         if (!user) {
-            console.log('false');
+            //console.log('false');
             return res.render('_noLayout/login', {
                 layout: false,
                 err_message: info.message

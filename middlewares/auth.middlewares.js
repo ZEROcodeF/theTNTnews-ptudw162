@@ -1,6 +1,5 @@
 var moment = require('moment');
 var accountModel = require('../models/account.model');
-var postModel = require('../models/post.model');
 
 module.exports.admin = (req, res, next) => {
     if (req.user) {
