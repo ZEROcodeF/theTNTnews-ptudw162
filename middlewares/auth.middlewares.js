@@ -6,21 +6,35 @@ module.exports.admin = (req, res, next) => {
         if (req.user.acc_permission == 'admin') {
             next();
         } else {
-
+            res.render('_noLayout/permissionDenied', { layout: false });
         }
+    } else {
+        res.redirect('/account/login');
     }
 }
 
 module.exports.editor = (req, res, next) => {
-    console.log('---EDITOR required for ');
-    //console.log(res);
-    next();
+    if (req.user) {
+        if (req.user.acc_permission == 'editor') {
+            next();
+        } else {
+            res.render('_noLayout/permissionDenied', { layout: false });
+        }
+    } else {
+        res.redirect('/account/login');
+    }
 }
 
 module.exports.writer = (req, res, next) => {
-    console.log('---WRITER required for ');
-    //console.log(res);
-    next();
+    if (req.user) {
+        if (req.user.acc_permission == 'writer') {
+            next();
+        } else {
+            res.render('_noLayout/permissionDenied', { layout: false });
+        }
+    } else {
+        res.redirect('/account/login');
+    }
 }
 
 module.exports.premiumCheck = (req, res, next) => {
@@ -43,6 +57,11 @@ module.exports.premiumCheck = (req, res, next) => {
 module.exports.isAuth = (req, res, next) => {
     if (req.user) {
         res.locals.isAuthenticated = true;
+        if (req.user.acc_permission == 'subscriber') {
+            res.locals.greetingLink = 'account/details';
+        } else {
+            res.locals.greetingLink = req.user.acc_permission;
+        }
         res.locals.accountName = req.user.acc_fullname;
     } else { res.locals.isAuthenticated = false; }
     next();

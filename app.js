@@ -28,13 +28,6 @@ app.get('/editpost',(req,res)=>{
   res.render('dashboardViews/editPost',{layout:'dashboard.hbs'});
 });
 
-//TEST:
-app.get('/testSingle', (req, res) => {
-  res.render('testsingle', {
-    PageTitle: "Trang chủ TNT News"
-  });
-});
-
 app.get('/testdashboard', (req, res) => {
   res.render('_layouts/dashboard', {
     layout:false,

@@ -38,7 +38,7 @@ module.exports = {
   },
 
   update: entity => {
-    return db.update('account', 'CatID', entity);
+    return db.update('account', 'acc_id', entity);
   },
 
   delete: id => {

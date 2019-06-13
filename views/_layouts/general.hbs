@@ -40,7 +40,8 @@
                             <!-- Login -->
                             <div class="login d-flex d-flex align-items-center">
                                 {{#if isAuthenticated}}
-                                <a href="#">Xin chào, {{accountName}}</a>
+                                <a id="greeting" href="/{{greetingLink}}">Xin chào, {{accountName}}</a>
+                                <a href="/account/logout" class="text-danger"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>Đăng xuất</a>
                                 {{else}}
                                 <a href="/account/login"><i class="fa fa-user mr-2"></i>Đăng nhập</a>
                                 <a href="/account/register"><i class="fa fa-key mr-2"></i>Đăng ký</a>
@@ -148,6 +149,17 @@
     <script src="/js/homepage.js"></script>
     <!-- Owl Carousel js-->
     <script src="/js/owlcarousel/owl.carousel.min.js"></script>
+    {{#if isAuthenticated}}
+    <script>
+        var grstr = '';
+        $('#greeting').hover(function(){
+            grstr = $(this).text();
+            $(this).html('&raquo; Vào Dashboard');
+        },function(){
+            $(this).html(grstr);
+        });
+    </script>
+    {{/if}}
 </body>
 
 </html>

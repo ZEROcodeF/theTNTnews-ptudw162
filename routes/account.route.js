@@ -73,13 +73,13 @@ router.post('/login', notAuth, (req, res, next) => {
             if (req.user.acc_permission) {
                 switch (req.user.acc_permission) {
                     case 'admin':
-                        strURL = '/admin/postlist';
+                        strURL = '/admin';
                         break;
                     case 'writer':
-                        strURL = '/writer/postlist/all';
+                        strURL = '/writer';
                         break;
                     case 'editor':
-                        strURL = '/editor/postlist';
+                        strURL = '/editor';
                         break;
                     default:
                         if (req.body.refURL) strURL = req.body.refURL;
@@ -122,14 +122,18 @@ router.post('/register',notAuth, (req, res, next) => {
     })
 })
 
-router.post('/logout', (req, res, next) => {
+router.get('/logout', (req, res, next) => {
     if (req.user) {
         req.logOut();
-        res.redirect('/account/login');
+        res.redirect('/');
     } else {
         next();
     }
 })
 
+router.get('/testupdate',(req,res)=>{
+    
+    //accountModel.update(entity);
+})
 
 module.exports = router;

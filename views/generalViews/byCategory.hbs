@@ -2,7 +2,7 @@
 <div class="blog-area">
     <div class="container">
         <div class="section-heading text-center">
-            <h6>Chuyên mục "{{categoryName}}"</h6>
+            <h6>{{categoryName}}</h6>
             <div style="margin: 0 200px; height:2px; background-color:#2196f3;"></div>
             {{#if pages}}
             {{else}}
@@ -15,7 +15,7 @@
             <div class="single-blog-post featured-post">
                 <div class="row d-flex align-items-center col 12">
                     <div class="post-thumb col-md-4">
-                        <a href="/post/{{this.0.post_id}}"><img src="/img/bg-img/25.jpg"
+                        <a href="/post/{{this.0.post_id}}"><img src="/{{this.0.post_thumbnail}}"
                                 alt="{{this.0.post_title}}"></a>
                     </div>
                     <div class="post-data col-md-8">
@@ -31,8 +31,8 @@
                         </div>
                         {{#if this.[1]}}
                         {{#each this.[1]}}
-                        <span class="post_tag">
-                            <a href="{{this.tag_id}}">{{this.tag_name}}</a>
+                        <span class="badge badge-dark">
+                            <a class="text-white" href="{{this.tag_id}}">{{this.tag_name}}</a>
                         </span>
                         {{/each}}
                         {{/if}}

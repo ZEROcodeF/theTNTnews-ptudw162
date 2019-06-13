@@ -1,14 +1,16 @@
 {{#section 'css'}}
 <style>
-    .mce-notification {display: none !important;}
+    .mce-notification {
+        display: none !important;
+    }
 </style>
 {{/section}}
 {{#section 'js'}}
-<script src="/js/tinymce.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
 <script>
     tinymce.init({
         selector: '#mytiny',
-        height: 500,
+        height: 480,
         menubar: false,
         plugins: 'paste image link autolink lists media',
         toolbar: 'unredo | bold italic underline strikethrough | link image media pageembed',
@@ -22,33 +24,23 @@
                 <div class="card mb-4 shadow">
                     <div class="card-body">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="post_title" placeholder="Tiêu đề bài viết"
-                                required>
+                            <input class="form-control font-weight-bold text-lg" type="text" name="post_title"
+                                placeholder="Tiêu đề bài viết" required>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="text" name="post_id" placeholder="Tag bài viết" required>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="post_summary" placeholder="Tóm tắt">
+                            <textarea class="form-control" type="text" name="post_summary" rows="4"
+                                placeholder="Tóm tắt (tối đa 100 từ)"></textarea>
                         </div>
                         <div class="form-group">
                             <textarea id="mytiny" required></textarea>
                         </div>
-                        <button type="button" name="btn" class="btn btn-primary">
-                            <i class="fa fa-check"></i>
-                            Lưu bản thảo
-                        </button>
-                        <button type="submit" class="btn btn-success">
-                            <i class="fa fa-file-alt"></i>
-                            Đăng bản thảo
-                        </button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <p class="h6 text-weight-bold text-dark text-title">Chuyên mục</p>
+                        <p class="font-weight-bold text-dark">Chuyên mục</p>
                         <div class="form-group">
                             <select class="custom-select" name="postcategory" required>
                                 <option value="1">Thời sự</option>
@@ -57,15 +49,13 @@
                                 <option value="4">Kinh doanh</option>
                                 <option value="5">Công nghệ</option>
                                 <option value="6">Thể thao</option>
-                                <option value="7">Giải trí</option>
-                                <option value="8">Âm nhạc</option>
-                                <option value="9">Phim ảnh</option>
-                                <option value="10">Sống trẻ</option>
                             </select>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-success text-white m-3">Đăng bản thảo</button>
                 </div>
             </div>
         </div>
     </div>
+
 </form>

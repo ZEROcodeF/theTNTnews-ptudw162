@@ -36,6 +36,8 @@ router.get('/', (req, res, next) => {
 
 router.use('/category', require('./category.route'));
 
+router.use('/tag', require('./tag.route'));
+
 router.use('/post', require('./post.route'));
 
 router.use('/about', (req, res) => {

@@ -54,7 +54,6 @@ router.get('/:id', premiumCheck, (req, res, next) => {
           var arr = [row, tags]; return arr
         })
       })).then(arrs => {
-        if (arrs.length == 0) arrs = '';
         res.render('generalViews/byCategory', {
           activeNavCat,
           pages,
@@ -62,7 +61,6 @@ router.get('/:id', premiumCheck, (req, res, next) => {
           PageTitle: 'Chuyên mục ' + catName,
           PostMetaData: arrs
         });
-        // console.log(arrs);
       });
     }).catch(next);
   }

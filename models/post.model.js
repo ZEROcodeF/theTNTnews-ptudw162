@@ -41,6 +41,18 @@ module.exports = {
     return db.load(`select count(post_id) as total from post join category on post_category = category_id where post_status = 'publish' and now() >= post_time and (post_category = ${catId} or category_parent = ${catId})`);
   },
 
+  fullInfoPublishPostByTag: (tagId, limit, offset) => {
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class, tag_name from post join category on post_category = category_id join posttag on post_id = posttag_post join tag on tag_id = posttag_tag where post_status = 'publish' and now() >= post_time and posttag_tag = ${tagId} order by post_time desc limit ${limit} offset ${offset}`);
+  },
+
+  fullInfoPublishPremiumPriorPostByTag: (tagId, limit, offset) => {
+    return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, post_summary, category_name, category_class, tag_name from post join category on post_category = category_id join posttag on post_id = posttag_post join tag on tag_id = posttag_tag where post_status = 'publish' and now() >= post_time and posttag_tag = ${tagId} order by field(post_type, "premium") desc, post_time desc limit ${limit} offset ${offset}`);
+  },
+
+  countFullInfoPublishPostByTag: (tagId) => {
+    return db.load(`select count(post_id) as total from  post join category on post_category = category_id join posttag on post_id = posttag_post where post_status = 'publish' and now() >= post_time and posttag_tag = ${tagId}`);
+  },
+
   //BEGIN Single page
   fullSinglePublishPost: postId =>{
     return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, category_parent, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and now() >= post_time and post_id = ${postId}`);
