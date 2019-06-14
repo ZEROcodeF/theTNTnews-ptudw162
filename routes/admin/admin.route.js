@@ -14,4 +14,6 @@ router.use('/categorylist',require('./categoryList.route'));
 
 router.use('/taglist',require('./tagList.route'));
 
+router.use('/editpost',require('./editPost.route'));
+
 module.exports = router;

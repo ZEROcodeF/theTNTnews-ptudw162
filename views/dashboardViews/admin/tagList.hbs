@@ -1,5 +1,19 @@
+{{#section 'js'}}
+<script>
+    $('.on-click-edit').on('click', function () {
+        var tagId = $(this).data('todo').tag_id;
+        var tagName = $(this).data('todo').tag_name;
+        console.log('tagid: ' + tagId);
+        $('.modal-header #formTitle').text('Sửa tên nhãn ID: ' + tagId);
+        $('.modal-body #inputTagId').val(tagId);
+        $('.modal-body #inputTagName').val(tagName);
+        $('#editTagForm').modal();
+        $('.modal-body #inputTagName').select();
+    });
+</script>
+{{/section}}
 <div class="m-3">
-    <a href="#" class="btn btn-block btn-primary text-white text-uppercase"><i class="fa fa-plus mr-3"></i>Thêm nhãn
+    <a href="#" class="btn btn-block btn-primary text-white text-uppercase" data-toggle="modal" data-target="#addTagForm"><i class="fa fa-plus mr-3"></i>Thêm nhãn
         mới</a>
 </div>
 {{#if pages}}
@@ -22,12 +36,16 @@
                         <td class="align-middle">{{tag_name}}</td>
                         <td class="align-middle">{{tag_count}}</td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-md btn-danger m-1">
-                                <i class="fa fa-trash mr-1"></i> Xóa
-                            </button>
-                            <a href="#" class="btn btn-md btn-primary m-1">
-                                <i class="fa fa-pen mr-1"></i> Chỉnh sửa
-                            </a>
+                            <form novalidate method="POST" action="taglist/delete">
+                                <input name="tag_id" value="{{tag_id}}" class="m-0" hidden>
+                                <button type="submit" class="btn btn-md btn-danger m-1">
+                                    <i class="fa fa-trash mr-1"></i> Xóa
+                                </button>
+                                <a href="#" class="btn btn-md btn-primary m-1 on-click-edit"
+                                    data-todo='{"tag_id":{{tag_id}},"tag_name":"{{tag_name}}"}'>
+                                    <i class="fa fa-pen mr-1"></i> Sửa tên nhãn
+                                </a>
+                            </form>
                         </td>
                     </tr>
                     {{/each}}
@@ -54,3 +72,41 @@
 {{else}}
 <h6 class="text-center">Không có nhãn nào</h6>
 {{/if}}
+<div class="modal hide" id="editTagForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="formTitle" class="text-primary text-center font-weight-bold m-0 w-100"></h5>
+            </div>
+            <form novalidate method="POST" action="taglist/edit">
+                <div class="modal-body">
+                    <input name="tag_id" value="" id="inputTagId" hidden>
+                    <input type="text" class="form-control" name="tag_name" id="inputTagName" value="">
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Cập nhật</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal hide" id="addTagForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="formTitle" class="text-primary text-center font-weight-bold m-0 w-100">Thêm nhãn mới</h5>
+            </div>
+            <form novalidate method="POST" action="taglist/add">
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="tag_name" id="inputTagName" value="" placeholder="Nhập tên nhãn mới">
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

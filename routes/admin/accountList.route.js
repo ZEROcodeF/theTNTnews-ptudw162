@@ -30,8 +30,7 @@ router.get('/', (req, res, next) => {
             layout: 'dashboard.hbs',
             pages,
             PageTitle: 'Danh sách người dùng',
-            AccInfo: rows,
-            UserRoleTitle: 'Quản trị viên'
+            AccInfo: rows
         });
 
     }).catch(next);

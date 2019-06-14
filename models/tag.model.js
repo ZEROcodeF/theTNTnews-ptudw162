@@ -1,6 +1,15 @@
 var db = require('../utils/db');
 
 module.exports = {
+
+  deleteAttachedTagById: id =>{
+    return db.delete('posttag','posttag_tag', id);
+  },
+
+  findTagByName: name =>{
+    return db.load(`select * from tag where tag_name = '${name}'`);
+  },
+
   tagInfoList: (limit, offset) => {
     return db.load(`select tag_id, tag_name , count(posttag_post) as tag_count from tag left join posttag on tag_id = posttag_tag group by tag_id limit ${limit} offset ${offset}`)
   },
@@ -14,18 +23,18 @@ module.exports = {
   },
 
   all: () => {
-    return db.load(`select * from category`);
+    return db.load(`select * from tag`);
   },
 
   add: entity => {
-    return db.add('category', entity);
+    return db.add('tag', entity);
   },
 
   update: entity => {
-    return db.update('category', 'CatID', entity);
+    return db.update('tag', 'tag_id', entity);
   },
 
   delete: id => {
-    return db.delete('category', 'CatID', id);
+    return db.delete('tag', 'tag_id', id);
   }
 };

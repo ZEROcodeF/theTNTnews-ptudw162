@@ -32,13 +32,42 @@ router.get('/', (req, res, next) => {
             layout: 'dashboard.hbs',
             pages,
             PageTitle: 'Danh sách nhãn',
-            CatInfo: rows,
-            UserRoleTitle: 'Quản trị viên'
+            CatInfo: rows
         });
 
     }).catch(next);
 
 });
 
+router.post('/edit', (req, res, next) => {
+    var tagName = req.body.tag_name.replace(/\s\s+/g, ' ').trim();
+    var tag = { tag_id: req.body.tag_id, tag_name: tagName };
+    tagModel.update(tag).then(() => {
+        res.redirect(req.headers.referer);
+    });
+});
+
+router.post('/add', (req, res, next) => {
+    var tagName = req.body.tag_name.replace(/\s\s+/g, ' ').trim();
+    tagModel.findTagByName(tagName).then(trows =>{ 
+        if(trows.length > 0){
+            res.redirect(req.headers.referer);
+        }else {
+            var newtag = {tag_name:tagName};
+            tagModel.add(newtag).then(()=>{
+                res.redirect(req.headers.referer);
+            });
+        }     
+    });
+});
+
+router.post('/delete', (req, res, next) => {
+    tagModel.deleteAttachedTagById(req.body.tag_id).then(()=>{
+        tagModel.delete(req.body.tag_id).then(()=>{
+            res.redirect(req.headers.referer);
+        });
+    });
+    console.log(req.body);
+});
 
 module.exports = router;

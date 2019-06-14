@@ -25,48 +25,37 @@
     $('#btnNewTag').click(function () {
         //var str = $.trim($('#txtNewTag').val().replace(/\s\s+/g, ' '));
         $('#tagBox').append(`<input class="form-control del-on-click border-secondary mt-1" type="text" name="post_tags"
-                                placeholder="${$('#txtNewTag').val()}" value="${$('#txtNewTag').val()}" onclick = "deleteThis(this)" readonly>`);
+                                value="${$('#txtNewTag').val()}" onclick = "deleteThis(this)" readonly>`);
 
         $('#txtNewTag').val('');
     });
 </script>
 <script src="/js/tinymce/tinymce.min.js"></script>
-<script>
-    tinymce.init({
-        language: 'vi_VN',
-        selector: '#mytiny',
-        menubar: false,
-        plugins: 'autoresize paste image link media wordcount',
-        toolbar: 'undo redo | bold italic underline strikethrough | link image media',
-        max_height: 720,
-        content_css: '/css/editor-style.css',
-        skin: 'lightgray',
-        mobile: { theme: 'mobile' },
-        media_poster: false,
-        media_url_resolver: function (data, resolve, reject) {
-            if ((data.url.indexOf('youtube.com') !==-1) || (data.url.indexOf('youtu.be') !== -1)) {
-                resolve({ html: '' });
-            } else {
-                reject({msg: 'Chỉ chấp nhận link youtube!'});
-            }
-        },
-        setup: function (editor) {
-            editor.on('init', function (editor) {
-                tinymce.activeEditor.setContent('');
-                $('.mce-ico mce-i-media').addClass('i.mce-i-youtube');
-            })
-        }
-    });
-
-</script>
+<script src="/js/tinymce/customized.js"></script>
 {{/section}}
+
 <form novalidate method="POST" action>
     <div class="col-lg-12">
         <div class="row">
             <div class="card shadow mb-4 w-100">
                 <div class="card-body d-flex justify-content-between align-items-center w-100">
-                    <h5 class="text-primary font-weight-bold m-0">Soạn bài viết</h5>
-                    <h6 class="text-dark m-0">Chưa được xác nhận</h6>
+                    {{#if (isPublished Post.post_status post_time)}}
+                    <h6 class="m-0 text-success font-weight-bold"><i class="fa fa-check-circle mr-1"></i>Đã xuất bản
+                    </h6>
+                    {{else}}
+                    {{#ifEquals Post.post_status 'publish'}}
+                    <h6 class="m-0 text-success font-weight-bold"><i class="fa fa-check-circle mr-1"></i>Đã được duyệt
+                    </h6>
+                    {{/ifEquals}}
+                    {{/if}}
+                    {{#ifEquals Post.post_status 'deny'}}
+                    <h6 class="m-0 text-danger font-weight-bold"><i class="fa fa-times-circle mr-1"></i>Bị từ chối</h6>
+                    {{/ifEquals}}
+                    {{#ifEquals Post.post_status 'wait'}}
+                    <h6 class="m-0 text-warning font-weight-bold"><i class="fa fa-clock-circle mr-1"></i>Đang chờ duyệt
+                    </h6>
+                    {{/ifEquals}}
+                    <h6 class="text-dark font-weight-bold m-0">ID bài viết: {{Post.post_id}}</h6>
                 </div>
             </div>
         </div>
@@ -77,26 +66,29 @@
                         <h6 class="font-weight-bold text-dark">Tiêu đề bài viết</h6>
                         <div class="form-group">
                             <input class="form-control trim-text-change" type="text" name="post_title"
-                                placeholder="Dưới 50 ký tự" required>
+                                placeholder="Dưới 50 ký tự" value="{{Post.post_title}}">
                         </div>
                         <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (nhỏ)</h6>
                         <div class="form-group">
                             <input class="form-control trim-text-change" type="text" name="post_thumbnail"
-                                placeholder="URL ảnh nên khoảng 400px x 300px "></input>
+                                placeholder="URL ảnh nên khoảng 400px x 300px" value="{{Post.post_thumbnail}}"></input>
                         </div>
                         <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (lớn)</h6>
                         <div class="form-group">
                             <input class="form-control trim-text-change" type="text" name="post_bigthumbnail"
-                                placeholder="URL ảnh nên khoảng 1000px x 400px "></input>
+                                placeholder="URL ảnh nên khoảng 1000px x 400px"
+                                value="{{Post.post_bigthumbnail}}"></input>
                         </div>
                         <h6 class="font-weight-bold text-dark">Tóm tắt</h6>
                         <div class="form-group">
                             <textarea class="form-control trim-text-change" type="text" name="post_summary" rows="4"
-                                placeholder="Tối đa 255 ký tự"></textarea>
+                                placeholder="Tối đa 255 ký tự">{{Post.post_summary}}</textarea>
                         </div>
                         <h6 class="font-weight-bold text-dark">Nội dung bài viết</h6>
                         <div class="form-group">
-                            <textarea id="mytiny" name="post_content"></textarea>
+                            <textarea id="mytiny" name="post_content">
+                                 {{Post.post_content}}
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -108,30 +100,33 @@
                         <div class="form-group d-flex justify-content-around mb-4">
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" id="standardChecked" name="post_type"
-                                    checked>
+                                    {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}}>
                                 <label class="custom-control-label" for="standardChecked">Tiêu chuẩn</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="premiumChecked" name="post_type">
+                                <input type="radio" class="custom-control-input" id="premiumChecked" name="post_type" {{#ifEquals Post.post_type 'premium'}}checked{{/ifEquals}}>
                                 <label class="custom-control-label" for="premiumChecked">Premium</label>
                             </div>
                         </div>
                         <h6 class="font-weight-bold text-dark">Chuyên mục</h6>
                         <div class="form-group mb-4">
                             <select class="custom-select" name="post_category">
-                                <option value="1">Thời sự</option>
-                                <option value="2">Pháp Luật</option>
-                                <option value="3">Thế giới</option>
-                                <option value="4">Kinh doanh</option>
-                                <option value="5">Công nghệ</option>
-                                <option value="6">Thể thao</option>
+                                {{#each Categories}}
+                                <option value="{{this.category_id}}" {{#ifEquals this.category_id ../Post.post_category}}selected{{/ifEquals}}>{{this.category_name}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="form-group">
                             <h6 class="font-weight-bold text-dark">Nhãn</h6>
                             <div id="tagBox" class="mb-1">
+                                {{#each Tags}}
+                                <input class="form-control del-on-click border-secondary mt-1" type="text"
+                                    name="post_tags" value="{{this.tag_name}}"
+                                    onclick="deleteThis(this)" readonly>
+                                {{/each}}
                             </div>
                             <div class="input-group">
+                                
                                 <input type="text" class="form-control trim-text-change" placeholder="Thêm nhãn..."
                                     aria-label="Nhập nhãn mới" id="txtNewTag">
                                 <div class="input-group-append">
@@ -142,7 +137,8 @@
                         </div>
                         <hr>
                         <div class="form-group">
-                            <button type="button" class="btn btn-outline-primary w-100"><i class="fas fa-file-upload mr-2"></i>Tải ảnh lên</button>
+                            <button type="button" class="btn btn-outline-primary w-100"><i
+                                    class="fas fa-file-upload mr-2"></i>Tải ảnh lên</button>
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-success text-white w-100">Đăng bản thảo</button>
@@ -151,5 +147,4 @@
             </div>
         </div>
     </div>
-
 </form>

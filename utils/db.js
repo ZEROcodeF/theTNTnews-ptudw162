@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var createConnection = () => {
   return mysql.createConnection({
     host: 'localhost', //db4free.net IP
-    port: 3308,
+    port: 3306,
     user: 'root',
     password: '',
     database: 'tntnewsalphadb'

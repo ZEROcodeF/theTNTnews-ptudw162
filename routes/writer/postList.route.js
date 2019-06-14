@@ -62,8 +62,7 @@ router.get('/:filtertype', (req, res, next) => {
                 layout: 'dashboard.hbs',
                 pages,
                 PageTitle: 'Danh sách bài viết',
-                PostsInfo: rows,
-                UserRoleTitle: 'Phóng viên'
+                PostsInfo: rows
             });
     
             console.log(total +'  '+ pages);

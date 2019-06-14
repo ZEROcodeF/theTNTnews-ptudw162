@@ -34,8 +34,7 @@ router.get('/',(req,res,next)=>{
             layout: 'dashboard.hbs',
             pages,
             PageTitle: 'Danh sách bài',
-            PostsInfo: rows,
-            UserRoleTitle: 'Quản trị viên'
+            PostsInfo: rows
         });
 
 

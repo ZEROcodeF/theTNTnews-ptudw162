@@ -5,6 +5,12 @@ module.exports = {
     return db.load(`select * from post`);
   },
 
+  //GENERAL Models:
+  singleEditPostById: postId =>{
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_editor, post_thumbnail, post_bigthumbnail, post_summary, post_viewcount, post_content, post_denyreason, category_name, a1.acc_pseudonym as writer_name, a2.acc_fullname as editor_name from post join category on post_category = category_id join account a1 on post_writer = a1.acc_id join account a2 on post_editor = a2.acc_id where post_id = ${postId}`);
+  },
+  //END GENERAL Models
+  
   //BEGIN For Homepage:
   //Featured Posts:  FOUR posts which have most viewed last week (exact 7 days from 'now')
   featuredPosts: () =>{

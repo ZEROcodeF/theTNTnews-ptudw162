@@ -36,8 +36,7 @@ router.get('/', (req, res, next) => {
             layout: 'dashboard.hbs',
             pages,
             PageTitle: 'Danh sách bài viết chờ duyệt',
-            PostsInfo: rows,
-            UserRoleTitle: 'Biên tập viên'
+            PostsInfo: rows
         });
 
         console.log(total + '  ' + pages);

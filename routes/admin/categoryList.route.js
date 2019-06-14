@@ -13,8 +13,9 @@ router.get('/', (req, res, next) => {
 
     Promise.all([
         categoryModel.categoryInfoList(limit, offset),
-        categoryModel.countCategoryInfoList()
-    ]).then(([rows, totalRow]) => {
+        categoryModel.countCategoryInfoList(),
+        categoryModel.parentCategoryInfoList()
+    ]).then(([rows, totalRow, parentRows]) => {
 
         var total = totalRow[0].total;
 
@@ -33,12 +34,32 @@ router.get('/', (req, res, next) => {
             pages,
             PageTitle: 'Danh sách chuyên mục',
             CatInfo: rows,
-            UserRoleTitle: 'Quản trị viên'
+            ParentCatInfo: parentRows
         });
 
     }).catch(next);
 
 });
 
+router.post('/edit',(req,res,next)=>{
+    var catName = req.body.category_name.replace(/\s\s+/g, ' ').trim();
+    console.log(req.body);
+    var cat = { category_id: req.body.category_id, category_name: catName, category_parent: req.body.category_parent};
+    categoryModel.categoryByParentId(childRows =>{
+        if(childRows.length > 0){
+            var uf = (c) => {var newc = {category_id:c.category_id, category_parent:req.body.category_parent}; categoryModel.update(newc)};
+            Promise.all([uf(cat),childRows.map(c)]).then(()=>{
+                res.redirect(req.headers.referer);
+            });        
+        } else{
+            categoryModel.update(cat).then(()=>{
+                res.redirect(req.headers.referer);
+            })
+        }
+    });
+    // categoryModel.update(cat).then(() => {
+    //     res.redirect(req.headers.referer);
+    // });
+});
 
 module.exports = router;

@@ -25,6 +25,10 @@ module.exports = {
     return db.load(`select acc_id,acc_permission,acc_fullname, acc_hpw from account where acc_email = '${email}'`)
   },
 
+  singleInfoById: (id) =>{
+    return db.load(`select * from account where acc_id = ${id}`);
+  },
+
   all: () => {
     return db.load(`select * from account`);
   },

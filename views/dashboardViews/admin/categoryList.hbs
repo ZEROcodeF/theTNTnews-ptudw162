@@ -1,5 +1,22 @@
+{{#section 'js'}}
+<script>
+    $('.on-click-edit').on('click', function () {
+        var catId = $(this).data('todo').category_id;
+        var catName = $(this).data('todo').category_name;
+        var catParent = $(this).data('todo').category_parent;
+        console.log('catid: ' + catId);
+        $('.modal-header #formTitle').text('Sửa chuyên mục ID: ' + catId);
+        $('.modal-body #inputCatId').val(catId);
+        $('.modal-body #inputCatName').val(catName);
+        $('#editCatForm').modal();
+        $('.parent-select').val(catParent);
+        $('.modal-body #inputCatName').select();
+    });
+</script>
+{{/section}}
 <div class="m-3">
-    <a href="#" class="btn btn-block btn-primary text-white text-uppercase"><i class="fa fa-plus mr-3"></i>Thêm chuyên mục mới</a>
+    <a href="#" class="btn btn-block btn-primary text-white text-uppercase" data-toggle="modal"
+        data-target="#addCatForm"><i class="fa fa-plus mr-3"></i>Thêm chuyên mục mới</a>
 </div>
 {{#if pages}}
 <div class="card shadow mb-4">
@@ -19,13 +36,15 @@
                     <tr>
                         <td class="align-middle">{{category_id}}</td>
                         <td class="align-middle">{{category_name}}</td>
-                        <td class="align-middle">{{#ifEquals category_parentname 'Không chuyên mục'}}Không có{{else}}{{../category_parentname}}{{/ifEquals}}</td>
+                        <td class="align-middle">{{#ifEquals category_parentname 'Không chuyên mục'}}Không
+                            có{{else}}{{../category_parentname}}{{/ifEquals}}</td>
                         <td class="align-middle text-center">
                             <button class="btn btn-md btn-danger m-1">
                                 <i class="fa fa-trash mr-1"></i> Xóa
                             </button>
-                            <a href="#" class="btn btn-md btn-primary m-1">
-                                <i class="fa fa-eye mr-1"></i> Xem chi tiết
+                            <a href="#" class="btn btn-md btn-primary m-1 on-click-edit"
+                                data-todo='{"category_id":{{category_id}},"category_name":"{{category_name}}","category_parent":{{category_parent}} }'>
+                                <i class="fa fa-pen mr-1"></i> Chỉnh sửa
                             </a>
                         </td>
                     </tr>
@@ -53,3 +72,60 @@
 {{else}}
 <h6 class="text-center">Không có chuyên mục nào</h6>
 {{/if}}
+<div class="modal hide" id="editCatForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="formTitle" class="text-primary text-center font-weight-bold m-0 w-100"></h5>
+            </div>
+            <form novalidate method="POST" action="categorylist/edit">
+                <div class="modal-body">
+                    <input name="category_id" value="" id="inputCatId" hidden>
+                    <input type="text" class="form-control mb-3" name="category_name" id="inputCatName" value="">
+                    <div class="form-group">
+                        <h6 class="text-dark font-weight-bold">Chuyên mục cha</h6>
+                        <select class="custom-select parent-select" name="post_category">
+                            {{#each ParentCatInfo}}
+                            <option value="{{this.category_id}}">{{this.category_name}}</option>
+
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Cập nhật</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal hide" id="addCatForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="formTitle" class="text-primary text-center font-weight-bold m-0 w-100">Thêm chuyên mục mới</h5>
+            </div>
+            <form novalidate method="POST" action="categorylist/add">
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="category_name" id="inputCatName" value=""
+                        placeholder="Nhập tên chuyên mục mới">
+                    <h6 class="text-dark">Chuyên mục cha</h6>
+                    <div class="form-group">
+                        <select class="custom-select parent-select" name="category_parent">
+                            {{#each ParentCatInfo}}
+                            <option value="{{this.category_id}}">
+                                {{this.category_name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Thêm</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
