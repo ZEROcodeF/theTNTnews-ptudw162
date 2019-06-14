@@ -27,6 +27,10 @@ app.use('/account',require('./routes/account.route'));
 app.get('/editpost',(req,res)=>{
   res.render('dashboardViews/editPost',{layout:'dashboard.hbs'});
 });
+app.post('/editpost',(req,res)=>{
+  console.log(req.body);
+  res.redirect('/editpost');
+});
 
 app.get('/testdashboard', (req, res) => {
   res.render('_layouts/dashboard', {

@@ -3,46 +3,122 @@
     .mce-notification {
         display: none !important;
     }
+
+    .del-on-click {
+        background: #fff !important;
+        border-style: dashed;
+    }
+
+    .del-on-click:hover {
+        cursor: pointer;
+    }
 </style>
 {{/section}}
 {{#section 'js'}}
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
 <script>
-    tinymce.init({
-        selector: '#mytiny',
-        height: 480,
-        menubar: false,
-        plugins: 'paste image link autolink lists media',
-        toolbar: 'unredo | bold italic underline strikethrough | link image media pageembed',
+    var deleteThis = function (t) {
+        t.parentNode.removeChild(t);
+    }
+    $('.trim-text-change').on('focusout', function () {
+        $(this).val($.trim($(this).val().replace(/\s\s+/g, ' ')));
+    });
+    $('#btnNewTag').click(function () {
+        //var str = $.trim($('#txtNewTag').val().replace(/\s\s+/g, ' '));
+        $('#tagBox').append(`<input class="form-control del-on-click border-secondary mt-1" type="text" name="post_tags"
+                                placeholder="${$('#txtNewTag').val()}" value="${$('#txtNewTag').val()}" onclick = "deleteThis(this)" readonly>`);
+
+        $('#txtNewTag').val('');
     });
 </script>
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        language: 'vi_VN',
+        selector: '#mytiny',
+        menubar: false,
+        plugins: 'autoresize paste image link media wordcount',
+        toolbar: 'undo redo | bold italic underline strikethrough | link image media',
+        max_height: 720,
+        content_css: '/css/editor-style.css',
+        skin: 'lightgray',
+        mobile: { theme: 'mobile' },
+        media_poster: false,
+        media_url_resolver: function (data, resolve, reject) {
+            if ((data.url.indexOf('youtube.com') !==-1) || (data.url.indexOf('youtu.be') !== -1)) {
+                resolve({ html: '' });
+            } else {
+                reject({msg: 'Chỉ chấp nhận link youtube!'});
+            }
+        },
+        setup: function (editor) {
+            editor.on('init', function (editor) {
+                tinymce.activeEditor.setContent('');
+                $('.mce-ico mce-i-media').addClass('i.mce-i-youtube');
+            })
+        }
+    });
+
+</script>
 {{/section}}
-<form method="POST" action="#">
+<form novalidate method="POST" action>
     <div class="col-lg-12">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="card shadow mb-4 w-100">
+                <div class="card-body d-flex justify-content-between align-items-center w-100">
+                    <h5 class="text-primary font-weight-bold m-0">Soạn bài viết</h5>
+                    <h6 class="text-dark m-0">Chưa được xác nhận</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8">
                 <div class="card mb-4 shadow">
                     <div class="card-body">
+                        <h6 class="font-weight-bold text-dark">Tiêu đề bài viết</h6>
                         <div class="form-group">
-                            <input class="form-control font-weight-bold text-lg" type="text" name="post_title"
-                                placeholder="Tiêu đề bài viết" required>
+                            <input class="form-control trim-text-change" type="text" name="post_title"
+                                placeholder="Dưới 50 ký tự" required>
                         </div>
+                        <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (nhỏ)</h6>
                         <div class="form-group">
-                            <textarea class="form-control" type="text" name="post_summary" rows="4"
-                                placeholder="Tóm tắt (tối đa 100 từ)"></textarea>
+                            <input class="form-control trim-text-change" type="text" name="post_thumbnail"
+                                placeholder="URL ảnh nên khoảng 400px x 300px "></input>
                         </div>
+                        <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (lớn)</h6>
                         <div class="form-group">
-                            <textarea id="mytiny" required></textarea>
+                            <input class="form-control trim-text-change" type="text" name="post_bigthumbnail"
+                                placeholder="URL ảnh nên khoảng 1000px x 400px "></input>
+                        </div>
+                        <h6 class="font-weight-bold text-dark">Tóm tắt</h6>
+                        <div class="form-group">
+                            <textarea class="form-control trim-text-change" type="text" name="post_summary" rows="4"
+                                placeholder="Tối đa 255 ký tự"></textarea>
+                        </div>
+                        <h6 class="font-weight-bold text-dark">Nội dung bài viết</h6>
+                        <div class="form-group">
+                            <textarea id="mytiny" name="post_content"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <p class="font-weight-bold text-dark">Chuyên mục</p>
-                        <div class="form-group">
-                            <select class="custom-select" name="postcategory" required>
+                        <h6 class="font-weight-bold text-dark">Loại bài viết</h6>
+                        <div class="form-group d-flex justify-content-around mb-4">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="standardChecked" name="post_type"
+                                    checked>
+                                <label class="custom-control-label" for="standardChecked">Tiêu chuẩn</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="premiumChecked" name="post_type">
+                                <label class="custom-control-label" for="premiumChecked">Premium</label>
+                            </div>
+                        </div>
+                        <h6 class="font-weight-bold text-dark">Chuyên mục</h6>
+                        <div class="form-group mb-4">
+                            <select class="custom-select" name="post_category">
                                 <option value="1">Thời sự</option>
                                 <option value="2">Pháp Luật</option>
                                 <option value="3">Thế giới</option>
@@ -51,8 +127,26 @@
                                 <option value="6">Thể thao</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <h6 class="font-weight-bold text-dark">Nhãn</h6>
+                            <div id="tagBox" class="mb-1">
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control trim-text-change" placeholder="Thêm nhãn..."
+                                    aria-label="Nhập nhãn mới" id="txtNewTag">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" type="button" aria-label="Thêm nhãn"
+                                        id="btnNewTag"><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-outline-primary w-100"><i class="fas fa-file-upload mr-2"></i>Tải ảnh lên</button>
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-success text-white w-100">Đăng bản thảo</button>
                     </div>
-                    <button type="submit" class="btn btn-success text-white m-3">Đăng bản thảo</button>
                 </div>
             </div>
         </div>
