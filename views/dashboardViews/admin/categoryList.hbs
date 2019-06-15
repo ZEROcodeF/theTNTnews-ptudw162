@@ -84,10 +84,9 @@
                     <input type="text" class="form-control mb-3" name="category_name" id="inputCatName" value="">
                     <div class="form-group">
                         <h6 class="text-dark font-weight-bold">Chuyên mục cha</h6>
-                        <select class="custom-select parent-select" name="post_category">
+                        <select class="custom-select parent-select" name="category_parent">
                             {{#each ParentCatInfo}}
                             <option value="{{this.category_id}}">{{this.category_name}}</option>
-
                             {{/each}}
                         </select>
                     </div>

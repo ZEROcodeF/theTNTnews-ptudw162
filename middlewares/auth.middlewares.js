@@ -3,6 +3,7 @@ var accountModel = require('../models/account.model');
 module.exports.admin = (req, res, next) => {
     if (req.user) {
         if (req.user.acc_permission == 'admin') {
+            res.locals.UserPermission = req.user.acc_permission;
             res.locals.UserRoleTitle = 'Quản trị viên';
             next();
         } else {
@@ -16,6 +17,7 @@ module.exports.admin = (req, res, next) => {
 module.exports.editor = (req, res, next) => {
     if (req.user) {
         if (req.user.acc_permission == 'editor') {
+            res.locals.UserPermission = req.user.acc_permission;
             res.locals.UserRoleTitle = 'Biên tập viên';
             next();
         } else {
@@ -29,6 +31,7 @@ module.exports.editor = (req, res, next) => {
 module.exports.writer = (req, res, next) => {
     if (req.user) {
         if (req.user.acc_permission == 'writer') {
+            res.locals.UserPermission = req.user.acc_permission;
             res.locals.UserRoleTitle = 'Phóng viên';
             next();
         } else {

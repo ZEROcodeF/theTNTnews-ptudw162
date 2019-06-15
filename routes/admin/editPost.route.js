@@ -17,7 +17,8 @@ router.get('/:id', (req, res, next) => {
                     PageTitle:'Chỉnh sửa: ' + prows[0].post_title,
                     Post: prows[0],
                     Tags: trows,
-                    Categories: crows
+                    Categories: crows,
+                    PostButtonTitle: 'Lưu lại'
                 });
             }).catch(
             next);
@@ -28,5 +29,7 @@ router.get('/:id', (req, res, next) => {
     });
 
 });
+
+
 
 module.exports = router;

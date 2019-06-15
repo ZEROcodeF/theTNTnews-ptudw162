@@ -11,7 +11,7 @@
                         <th>ID</th>
                         <th>Email</th>
                         <th>Họ tên</th>
-                        {{#ifEquals FilterType 'writer'}}
+                        {{#ifEquals filterType 'writer'}}
                         <th>Bút Danh</th>
                         {{/ifEquals}}
                         <th>Loại người dùng</th>
@@ -25,11 +25,9 @@
                         <td class="align-middle">{{acc_id}}</td>
                         <td class="align-middle">{{acc_email}}</td>
                         <td class="align-middle">{{acc_fullname}}</td>
-                        
-                        {{#ifEquals FilterType 'writer'}}
-                        <td class="align-middle">{{acc_pseudonym}}</td>
+                        {{#ifEquals ../filterType 'writer'}}
+                        <td class="align-middle">{{../acc_pseudonym}}</td>
                         {{/ifEquals}}
-
                         <td class="align-middle">{{acc_permission}}</td>
                         <td class="align-middle text-center">
                             <button class="btn btn-md btn-danger m-1">

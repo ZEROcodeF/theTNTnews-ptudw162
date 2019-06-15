@@ -1,12 +1,13 @@
 var express = require('express');
 var postModel = require('../models/post.model');
+var catModel = require('../models/category.model');
 var tagModel = require('../models/tag.model');
-var premiumCheck = require('../middlewares/auth.middlewares').premiumCheck;
+var auth = require('../middlewares/auth.middlewares');
 
 
 var router = express.Router();
 
-router.get('/:id', premiumCheck, (req, res, next) => {
+router.get('/:id', auth.premiumCheck, (req, res, next) => {
 
     var postId = req.params.id;
 
@@ -56,8 +57,9 @@ router.get('/:id', premiumCheck, (req, res, next) => {
                 });
                 //RenderpostEND
             }
+        } else {
+            res.render('_nolayout/404',{layout:false});
         }
-
     }).catch(next);
 });
 

@@ -81,7 +81,7 @@ router.get('/:filtertype',(req,res,next)=>{
                 pages,
                 PageTitle: 'Danh sách người dùng',
                 AccInfo: rows,
-                FilterType: filterType
+                filterType
             });
     
             console.log(total +'  '+ pages);

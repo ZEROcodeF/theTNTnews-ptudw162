@@ -26,10 +26,10 @@ module.exports = {
   },
 
   update: entity => {
-    return db.update('category', 'CatID', entity);
+    return db.update('category', 'category_id', entity);
   },
 
   delete: id => {
-    return db.delete('category', 'CatID', id);
+    return db.delete('category', 'category_id', id);
   }
 };

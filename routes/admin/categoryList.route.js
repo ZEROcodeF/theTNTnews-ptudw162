@@ -41,25 +41,34 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.post('/edit',(req,res,next)=>{
-    var catName = req.body.category_name.replace(/\s\s+/g, ' ').trim();
-    console.log(req.body);
-    var cat = { category_id: req.body.category_id, category_name: catName, category_parent: req.body.category_parent};
-    categoryModel.categoryByParentId(childRows =>{
-        if(childRows.length > 0){
-            var uf = (c) => {var newc = {category_id:c.category_id, category_parent:req.body.category_parent}; categoryModel.update(newc)};
-            Promise.all([uf(cat),childRows.map(c)]).then(()=>{
-                res.redirect(req.headers.referer);
-            });        
-        } else{
-            categoryModel.update(cat).then(()=>{
-                res.redirect(req.headers.referer);
-            })
-        }
-    });
-    // categoryModel.update(cat).then(() => {
-    //     res.redirect(req.headers.referer);
-    // });
+router.post('/edit', (req, res, next) => {
+    var catName = req.body.category_name.replace(/\s\s+/g, ' ').trim(); //Replace all uneccessary white spaces
+    var catId = req.body.category_id;
+    var newParent = req.body.category_parent;
+    var callbackURL = req.headers.referer;
+
+    if (catId === req.body.category_parent) { //Anti "parent === this parent" -> this is not allowed
+        res.redirect(callbackURL);
+    } else {
+        var cat = { category_id: catId, category_name: catName, category_parent: newParent};
+        categoryModel.categoryByParentId(catId).then(childRows => { //Check for category does have children
+            if (childRows.length > 0) {
+                var uf = function (c) { //If had, Children should also be "bring" into 'the new parent' of 'old parent' by this function
+                    var newc = { category_id: c.category_id, category_parent: newParent};
+                    categoryModel.update(newc);
+                };
+                Promise.all([childRows.map(uf)]).then(([]) => { //Mapping children with above function with Promise to wait all job to be done
+                    categoryModel.update(cat).then(() => { //'Cause of "Foreign Key Bindings", all children need to be updated before old parent
+                        res.redirect(callbackURL); //All things have done. Redirect to 'CallbackURL' 
+                    });
+                });
+            } else {
+                categoryModel.update(cat).then(() => {
+                    res.redirect(callbackURL);
+                })
+            }
+        });
+    }
 });
 
 module.exports = router;
