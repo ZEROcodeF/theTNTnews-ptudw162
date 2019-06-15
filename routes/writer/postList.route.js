@@ -45,11 +45,6 @@ router.get('/:filtertype', (req, res, next) => {
         ).then(([rows, totalRow]) => {
     
             var total = totalRow[0].total;
-    
-            rows.forEach(row => {
-                
-            });
-    
             var nPages = Math.floor(total / limit);
             if (total % limit > 0) nPages++;
             var pages = [];

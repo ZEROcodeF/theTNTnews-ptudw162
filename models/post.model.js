@@ -70,8 +70,8 @@ module.exports = {
   //END: Single page
 
   //BEGIN Writer: 
-  writerPostList: (filterType, writerId,limit,offset) =>{
-    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType}) order by post_time desc limit ${limit} offset ${offset}`);
+  writerPostList: (filterString, writerId,limit,offset) =>{
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterString}) order by post_time desc limit ${limit} offset ${offset}`);
   },
 
   countWriterPostList: (filterType, writerId) =>{

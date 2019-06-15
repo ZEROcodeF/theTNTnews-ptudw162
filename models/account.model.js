@@ -8,9 +8,15 @@ module.exports = {
   accountInfoList: (limit, offset) =>{
     return db.load(`select acc_id, acc_email, acc_permission, acc_fullname, acc_pseudonym from account where acc_permission != 'admin' and acc_id != 0 limit ${limit} offset ${offset}`);
   },
-
   countAccountInfoList: () =>{
     return db.load(`select count(acc_id) as total from account where acc_permission != 'admin' and acc_id != 0`);
+  },
+
+  accountTypeList: (filterString,limit,offset) => {
+    return db.load(`select acc_id, acc_email, acc_permission,acc_fullname, acc_pseudonym,sub_time from account left join subscription on acc_id = sub_accid where acc_id != 0 and acc_permission != 'admin' and (acc_permission = ${filterString}) limit ${limit} offset ${offset}`);
+  },
+  countAccountTypeList: (filterString) => {
+    return db.load(`select count(*) as total from account where acc_id != 0 and (acc_permission = ${filterString})`);
   },
 
   singleByEmail: (email) =>{
