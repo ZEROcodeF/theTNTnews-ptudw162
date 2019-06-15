@@ -19,18 +19,21 @@
 <script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 <script>
     $(function () {
+        $('input[name="post_status"]').change(function () {
+            if ($('#approveChecked').is(':checked')) {
+                $('#publishDate').prop('disabled', false);
+            } else {
+                $('#publishDate').prop('disabled', true);
+            }
+        });
+        if (!($('#approveChecked').is(':checked'))) {
+            $('#publishDate').prop('disabled', true);
+        }
         $('#publishDate').datetimepicker({
             format: 'd/m/Y H:m:s',
             timepicker: true,
             mask: true,
         });
-        $('#approveChecked').change(function () {
-            if ($(this).is(':checked')) {
-                $('#publishDate').prop('disabled', false);
-            } else {
-                $('#publishDate').prop('disabled', true);
-            }
-        })
     })
     var deleteThis = function (t) {
         t.parentNode.removeChild(t);
@@ -68,10 +71,17 @@
                     <h6 class="m-0 text-danger font-weight-bold"><i class="fa fa-times-circle mr-1"></i>Bị từ chối</h6>
                     {{/ifEquals}}
                     {{#ifEquals Post.post_status 'wait'}}
-                    <h6 class="m-0 text-warning font-weight-bold"><i class="fa fa-clock-circle mr-1"></i>Đang chờ duyệt
+                    <h6 class="m-0 text-warning font-weight-bold"><i class="far fa-clock mr-1"></i>Đang chờ duyệt
                     </h6>
                     {{/ifEquals}}
                     <h6 class="text-dark font-weight-bold m-0">ID bài viết: {{Post.post_id}}</h6>
+                    {{#if (isPublished Post.post_status Post.post_time)}}
+                    {{else}}
+                    {{#ifEquals UserPermission 'admin'}}
+                    <button type="submit" class="btn btn-success text-white"><i class="fas fa-newspaper mr-1"></i>Lưu
+                        và xuất bản</button>
+                    {{/ifEquals}}
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -112,6 +122,14 @@
             <div class="col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-body">
+                        <h6 class="text-dark">Tác giả <span class="font-weight-bold">{{Post.writer_pseudonym}}</span>
+                        </h6>
+
+                        {{#if Post.post_editor}}
+                        <h6 class="text-dark">Biên tập viên <span class="font-weight-bold">{{Post.editor_name}}</span>
+                        </h6>
+                        {{/if}}
+                        <hr>
                         <h6 class="font-weight-bold text-dark">Loại bài viết</h6>
                         <div class="form-group d-flex justify-content-around mb-4">
                             <div class="custom-control custom-radio">
@@ -161,35 +179,36 @@
                         <h6 class="font-weight-bold text-dark">Trạng thái</h6>
                         <div class="form-group mb-4">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="waitChecked" name="post_type"
-                                    {{#ifEquals Post.post_status 'wait'}}checked{{/ifEquals}}>
-                                <label class="custom-control-label text-warning" for="waitChecked">Đang chờ
+                                <input type="radio" class="custom-control-input" id="waitChecked" name="post_status"
+                                    value="wait" {{#ifEquals Post.post_status 'wait'}}checked{{/ifEquals}}>
+                                <label class="custom-control-label text-warning font-weight-bold" for="waitChecked">Đang
+                                    chờ
                                     duyệt</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="denyChecked" name="post_type"
-                                    {{#ifEquals Post.post_status 'deny'}}checked{{/ifEquals}}>
-                                <label class="custom-control-label text-danger" for="denyChecked">Từ chối</label>
+                                <input type="radio" class="custom-control-input" id="denyChecked" name="post_status"
+                                    value="deny" {{#ifEquals Post.post_status 'deny'}}checked{{/ifEquals}}>
+                                <label class="custom-control-label text-danger font-weight-bold" for="denyChecked">Từ
+                                    chối</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="approveChecked" name="post_type"
+                                <input type="radio" class="custom-control-input" id="approveChecked" name="post_status"
+                                    value="publish"
                                     {{#if (isPublished Post.post_status Post.post_time)}}{{else}}{{#ifEquals Post.post_status 'publish'}}checked{{/ifEquals}}{{/if}}>
-                                <label class="custom-control-label text-success" for="denyChecked">Đã duyệt</label>
+                                <label class="custom-control-label text-success font-weight-bold"
+                                    for="approveChecked">Đã
+                                    duyệt</label>
                             </div>
                         </div>
                         <h6 class="font-weight-bold text-dark">Ngày đăng</h6>
                         <input type="text" class="form-control form-control-user" id="publishDate" name="post_time"
                             placeholder="Thời điểm đăng (DD/MM/YYYY HH:mm:ss)">
                         <hr>
-                        <button type="submit" class="btn btn-success text-white w-100">{{PostButtonTitle}}</button>
-                    </div>
-                </div>
-                <div class="card shadow mb-4">
-                    <div class="card-body">
-                        {{#ifEquals UserPermission 'admin'}}
-
-                        <button type="submit" class="btn btn-success text-white w-100">{{PostButtonTitle}}</button>
-                        {{/ifEquals}}
+                        <button type="submit" class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
+                        <form method="POST" action="delete/{{Post.post_id}}">
+                            <button type="submit"
+                                class="btn btn-outline-danger w-100">Xóa bài viết</button>
+                        </form>
                     </div>
                 </div>
             </div>

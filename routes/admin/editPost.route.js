@@ -18,7 +18,7 @@ router.get('/:id', (req, res, next) => {
                     Post: prows[0],
                     Tags: trows,
                     Categories: crows,
-                    PostButtonTitle: 'Lưu lại'
+                    PostButtonTitle: '<i class="far fa-save mr-1"></i>Lưu lại'
                 });
             }).catch(
             next);
