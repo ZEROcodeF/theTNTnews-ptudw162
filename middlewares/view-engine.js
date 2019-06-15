@@ -18,6 +18,9 @@ module.exports = function (app) {
                 return;
             },
             ifEquals: (val1, val2, options) => {
+                console.log(val1);
+                console.log(val2);
+                console.log(val1===val2);
                 if (val1 === val2) {
                     return options.fn(this);;
                 }

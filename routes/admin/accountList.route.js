@@ -61,26 +61,27 @@ router.get('/:filtertype',(req,res,next)=>{
         break;
     }
     console.log(filterString);
-    console.log(filterType);
     if (filterString) {
         Promise.all(
             [accountModel.accountTypeList(filterString,limit,offset),
-            accountModel.countAccountTypeList(filterString)]).then(([rows, totalRow]) => {
-    
-            var total = totalRow[0].total;
-            var nPages = Math.floor(total / limit);
-            if (total % limit > 0) nPages++;
-            var pages = [];
-            for (i = 1; i <= nPages; i++) {
-                var obj = { value: i, active: i === +page };
-                pages.push(obj);
-            }
-    
+                accountModel.countAccountTypeList(filterString)]).then(([rows, totalRow]) => {
+                    
+                    var total = totalRow[0].total;
+                    var nPages = Math.floor(total / limit);
+                    if (total % limit > 0) nPages++;
+                    var pages = [];
+                    for (i = 1; i <= nPages; i++) {
+                        var obj = { value: i, active: i === +page };
+                        pages.push(obj);
+                    }
+                    
+                    console.log(filterType);
             res.render('dashboardViews/admin/accountList', {
                 layout: 'dashboard.hbs',
                 pages,
                 PageTitle: 'Danh sách người dùng',
-                AccInfo: rows
+                AccInfo: rows,
+                FilterType: filterType
             });
     
             console.log(total +'  '+ pages);

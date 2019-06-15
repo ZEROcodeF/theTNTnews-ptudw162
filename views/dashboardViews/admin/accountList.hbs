@@ -10,9 +10,13 @@
                     <tr>
                         <th>ID</th>
                         <th>Email</th>
-                        <th>Họ tên/Bút danh</th>
+                        <th>Họ tên</th>
+                        {{#ifEquals FilterType 'writer'}}
+                        <th>Bút Danh</th>
+                        {{/ifEquals}}
                         <th>Loại người dùng</th>
                         <th></th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -20,7 +24,12 @@
                     <tr>
                         <td class="align-middle">{{acc_id}}</td>
                         <td class="align-middle">{{acc_email}}</td>
-                        <td class="align-middle">{{acc_fullname}}{{#if acc_pseudonym}}/{{acc_pseudonym}}{{/if}}</td>
+                        <td class="align-middle">{{acc_fullname}}</td>
+                        
+                        {{#ifEquals FilterType 'writer'}}
+                        <td class="align-middle">{{acc_pseudonym}}</td>
+                        {{/ifEquals}}
+
                         <td class="align-middle">{{acc_permission}}</td>
                         <td class="align-middle text-center">
                             <button class="btn btn-md btn-danger m-1">
