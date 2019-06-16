@@ -49,15 +49,9 @@ router.post('/edit', (req, res, next) => {
 
 router.post('/add', (req, res, next) => {
     var tagName = req.body.tag_name.replace(/\s\s+/g, ' ').trim();
-    tagModel.findTagByName(tagName).then(trows =>{ 
-        if(trows.length > 0){
-            res.redirect(req.headers.referer);
-        }else {
-            var newtag = {tag_name:tagName};
-            tagModel.add(newtag).then(()=>{
-                res.redirect(req.headers.referer);
-            });
-        }     
+    var newtag = {tag_name:tagName};
+    tagModel.addIgnore(newtag).then(()=>{
+        res.redirect(req.headers.referer);
     });
 });
 

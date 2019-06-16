@@ -30,6 +30,10 @@ module.exports = {
     return db.add('tag', entity);
   },
 
+  addIgnore: entity => {
+    return db.addIgnore('tag', entity);
+  },
+
   update: entity => {
     return db.update('tag', 'tag_id', entity);
   },

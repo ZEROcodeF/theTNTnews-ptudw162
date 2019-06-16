@@ -1,4 +1,3 @@
-
 {{#section 'css'}}
 <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
 <style>
@@ -23,12 +22,15 @@
         $('input[name="post_status"]').change(function () {
             if ($('#approveChecked').is(':checked')) {
                 $('#publishDate').prop('disabled', false);
+                $('#titlePublishDate').text('Ngày đăng');
             } else {
                 $('#publishDate').prop('disabled', true);
+                $('#titlePublishDate').text('Thời điểm thay đổi');
             }
         });
         if (!($('#approveChecked').is(':checked'))) {
             $('#publishDate').prop('disabled', true);
+            $('#titlePublishDate').text('Ngày đăng');
         }
         $('#publishDate').datetimepicker({
             format: 'H:m:s d/m/Y',
@@ -43,11 +45,15 @@
         $(this).val($.trim($(this).val().replace(/\s\s+/g, ' ')));
     });
     $('#btnNewTag').click(function () {
-        //var str = $.trim($('#txtNewTag').val().replace(/\s\s+/g, ' '));
-        $('#tagBox').append(`<input class="form-control del-on-click border-secondary mt-1" type="text" name="post_tags"
+        if ($('#txtNewTag').val() != '') {
+            $('#txtNewTag').prop('placeholder','Thêm nhãn...');
+            $('#tagBox').append(`<input class="form-control del-on-click border-secondary mt-1" type="text" name="post_tags"
                                 value="${$('#txtNewTag').val()}" onclick = "deleteThis(this)" readonly>`);
 
-        $('#txtNewTag').val('');
+            $('#txtNewTag').val('');
+        } else {
+            $('#txtNewTag').prop('placeholder','Tên nhãn không được trống!');
+        }
     });
 </script>
 <script src="/js/tinymce/tinymce.min.js"></script>
@@ -133,13 +139,13 @@
                         <h6 class="font-weight-bold text-dark">Loại bài viết</h6>
                         <div class="form-group d-flex justify-content-around mb-4">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="standardChecked" name="post_type" value="standard"
-                                    {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}}>
+                                <input type="radio" class="custom-control-input" id="standardChecked" name="post_type"
+                                    value="standard" {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}}>
                                 <label class="custom-control-label" for="standardChecked">Tiêu chuẩn</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="premiumChecked" name="post_type" value="premium"
-                                    {{#ifEquals Post.post_type 'premium'}}checked{{/ifEquals}}>
+                                <input type="radio" class="custom-control-input" id="premiumChecked" name="post_type"
+                                    value="premium" {{#ifEquals Post.post_type 'premium'}}checked{{/ifEquals}}>
                                 <label class="custom-control-label" for="premiumChecked">Premium</label>
                             </div>
                         </div>
@@ -200,14 +206,14 @@
                                     duyệt</label>
                             </div>
                         </div>
-                        <h6 class="font-weight-bold text-dark">Ngày đăng</h6>
+                        <h6 class="font-weight-bold text-dark" id="titlePublishDate"></h6>
                         <input type="text" class="form-control form-control-user" id="publishDate" name="post_time"
-                            placeholder="Thời điểm đăng (DD/MM/YYYY HH:mm:ss)" value={{formatTime Post.post_time}}>
+                            placeholder="Thời điểm đăng (DD/MM/YYYY HH:mm:ss)" value="{{{formatTime Post.post_time}}}">
                         <hr>
-                        <button type="submit" class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
+                        <button type="submit"
+                            class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
                         <form method="POST" action="deletePost/{{Post.post_id}}">
-                            <button type="submit"
-                                class="btn btn-outline-danger w-100">Xóa bài viết</button>
+                            <button type="submit" class="btn btn-outline-danger w-100">Xóa bài viết</button>
                         </form>
                     </div>
                 </div>

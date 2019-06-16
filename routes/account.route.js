@@ -36,11 +36,9 @@ router.get('/login', notAuth, (req, res) => {
 
 
 router.get('/register', notAuth, (req, res) => {
-
     res.render('_nolayout/register', {
         layout: false
     });
-
 });
 
 router.get('/forgotpassword', notAuth, (req, res) => {
@@ -95,7 +93,7 @@ router.post('/login', notAuth, (req, res, next) => {
 
 router.post('/register',notAuth, (req, res, next) => {
     var saltRounds = 10;
-    var hash = bcrypt.hash(req.body.password, saltRounds);
+    var hash = bcrypt.hashSync(req.body.password, saltRounds);
     var dob = moment(req.body.birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
     var strPermission = '0';

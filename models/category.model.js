@@ -25,6 +25,10 @@ module.exports = {
     return db.add('category', entity);
   },
 
+  add: entity => {
+    return db.addIgnore('category', entity);
+  },
+
   update: entity => {
     return db.update('category', 'category_id', entity);
   },

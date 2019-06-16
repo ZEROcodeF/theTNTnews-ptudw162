@@ -116,4 +116,12 @@ module.exports = {
   delete: id => {
     return db.delete('post', 'post_id', id);
   },
+
+  deleteAttachedTagsByPostId: pid =>{
+    return db.delete('posttag','posttag_post',pid);
+  },
+
+  attachTag: entity =>{
+    return db.add('posttag',entity);
+  }
 };

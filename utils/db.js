@@ -42,6 +42,22 @@ module.exports = {
     });
   },
 
+  addIgnore: (tableName, entity) => {
+    return new Promise((resolve, reject) => {
+      var sql = `insert ignore into ${tableName} set ?`;
+      var connection = createConnection();
+      connection.connect();
+      connection.query(sql, entity, (error, value) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(value.insertId);
+        }
+        connection.end();
+      });
+    });
+  },
+
   update: (tableName, fieldName, entity) => {
     return new Promise((resolve, reject) => {
       var id = entity[fieldName];
