@@ -31,7 +31,7 @@
             $('#publishDate').prop('disabled', true);
         }
         $('#publishDate').datetimepicker({
-            format: 'd/m/Y H:m:s',
+            format: 'H:m:s d/m/Y',
             timepicker: true,
             mask: true,
         });
@@ -125,7 +125,6 @@
                     <div class="card-body">
                         <h6 class="text-dark">Tác giả <span class="font-weight-bold">{{Post.writer_pseudonym}}</span>
                         </h6>
-
                         {{#if Post.post_editor}}
                         <h6 class="text-dark">Biên tập viên <span class="font-weight-bold">{{Post.editor_name}}</span>
                         </h6>
@@ -134,12 +133,12 @@
                         <h6 class="font-weight-bold text-dark">Loại bài viết</h6>
                         <div class="form-group d-flex justify-content-around mb-4">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="standardChecked" name="post_type"
+                                <input type="radio" class="custom-control-input" id="standardChecked" name="post_type" value="standard"
                                     {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}}>
                                 <label class="custom-control-label" for="standardChecked">Tiêu chuẩn</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="premiumChecked" name="post_type"
+                                <input type="radio" class="custom-control-input" id="premiumChecked" name="post_type" value="premium"
                                     {{#ifEquals Post.post_type 'premium'}}checked{{/ifEquals}}>
                                 <label class="custom-control-label" for="premiumChecked">Premium</label>
                             </div>
@@ -203,10 +202,10 @@
                         </div>
                         <h6 class="font-weight-bold text-dark">Ngày đăng</h6>
                         <input type="text" class="form-control form-control-user" id="publishDate" name="post_time"
-                            placeholder="Thời điểm đăng (DD/MM/YYYY HH:mm:ss)">
+                            placeholder="Thời điểm đăng (DD/MM/YYYY HH:mm:ss)" value={{formatTime Post.post_time}}>
                         <hr>
                         <button type="submit" class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
-                        <form method="POST" action="delete/{{Post.post_id}}">
+                        <form method="POST" action="deletePost/{{Post.post_id}}">
                             <button type="submit"
                                 class="btn btn-outline-danger w-100">Xóa bài viết</button>
                         </form>

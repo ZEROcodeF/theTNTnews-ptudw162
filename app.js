@@ -24,21 +24,6 @@ app.use('/writer',auth.writer,require('./routes/writer/writer.route'));
 app.use('/editor',auth.editor,require('./routes/editor/editor.route'));
 app.use('/account',require('./routes/account.route'));
 
-app.get('/editpost',(req,res)=>{
-  res.render('dashboardViews/editPost',{layout:'dashboard.hbs'});
-});
-app.post('/editpost',(req,res)=>{
-  console.log(req.body);
-  res.redirect('/editpost');
-});
-
-app.get('/testdashboard', (req, res) => {
-  res.render('_layouts/dashboard', {
-    layout:false,
-    PageTitle: "Trang quản lý &minus; TNT News"
-  });
-});
-
 app.use((req, res, next) => {
   res.render('_nolayout/404', { layout: false });
 });

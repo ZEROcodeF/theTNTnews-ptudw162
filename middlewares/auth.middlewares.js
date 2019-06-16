@@ -74,6 +74,11 @@ module.exports.isAuth = (req, res, next) => {
 
 module.exports.notAuthRequired = (req, res, next) => {
     if (req.user) {
-        redirect('/');
+        if(req.user.acc_permission == 'subscriber')
+        {
+        res.redirect('/');
+        } else{
+            res.redirect('/'+req.user.acc_permission);
+        }
     } else next();
 }

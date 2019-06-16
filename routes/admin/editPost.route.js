@@ -30,6 +30,16 @@ router.get('/:id', (req, res, next) => {
 
 });
 
-
+router.post('/:id',(req,res,next)=>{
+    console.log(req.body);
+    var entity
+    res.render('dashboardviews/printpost',{layout:false,
+    post_title:req.body.post_title,
+    post_type:req.body.post_type,
+    post_tags: req.body.post_tags,
+    post_status:req.body.post_status,
+    post_summary:req.body.post_summary,
+    post_content:req.body.post_content});
+});
 
 module.exports = router;
