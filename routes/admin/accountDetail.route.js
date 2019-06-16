@@ -5,7 +5,6 @@ var router = express.Router();
 
 router.get('/:id', (req, res, next) => {
     var accID = req.params.id;
-    console.log(accID);
     if (accID) {
         Promise.all(
             [accountModel.accountByAccID(accID)]).then(([rows])=>{

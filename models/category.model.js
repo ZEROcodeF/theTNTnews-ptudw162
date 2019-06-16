@@ -17,6 +17,10 @@ module.exports = {
     return db.load(`select count(c.category_id) as total from category c join category c2 on c.category_parent = c2.category_id where c.category_id !=0`);
   },
 
+  getCatWithEditor: (catId,edtId)=>{
+    return db.load(`select * from categoryeditor where categoryeditor_category = ${catId} and categoryeditor_editor = ${edtId}`);
+  },
+
   all: () => {
     return db.load(`select * from category`);
   },

@@ -36,6 +36,7 @@ module.exports = {
           reject(error);
         } else {
           resolve(value.insertId);
+          console.log('From DB: ' + value.insertId);
         }
         connection.end();
       });

@@ -7,5 +7,6 @@ router.get('/',(req,res)=>{
 });
 
 router.use('/postlist', require('./postList.route'));
+router.use('/editpost', require('./editPost.route'));
 
 module.exports = router;
