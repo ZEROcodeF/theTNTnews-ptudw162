@@ -4,7 +4,8 @@ var postModel = require('../../models/post.model');
 var router = express.Router();
 
 router.get('/:filtertype', (req, res, next) => {
-    var uId = 7;
+
+    var uId = req.user.acc_id;
 
     var filterType = req.params.filtertype;
 

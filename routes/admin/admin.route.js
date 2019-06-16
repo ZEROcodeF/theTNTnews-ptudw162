@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/',(req,res)=>{
-    res.redirect('/admin/postlist');
+    res.redirect('/admin/postlist/all');
 });
 
 router.use('/postlist',require('./postList.route'));

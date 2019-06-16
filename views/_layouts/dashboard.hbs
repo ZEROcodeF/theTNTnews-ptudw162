@@ -30,7 +30,7 @@
             </a>
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <span class="nav-link text-center">{{accountName}}<br />
                     <div style="font-weight:200; text-transform: capitialize">{{UserRoleTitle}}</div>
                 </span>
@@ -38,51 +38,86 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-            <!--Test Nav Admin-->
+            {{#ifEquals UserPermission 'writer'}}
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
-                    aria-expanded="true" aria-controls="collapseAdmin">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <span>Quản lí</span>
+                <a class="nav-link" href="/writer/postlist/all">
+                    <i class="far fa-list-alt"></i>
+                    <span>Tất cả bài viết</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/writer/postlist/published">
+                    <i class="far fa-newspaper"></i>
+                    <span>Đã xuất bản</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/writer/postlist/approved">
+                    <i class="far fa-check-circle"></i>
+                    <span>Đã duyệt &amp; chờ xuất bản</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/writer/postlist/wait">
+                    <i class="far fa-clock"></i>
+                    <span>Đang chờ duyệt</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/writer/postlist/denied">
+                    <i class="far fa-times-circle"></i>
+                    <span>Bị từ chối</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/writer/newpost">
+                    <i class="far fa-edit"></i>
+                    <span>Viết bài mới</span></a>
+            </li>
+            {{/ifEquals}}
+
+            {{#ifEquals UserPermission 'editor'}}
+            <li class="nav-item">
+                <a class="nav-link" href="/editor/postlist">
+                    <i class="far fa-times-circle"></i>
+                    <span>Danh sách chờ duyệt</span></a>
+            </li>
+            {{/ifEquals}}
+
+            {{#ifEquals UserPermission 'admin'}}
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/postlist/all" data-toggle="collapse"
+                    data-target="#collapsePosts" aria-expanded="true" aria-controls="collapsePosts">
+                    <i class="far fa-list-alt"></i>
+                    <span>Danh sách bài viết</span>
                 </a>
-                <div id="collapseAdmin" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePosts" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">Quản lí chuyên mục</a>
-                        <a class="collapse-item" href="#">Quản lí nhãn</a>
-                        <a class="collapse-item" href="#">Quản lí bài viết</a>
-                        <a class="collapse-item" href="#">Quản lí người dùng</a>
+                        <a class="collapse-item" href="/admin/postlist/published"><i class="far fa-newspaper mr-3"></i>Đã xuất bản</a>
+                        <a class="collapse-item" href="/admin/postlist/approved"><i class="far fa-check-circle mr-3"></i>Đã duyệt </a>
+                        <a class="collapse-item" href="/admin/postlist/wait"><i class="far fa-clock mr-3"></i>Đang chờ duyệt</a>
+                        <a class="collapse-item" href="/admin/postlist/denied"><i class="far fa-times-circle mr-3"></i>Bị từ chối</a>
                     </div>
                 </div>
             </li>
-            <!-- Nav Item - List of Posts - Editor -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-list-ul" aria-hidden="true"></i>
-                    <span>Danh sách bài viết (Editor)</span></a>
+                <a class="nav-link collapsed" href=/"admin/accountlist/all" data-toggle="collapse"
+                    data-target="#collapseAccounts" aria-expanded="true" aria-controls="collapseAccounts">
+                    <i class="fas fa-users"></i>
+                    <span>Danh sách người dùng</span>
+                </a>
+                <div id="collapseAccounts" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/accountlist/subscriber"><i class="fas fa-book-reader mr-3"></i>Độc giả</a>
+                        <a class="collapse-item" href="/admin/accountlist/writer"><i class="fas fa-glasses mr-3"></i>Phóng viên</a>
+                        <a class="collapse-item" href="/admin/accountlist/editor"><i class="fas fa-spell-check mr-3"></i>Biên tập viên</a>
+                    </div>
+                </div>
             </li>
-            <!-- Nav Item - List of Posts - Writer -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    <span>Danh sách bài viết (Writer)</span></a>
-            </li>
-            <!-- Nav Item - Revenue -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-magic" aria-hidden="true"></i>
-                    <span>Đăng bài viết</span></a>
-            </li>
+            {{/ifEquals}}
+
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-wrench" aria-hidden="true"></i>
-                    <span>Hiệu chỉnh bài viết</span></a>
+                <a class="nav-link" href="/account/details">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Thông tin cá nhân</span></a>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->
@@ -129,27 +164,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Bootstrap core JavaScript-->
+ <!-- Bootstrap core JavaScript-->
     <script src="/js/jquery/jquery-2.2.4.min.js"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <!-- Core plugin JavaScript-->
