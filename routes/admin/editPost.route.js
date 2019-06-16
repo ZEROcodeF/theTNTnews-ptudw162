@@ -34,16 +34,21 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/:id', (req, res, next) => {
+    var forcePublish = req.query.forcePublish;
+    console.log(forcePublish);
     var postId = req.params.id;
     var postType = req.body.post_type;
-    if (req.body.post_status) {
-        var postStatus = req.body.post_status;
-    } else {
+    var postStatus = req.body.post_status;
+    if ((forcePublish == '1') || (!req.body.post_status)) {
         postStatus = 'publish';
     }
     var postCategory = req.body.post_category;
     var postTitle = req.body.post_title;
-    var postTime = moment(req.body.post_time).format('YYYY-MM-DD HH:mm:ss');
+    if (forcePublish == '1') {
+        var postTime = moment(req.body.post_time).format('YYYY-MM-DD HH:mm:ss');
+    } else {
+        var postTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    }
     var postThumbnail = req.body.post_thumbnail;
     var postBigThumbnail = req.body.post_bigthumbnail;
     var postSummary = req.body.post_summary;
@@ -64,11 +69,12 @@ router.post('/:id', (req, res, next) => {
         post_denyreason: postDenyReason
     }
 
+    console.log(req.body.post_tags);
     var tagsName = req.body.post_tags;
 
-    if (tagsName.length > 0) {
+    if (tagsName && (tagsName.length > 0)) {
         Promise.all(tagsName.map((tagname) => {
-            return tagModel.addIgnore(tagname);
+            return tagModel.addIgnore({ tag_name: tagname });
         })).then(() => {
             Promise.all(tagsName.map((tagname) => {
                 return tagModel.findTagByName(tagname).then(tnames => {
@@ -76,15 +82,17 @@ router.post('/:id', (req, res, next) => {
                 })
             })).then(tagIds => {
                 postModel.deleteAttachedTagsByPostId(postId).then(() => {
-                    Promise.all(tagIds.map(tagId => {
+                    Promise.all([tagIds.map(tagId => {
                         return postModel.attachTag({ posttag_post: postId, posttag_tag: tagId });
-                    })).then(res.redirect(req.headers.referer));
+                    }),
+                    postModel.update(post)]).then(
+                        res.redirect('/admin/postlist'));
                 });
             })
         });
     } else {
-        postModel.deleteAttachedTagsByPostId(postId).then(() => {
-            res.redirect(req.headers.referer)
+        Promise.all([postModel.deleteAttachedTagsByPostId(postId), postModel.update(post)]).then(() => {
+            res.redirect('/admin/postlist')
         });
     }
 });

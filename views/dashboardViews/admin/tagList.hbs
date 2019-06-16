@@ -4,11 +4,11 @@
         var tagId = $(this).data('todo').tag_id;
         var tagName = $(this).data('todo').tag_name;
         console.log('tagid: ' + tagId);
-        $('.modal-header #formTitle').text('Sửa tên nhãn ID: ' + tagId);
-        $('.modal-body #inputTagId').val(tagId);
-        $('.modal-body #inputTagName').val(tagName);
+        $('#editTagForm .modal-header #formTitle').text('Sửa tên nhãn ID: ' + tagId);
+        $('#editTagForm .modal-body #inputTagId').val(tagId);
+        $('#editTagForm .modal-body #inputTagName').val(tagName);
         $('#editTagForm').modal();
-        $('.modal-body #inputTagName').select();
+        $('#editTagForm .modal-body #inputTagName').select();
     });
 </script>
 {{/section}}

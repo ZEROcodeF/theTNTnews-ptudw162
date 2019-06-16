@@ -46,21 +46,25 @@
     });
     $('#btnNewTag').click(function () {
         if ($('#txtNewTag').val() != '') {
-            $('#txtNewTag').prop('placeholder','Thêm nhãn...');
-            $('#tagBox').append(`<input class="form-control del-on-click border-secondary mt-1" type="text" name="post_tags"
+            $('#txtNewTag').prop('placeholder', 'Thêm nhãn...');
+            $('#tagBox').append(`<input class="form-control del-on-click border-secondary mt-1" type="text" name="post_tags[]"
                                 value="${$('#txtNewTag').val()}" onclick = "deleteThis(this)" readonly>`);
 
             $('#txtNewTag').val('');
         } else {
-            $('#txtNewTag').prop('placeholder','Tên nhãn không được trống!');
+            $('#txtNewTag').prop('placeholder', 'Tên nhãn không được trống!');
         }
+    });
+    $('#btnForcePublish').click(function () {
+        $('#editPostForm').prop('action', '?forcePublish=1');
+        $('#editPostForm').submit();
     });
 </script>
 <script src="/js/tinymce/tinymce.min.js"></script>
 <script src="/js/tinymce/customized.js"></script>
 {{/section}}
 
-<form novalidate method="POST" action>
+<form id="editPostForm" novalidate method="POST" action="?forcePublish=0">
     <div class="col-lg-12">
         <div class="row">
             <div class="card shadow mb-4 w-100">
@@ -85,8 +89,9 @@
                     {{#if (isPublished Post.post_status Post.post_time)}}
                     {{else}}
                     {{#ifEquals UserPermission 'admin'}}
-                    <button type="submit" class="btn btn-success text-white"><i class="fas fa-newspaper mr-1"></i>Lưu
-                        và xuất bản</button>
+                    <button id="btnForcePublish" type="button" class="btn btn-success text-white"><i
+                            class="fas fa-newspaper mr-1"></i>Lưu và
+                        Xuất bản</button>
                     {{/ifEquals}}
                     {{/if}}
                 </div>
@@ -164,7 +169,7 @@
                             <div id="tagBox" class="mb-1">
                                 {{#each Tags}}
                                 <input class="form-control del-on-click border-secondary mt-1" type="text"
-                                    name="post_tags" value="{{this.tag_name}}" onclick="deleteThis(this)" readonly>
+                                    name="post_tags[]" value="{{this.tag_name}}" onclick="deleteThis(this)" readonly>
                                 {{/each}}
                             </div>
                             <div class="input-group">
@@ -212,13 +217,13 @@
                         <hr>
                         <button type="submit"
                             class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
-                        <form method="POST" action="deletePost/{{Post.post_id}}">
-                            <button type="submit" class="btn btn-outline-danger w-100">Xóa bài viết</button>
-                        </form>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
+</form>
+<form method="POST" action="deletePost/{{Post.post_id}}">
+    <button type="submit" class="btn btn-outline-danger w-100">Xóa bài viết</button>
 </form>
