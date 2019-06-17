@@ -68,5 +68,10 @@ router.post('/', (req, res, next) => {
     }
 });
 
+router.get('/upload', (req, res, next) => {
+    res.render('dashboardViews/writer/upload', {
+        layout: 'dashboard.hbs'
+    });
+})
 
 module.exports = router;

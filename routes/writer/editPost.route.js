@@ -24,7 +24,9 @@ router.get('/:id', (req, res, next) => {
                 });
             });
         } else {
-            res.render('_nolayout/404', { layout: false });
+            res.render('_nolayout/404', {
+                layout: false
+            });
         }
 
     });
@@ -60,7 +62,9 @@ router.post('/:id', (req, res, next) => {
 
     if (tagsName && (tagsName.length > 0)) {
         Promise.all(tagsName.map((tagname) => {
-            return tagModel.addIgnore({ tag_name: tagname });
+            return tagModel.addIgnore({
+                tag_name: tagname
+            });
         })).then(() => {
             Promise.all(tagsName.map((tagname) => {
                 return tagModel.findTagByName(tagname).then(tnames => {
@@ -69,9 +73,13 @@ router.post('/:id', (req, res, next) => {
             })).then(tagIds => {
                 postModel.deleteAttachedTagsByPostId(postId).then(() => {
                     Promise.all([tagIds.map(tagId => {
-                        return postModel.attachTag({ posttag_post: postId, posttag_tag: tagId });
-                    }),
-                    postModel.update(post)]).then(
+                            return postModel.attachTag({
+                                posttag_post: postId,
+                                posttag_tag: tagId
+                            });
+                        }),
+                        postModel.update(post)
+                    ]).then(
                         res.redirect('/writer/postlist/all'));
                 });
             })
@@ -82,5 +90,6 @@ router.post('/:id', (req, res, next) => {
         });
     }
 });
+
 
 module.exports = router;
