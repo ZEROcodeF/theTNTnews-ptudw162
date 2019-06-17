@@ -106,9 +106,9 @@
                 </div>
             </div>
             <div class="container">
-                <div class="searchbar">
-                    <input type="text" placeholder="Nhập từ khóa để tìm kiếm..." />
-                    <button type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                <div class="searchbar" hidden>
+                    <input id="inputSearch" type="text" placeholder="Nhập từ khóa để tìm kiếm..." />
+                    <button id="btnSearch" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </div>
             </div>
     </header>
@@ -117,7 +117,6 @@
     <div class="mt-15" style="min-height:90vh !important">
         {{{body}}}
     </div>
-
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         <div class="footer-divider"></div>
@@ -160,6 +159,7 @@
         });
     </script>
     {{/if}}
+    {{{_sections.js}}}
 </body>
 
 </html>

@@ -8,6 +8,7 @@
         $('#preloader').fadeOut('slow', function () {
             $(this).remove();
         });
+        $(".searchbar").prop('hidden',false);
         $(".searchbar").hide();
     });
 
@@ -77,5 +78,13 @@
     $(".searchbar").click(function(event){
         event.stopPropagation();
     })
-    
+    //::11.0 On Search
+    $('#btnSearch').on('click',function(){
+        window.location.replace('/search?q='+$('#inputSearch').val());
+    });
+    $("#inputSearch").on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            window.location.replace('/search?q='+$('#inputSearch').val());
+        }
+    });
 })(jQuery);

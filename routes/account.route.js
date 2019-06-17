@@ -131,7 +131,7 @@ router.get('/logout', (req, res, next) => {
 });
 
 
-router.get('/details',getAuthInfo, (req, res, next) => {
+router.get('/details', getAuthInfo, (req, res, next) => {
     if (req.user) {
         accountModel.singleInfoById(req.user.acc_id).then(infos => {
             if (infos.length > 0) {
@@ -196,8 +196,9 @@ router.post('/updatepassword', (req, res, next) => {
                 if (ret && newpwd.length > 7) {
                     const ROUNDS = 10;
                     var newhpw = bcrypt.hashSync(newpwd, ROUNDS);
-                    accountModel.update({ acc_id: user.acc_id, acc_hpw: newhpw });
-                    res.redirect('/account/details');
+                    accountModel.update({ acc_id: user.acc_id, acc_hpw: newhpw }).then(() => {
+                        res.redirect('/account/details');
+                    })
 
                 } else {
                     console.log('Wrong old password or newpwd invalid');

@@ -1,10 +1,67 @@
+{{#section 'js'}}
+<script>
+    $(function () {
+        var searchUrl = window.location.href;
+        var searchParams = new URLSearchParams(searchUrl);
+        searchParams.has("title") ? $('#titleCheck').prop('checked', true) : $('#titleCheck').prop('checked', false);
+        searchParams.has("summary") ? $('#summaryCheck').prop('checked', true) : $('#summaryCheck').prop('checked', false);
+        searchParams.has("content") ? $('#contentCheck').prop('checked', true) : $('#contentCheck').prop('checked', false);
+        $('#titleCheck').on('change', function () {
+            if ($(this).is(':checked')) {
+                searchParams.append("title","true");
+                window.location.replace(decodeURIComponent(searchParams.toString()))
+            } else {
+                searchParams.delete("title");
+                window.location.replace(decodeURIComponent(searchParams.toString()))
+            }
+        })
+        $('#summaryCheck').on('change', function () {
+            if ($(this).is(':checked')) {
+                searchParams.append("summary","true");
+                window.location.replace(decodeURIComponent(searchParams.toString()))
+            } else {
+                searchParams.delete("summary");
+                window.location.replace(decodeURIComponent(searchParams.toString()))
+            }
+        })
+        $('#contentCheck').on('change', function () {
+            if ($(this).is(':checked')) {
+                searchParams.append("content","true");
+                window.location.replace(decodeURIComponent(searchParams.toString()))
+            } else {
+                searchParams.delete("content");
+                window.location.replace(decodeURIComponent(searchParams.toString()))
+            }
+        })
+    });
+</script>
+{{/section}}
+
 <!-- ##### Blog Area Start ##### -->
 <div class="blog-area">
     <div class="container">
         <div class="section-heading text-center">
-            <h6>{{categoryName}}</h6>
-            <div style="margin: 0 200px; height:2px; background-color:#2196f3;"></div>
+            <h6>{{PageTitle}}</h6>
             {{#if pages}}
+            {{#if isSearch}}
+            <div id="searchFilterBox" class="d-flex justify-content-around align-items-center"
+                style="max-width: 360px; height:50px; background-color:#2196f3; margin:0 auto;">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="titleCheck">
+                    <label class="custom-control-label text-white font-weight-bold" for="titleCheck">Tiêu đề</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="summaryCheck">
+                    <label class="custom-control-label text-white font-weight-bold" for="summaryCheck">Tóm tắt</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="contentCheck">
+                    <label class="custom-control-label text-white font-weight-bold" for="contentCheck">Nội dung</label>
+                </div>
+            </div>
+            {{else}}
+            <div style="margin: 0 200px; height:2px; background-color:#2196f3;"></div>
+            {{/if}}
             {{else}}
             <h6 class="mt-30">Không có bài nào</h6>
             {{/if}}
@@ -21,7 +78,9 @@
                     <div class="post-data col-md-8">
                         <a href="/category/{{this.0.post_category}}"
                             class="post-category {{this.0.category_class}}">{{this.0.category_name}}</a>
-                        {{#ifEquals this.0.post_type 'premium'}} <a class="post-category post_premium" style="margin-left:5px;"><i class="fa fa-star" aria-hidden="true" title="Bài viết Premium"></i></a>{{/ifEquals}}
+                        {{#ifEquals this.0.post_type 'premium'}} <a class="post-category post_premium"
+                            style="margin-left:5px;"><i class="fa fa-star" aria-hidden="true"
+                                title="Bài viết Premium"></i></a>{{/ifEquals}}
                         <a href="/post/{{this.0.post_id}}" class="post-title">
                             <h6>{{this.0.post_title}}</h6>
                         </a>
