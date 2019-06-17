@@ -4,6 +4,7 @@ var passport = require('passport');
 var bcrypt = require('bcrypt');
 var moment = require('moment');
 var notAuth = require('../middlewares/auth.middlewares').notAuthRequired;
+var getAuthInfo = require('../middlewares/auth.middlewares').isAuth;
 
 var router = express.Router();
 
@@ -130,7 +131,7 @@ router.get('/logout', (req, res, next) => {
 });
 
 
-router.get('/details', (req, res, next) => {
+router.get('/details',getAuthInfo, (req, res, next) => {
     if (req.user) {
         accountModel.singleInfoById(req.user.acc_id).then(infos => {
             if (infos.length > 0) {

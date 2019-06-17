@@ -64,6 +64,7 @@ module.exports.isAuth = (req, res, next) => {
         res.locals.isAuthenticated = true;
         if (req.user.acc_permission == 'subscriber') {
             res.locals.greetingLink = 'account/details';
+            res.locals.UserRoleTitle = 'Độc giả';
         } else {
             res.locals.greetingLink = req.user.acc_permission;
         }
