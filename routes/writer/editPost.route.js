@@ -13,20 +13,16 @@ router.get('/:id', (req, res, next) => {
 
     postModel.singleEditPostById(postId).then(prows => {
         if (prows.length > 0 && prows[0].post_writer === req.user.acc_id && prows[0].post_status != 'publish') {
-            Promise.all([
-                tagModel.tagListByPostId(postId),
-                catModel.all()]).then(([trows, crows]) => {
-                    res.render('dashboardViews/writer/editPost', {
-                        isEdit: true,
-                        layout: 'dashboard.hbs',
-                        PageTitle: 'Chỉnh sửa: ' + prows[0].post_title,
-                        Post: prows[0],
-                        Tags: trows,
-                        Categories: crows,
-                        PostButtonTitle: '<i class="far fa-save mr-1"></i>Lưu lại'
-                    });
-                }).catch(
-                    next);
+            tagModel.tagListByPostId(postId).then(trows => {
+                res.render('dashboardViews/writer/editPost', {
+                    isEdit: true,
+                    layout: 'dashboard.hbs',
+                    PageTitle: 'Chỉnh sửa: ' + prows[0].post_title,
+                    Post: prows[0],
+                    Tags: trows,
+                    PostButtonTitle: '<i class="far fa-save mr-1"></i>Lưu lại'
+                });
+            });
         } else {
             res.render('_nolayout/404', { layout: false });
         }

@@ -17,12 +17,24 @@
 {{/section}}
 {{#section 'js'}}
 <script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
+<script src="/js/tinymce/tinymce.min.js"></script>
 <script>
     $(function () {
         $('#publishDate').datetimepicker({
             format: 'H:m:s d/m/Y',
             timepicker: true,
             mask: true,
+        });
+        tinymce.init({
+            language: 'vi_VN',
+            selector: '#mytiny',
+            menubar: false,
+            height: 720,
+            content_css: '/css/editor-style.css',
+            skin: 'lightgray',
+            mobile: { theme: 'mobile' },
+            media_poster: false,
+            readonly: 1
         });
     })
     var deleteThis = function (t) {
@@ -42,12 +54,10 @@
             $('#txtNewTag').prop('placeholder', 'Tên nhãn không được trống!');
         }
     });
-    $('#btnRejectPost').click(function(){
-        $('#formRejectPost').submit();
-    });
 </script>
-<script src="/js/tinymce/tinymce.min.js"></script>
-<script src="/js/tinymce/customized.js"></script>
+
+
+</script>
 {{/section}}
 
 <form id="editPostForm" novalidate method="POST" action="?forcePublish=0">
@@ -89,7 +99,7 @@
                         </div>
                         <h6 class="font-weight-bold text-dark">Nội dung bài viết</h6>
                         <div class="form-group">
-                            <textarea id="mytiny" name="post_content" disabled>
+                            <textarea id="mytiny" name="post_content" class="mceNonEditable">
                                  {{Post.post_content}}
                             </textarea>
                         </div>
@@ -124,7 +134,7 @@
                         <h6 class="font-weight-bold text-dark">Chuyên mục</h6>
                         <div class="form-group mb-4">
                             <select class="custom-select" name="post_category">
-                                {{#each Categories}}
+                                {{#each localCategories}}
                                 <option value="{{this.category_id}}"
                                     {{#ifEquals this.category_id ../Post.post_category}}selected{{/ifEquals}}>
                                     {{this.category_name}}</option>
@@ -159,7 +169,8 @@
                         <hr>
                         <button type="submit"
                             class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
-                        <button id="btnRejectPost" type="button" class="btn btn-danger text-white w-100 mb-4"><i class="fas fa-times mr-2"></i>Từ chối</button>
+                        <button id="btnRejectPost" type="button" class="btn btn-danger text-white w-100 mb-4" data-toggle="modal" data-target="#denyMessageForm"><i
+                                class="fas fa-times mr-2"></i>Từ chối</button>
                     </div>
                 </div>
             </div>
@@ -167,5 +178,22 @@
         </div>
     </div>
 </form>
-<form novalidate id="formRejectPost" method="POST" action="/editor/editpost/reject/{{{Post.post_id}}}">
-</form>
+
+<div class="modal hide" id="denyMessageForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="formTitle" class="text-danger text-center font-weight-bold m-0 w-100">Nhập lý do từ chối</h5>
+            </div>
+            <form method="POST" action="taglist/edit">
+                <div class="modal-body">
+                    <textarea type="text" class="form-control" name="post_denyreason" id="inputTagName" value="" required></textarea>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-times mr-2"></i>Từ chối</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

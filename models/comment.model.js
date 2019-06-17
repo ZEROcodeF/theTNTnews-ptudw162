@@ -19,5 +19,9 @@ module.exports = {
 
     delete: id => {
         return db.delete('postcomment', 'cmt_id', id);
+    },
+
+    deleteByPostId: accid => {
+        return db.delete('postcomment', 'cmt_account', accid);
     }
 };

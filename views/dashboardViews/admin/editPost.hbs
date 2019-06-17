@@ -4,10 +4,12 @@
     .mce-notification {
         display: none !important;
     }
+
     .del-on-click {
         background: #fff !important;
         border-style: dashed;
     }
+
     .del-on-click:hover {
         cursor: pointer;
     }
@@ -85,11 +87,9 @@
                     <h6 class="text-dark font-weight-bold m-0">ID bài viết: {{Post.post_id}}</h6>
                     {{#if (isPublished Post.post_status Post.post_time)}}
                     {{else}}
-                    {{#ifEquals UserPermission 'admin'}}
                     <button id="btnForcePublish" type="button" class="btn btn-success text-white"><i
                             class="fas fa-newspaper mr-1"></i>Lưu và
                         Xuất bản</button>
-                    {{/ifEquals}}
                     {{/if}}
                 </div>
             </div>
@@ -131,6 +131,7 @@
             <div class="col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-body">
+                        {{#if isEdit}}
                         <h6 class="text-dark">Tác giả <span class="font-weight-bold">{{Post.writer_pseudonym}}</span>
                         </h6>
                         {{#if Post.post_editor}}
@@ -138,6 +139,7 @@
                         </h6>
                         {{/if}}
                         <hr>
+                        {{/if}}
                         <h6 class="font-weight-bold text-dark">Loại bài viết</h6>
                         <div class="form-group d-flex justify-content-around mb-4">
                             <div class="custom-control custom-radio">
@@ -154,7 +156,7 @@
                         <h6 class="font-weight-bold text-dark">Chuyên mục</h6>
                         <div class="form-group mb-4">
                             <select class="custom-select" name="post_category">
-                                {{#each Categories}}
+                                {{#each localCategories}}
                                 <option value="{{this.category_id}}"
                                     {{#ifEquals this.category_id ../Post.post_category}}selected{{/ifEquals}}>
                                     {{this.category_name}}</option>
@@ -214,6 +216,8 @@
                         <hr>
                         <button type="submit"
                             class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
+                        <hr>
+                        <button id="btnDeletePost" type="button" class="btn btn-outline-danger w-100" data-toggle="modal" data-target="#deleteForm"><i class="fas fa-trash mr-2"></i>Xóa bài viết</button>
                     </div>
                 </div>
             </div>
@@ -221,6 +225,20 @@
         </div>
     </div>
 </form>
-<form method="POST" action="deletePost/{{Post.post_id}}">
-    <button type="submit" class="btn btn-outline-danger w-100">Xóa bài viết</button>
-</form>
+{{#if isEdit}}
+<div class="modal hide" id="deleteForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="POST" action="delete/{{Post.post_id}}">
+                <div class="modal-body">
+                    <h5 class="font-weight-bold text-center"><i class="fas fa-exclamation-triangle mr-2"></i>Bạn thực sự muốn xóa bài viết này?</h5>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash mr-2"></i>Xóa</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{/if}}

@@ -118,7 +118,7 @@
                         <h6 class="font-weight-bold text-dark">Chuyên mục</h6>
                         <div class="form-group mb-4">
                             <select class="custom-select" name="post_category">
-                                {{#each Categories}}
+                                {{#each localCategories}}
                                 <option value="{{this.category_id}}"
                                     {{#ifEquals this.category_id ../Post.post_category}}selected{{/ifEquals}}>
                                     {{this.category_name}}</option>

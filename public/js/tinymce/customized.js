@@ -2,7 +2,7 @@ tinymce.init({
     language: 'vi_VN',
     selector: '#mytiny',
     menubar: false,
-    plugins: 'autoresize paste image link media wordcount',
+    plugins: 'autoresize paste image link media wordcount noneditable',
     toolbar: 'undo redo | bold italic underline strikethrough | link image media',
     max_height: 720,
     content_css: '/css/editor-style.css',

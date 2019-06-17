@@ -16,6 +16,8 @@ router.use('/taglist',require('./tagList.route'));
 
 router.use('/editpost',require('./editPost.route'));
 
+router.use('/newpost',require('./newPost.route'));
+
 router.use('/accountdetail',require('./accountDetail.route'));
 
 module.exports = router;

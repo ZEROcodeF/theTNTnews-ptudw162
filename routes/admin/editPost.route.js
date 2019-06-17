@@ -4,6 +4,7 @@ var moment = require('moment');
 var postModel = require('../../models/post.model');
 var catModel = require('../../models/category.model');
 var tagModel = require('../../models/tag.model');
+var commentModel = require('../../models/comment.model');
 var router = express.Router();
 
 
@@ -12,19 +13,16 @@ router.get('/:id', (req, res, next) => {
 
     postModel.singleEditPostById(postId).then(prows => {
         if (prows.length > 0) {
-            Promise.all([
-                tagModel.tagListByPostId(postId),
-                catModel.all()]).then(([trows, crows]) => {
-                    res.render('dashboardViews/editPost', {
+                tagModel.tagListByPostId(postId).then(trows => {
+                    res.render('dashboardViews/admin/editPost', {
+                        isEdit: true,
                         layout: 'dashboard.hbs',
                         PageTitle: 'Chỉnh sửa: ' + prows[0].post_title,
                         Post: prows[0],
                         Tags: trows,
-                        Categories: crows,
                         PostButtonTitle: '<i class="far fa-save mr-1"></i>Lưu lại'
                     });
-                }).catch(
-                    next);
+                })
         } else {
             res.render('_nolayout/404', { layout: false });
         }
@@ -95,6 +93,19 @@ router.post('/:id', (req, res, next) => {
             res.redirect('/admin/postlist/all')
         });
     }
+});
+
+router.post('/delete/:id',(req,res,next)=>{
+    var postId =req.params.id;
+    Promise.all([
+        postModel.deleteAttachedTagsByPostId(postId),
+        commentModel.deleteByPostId(postId)
+    ]).then(()=>{
+        postModel.delete(postId).then(()=>{
+            console.log(`Admin deleted post ${postId} successful!`);
+            res.redirect('/admin/postlist/all');
+        });
+    });
 });
 
 module.exports = router;
