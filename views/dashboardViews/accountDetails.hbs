@@ -1,0 +1,93 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
+{{/section}}
+{{#section 'js'}}
+<script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
+<script>
+    $('.trim-text-change').on('focusout', function () {
+        $(this).val($.trim($(this).val().replace(/\s\s+/g, ' ')));
+    });
+    $('#inputBirthdate').datetimepicker({
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
+    });
+</script>
+{{/section}}
+
+<form id="fromAccountDetails" novalidate method="POST" action="update">
+    <div class="card mb-4 shadow">
+        <div class="card-body">
+            <h6 class="font-weight-bold text-dark">Email</h6>
+            <div class="form-group">
+                <input class="form-control custom-control trim-text-change" type="text" name="acc_email" placeholder="Dưới 50 ký tự"
+                    value="{{AccInfo.acc_email}}">
+            </div>
+            <h6 class="font-weight-bold text-dark">Họ và tên</h6>
+            <div class="form-group">
+                <input class="form-control custom-control trim-text-change" type="text" name="acc_fullname" placeholder="Dưới 50 ký tự"
+                    value="{{AccInfo.acc_fullname}}"></input>
+            </div>
+            <h6 class="font-weight-bold text-dark">Ngày tháng năm sinh</h6>
+            <div class="form-group">
+                <input type="text" class="form-control custom-control form-control-user" id="inputBirthdate" name="acc_birthdate"
+                    placeholder="Định dạng DD/MM/YYYY)" value="{{{formatDate AccInfo.acc_birthdate}}}">
+            </div>
+            {{#ifEquals UserPermission 'writer'}}
+            <hr>
+            <h6 class="font-weight-bold text-dark">Bút danh</h6>
+            <div class="form-group">
+                <input class="form-control custom-control trim-text-change" type="text" name="acc_pseudonym"
+                    placeholder="Dưới 50 ký tự" value="{{../AccInfo.acc_pseudonym}}"></input>
+            </div>
+            {{/ifEquals}}
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" id="btnSubmitInfo"><i class="fas fa-check mr-2"></i>Cập
+                    nhật thông
+                    tin</button>
+                <button type="button" class="btn btn-primary" id="btnChangePassword" data-toggle="modal"
+                    data-target="#updatePasswordForm"><i class="fas fa-key mr-2"></i>Thay đổi mật khẩu</button>
+            </div>
+            {{#if Subscription}}
+            <hr>
+            <h6 class="font-weight-bold text-warning">Trạng thái đăng ký VIP</h6>
+            <h6 class="text-dark">Lần gia hạn cuối lúc {{formatTime Subscription.sub_time}}</h6>
+            {{/if}}
+        </div>
+    </div>
+</form>
+
+<div class="modal hide" id="updatePasswordForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-primary text-center font-weight-bold m-0 w-100">Cập nhật mật khẩu</h5>
+            </div>
+            <form novalidate method="POST" action="updatepassword">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <h6 class="text-dark font-weight-bold">Mật khẩu cũ</h6>
+                        <input type="password" class="form-control custom-control" name="old_password" value=""
+                            placeholder="Nhập mật khẩu cũ...">
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <h6 class="text-dark font-weight-bold">Mật khẩu mới</h6>
+                        <input type="password" class="form-control custom-control" name="new_password" value=""
+                            placeholder="Nhập mật khẩu mới...">
+                    </div>
+                    <div class="form-group">
+                        <h6 class="text-dark font-weight-bold">Xác nhận mật khẩu mới</h6>
+                        <input type="password" class="form-control custom-control" name="" value=""
+                            placeholder="Xác nhận khẩu mới...">
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check mr-2"></i>Cập nhật</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                            class="fas fa-times mr-2"></i>Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

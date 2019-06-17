@@ -44,7 +44,7 @@ module.exports = {
   },
 
   single:(accId) => {
-    return db.load(`select * from account where acc_id = ${acc_id}`)
+    return db.load(`select * from account where acc_id = ${accId}`)
   },
 
   add: entity => {
