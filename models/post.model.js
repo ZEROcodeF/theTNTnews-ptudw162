@@ -131,7 +131,7 @@ module.exports = {
   },
 
   searchFullInfoPublishPremiumPriorPost: (filters,postID,limit,offset) => {
-    return db.load(`select * from post where match (${filters}) against('+${postID}' IN BOOLEAN MODE) and post_status = 'publish' and now() >= post_time order by field(post_type,"premium") limit ${limit} offset ${offset}`)
+    return db.load(`select * from post join category on post_category = category_id where match (${filters}) against('+${postID}' IN BOOLEAN MODE) and post_status = 'publish' and now() >= post_time order by field(post_type,"premium") limit ${limit} offset ${offset}`)
   },
 
   countSearchFullInfoPublishPost: (filters,postID) => {

@@ -49,8 +49,7 @@ router.get('/:id', premiumCheck, (req, res, next) => {
             res.render('generalViews/byCategory', {
                 activeNavCat,
                 pages,
-                categoryName: '\"' + tagName + '\"',
-                PageTitle: 'Tag ' + tagName,
+                PageTitle: 'Tag ' + '\"'+tagName+ '\"',
                 PostMetaData: arrs
             });
         });

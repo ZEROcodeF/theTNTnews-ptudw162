@@ -60,6 +60,7 @@ router.post('/login', notAuth, (req, res, next) => {
             //console.log('false');
             return res.render('_noLayout/login', {
                 layout: false,
+                wrongPassword: true,
                 err_message: info.message
             })
         }
