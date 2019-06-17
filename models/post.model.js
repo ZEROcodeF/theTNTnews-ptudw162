@@ -6,14 +6,14 @@ module.exports = {
   },
 
   //GENERAL Models:
-  singleEditPostById: postId =>{
+  singleEditPostById: postId => {
     return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_editor, post_thumbnail, post_bigthumbnail, post_summary, post_viewcount, post_content, post_denyreason, category_name, a1.acc_pseudonym as writer_pseudonym, a2.acc_fullname as editor_name from post join category on post_category = category_id join account a1 on post_writer = a1.acc_id join account a2 on post_editor = a2.acc_id where post_id = ${postId}`);
   },
   //END GENERAL Models
-  
+
   //BEGIN For Homepage:
   //Featured Posts:  FOUR posts which have most viewed last week (exact 7 days from 'now')
-  featuredPosts: () =>{
+  featuredPosts: () => {
     return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, category_name, category_class from (select * from post where post_time between date_sub(now(), interval 7 day) and now()) p join category on p.post_category=category_id where post_status ='publish' and now() >=  post_time order by post_viewcount desc limit 4`);
   },
 
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   //postOfTopCategory: TEN post which latest in each top TEN categories 
-  postOfTopCategory: () =>{
+  postOfTopCategory: () => {
     return db.load(`select post_id, post_type, post_category, post_title, post_time, post_thumbnail, category_name, category_class from (select * from post inner join (select max(post_id) as maxpid from (select post_id,post_category,max(post_time) from post where post_status='publish' and now() >=  post_time group by post_category, post_id)mpd group by post_category)mpi on post_id = maxpid)p join (select category_id, category_name, category_class, sum(post_viewcount)as category_viewcount from category join post on category_id = post_category group by post_category order by category_viewcount desc limit 10)c on post_category = category_id`);
   },
 
@@ -60,7 +60,7 @@ module.exports = {
   },
 
   //BEGIN Single page
-  fullSinglePublishPost: postId =>{
+  fullSinglePublishPost: postId => {
     return db.load(`select post_id, post_type, post_category, post_title, post_time, post_bigthumbnail, post_content, category_name, category_class, category_parent, acc_pseudonym from (post join account on post_writer = acc_id) join category on post_category = category_id where post_status = 'publish' and now() >= post_time and post_id = ${postId}`);
   },
 
@@ -70,21 +70,21 @@ module.exports = {
   //END: Single page
 
   //BEGIN Writer: 
-  writerPostList: (filterString, writerId,limit,offset) =>{
+  writerPostList: (filterString, writerId, limit, offset) => {
     return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterString}) order by post_time desc limit ${limit} offset ${offset}`);
   },
 
-  countWriterPostList: (filterType, writerId) =>{
+  countWriterPostList: (filterType, writerId) => {
     return db.load(`select count(post_id) as 'total' from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType})`);
   },
   //END Writer.
 
   //BEGIN Editor:
-  editorPostList: (editorId,limit,offset) =>{
+  editorPostList: (editorId, limit, offset) => {
     return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, acc_pseudonym as writer_pseudonym from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId}) order by post_time desc limit ${limit} offset ${offset}`);
   },
 
-  countEditorPostList: editorId =>{
+  countEditorPostList: editorId => {
     return db.load(`select count(post_id) as total from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId})`);
   },
   //END Editor.
@@ -117,11 +117,25 @@ module.exports = {
     return db.delete('post', 'post_id', id);
   },
 
-  deleteAttachedTagsByPostId: pid =>{
-    return db.delete('posttag','posttag_post',pid);
+  deleteAttachedTagsByPostId: pid => {
+    return db.delete('posttag', 'posttag_post', pid);
   },
 
-  attachTag: entity =>{
-    return db.add('posttag',entity);
-  }
+  attachTag: entity => {
+    return db.add('posttag', entity);
+  },
+
+  //BEGIN Search
+  searchFullInfoPublishPost: (postID,limit,offset) => {
+    return db.load(`select * from post where match (post_title,post_summary,post_content) against('+${postID}' IN BOOLEAN MODE) and post_status = 'publish' and now() >= post_time limit ${limit} offset ${offset}`);
+  },
+
+  searchFullInfoPublishPremiumPriorPost: (postID,limit,offset) => {
+    return db.load(`select * from post where match (post_title,post_summary,post_content) against('+${postID}' IN BOOLEAN MODE) and post_status = 'publish' and now() >= post_time order by field(post_type,"premium") limit ${limit} offset ${offset}`)
+  },
+
+  countSearchFullInfoPublishPost: (postID) => {
+    return db.load(`select count(post_id) as total from post where match(post_title,post_summary,post_content) against('+${postID}' IN BOOLEAN MODE) and post_status = 'publish' and now() >= post_time `);
+  },
+  //END Search
 };

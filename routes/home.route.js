@@ -40,6 +40,8 @@ router.use('/tag', require('./tag.route'));
 
 router.use('/post', require('./post.route'));
 
+router.use('/search',require('./search.route'));
+
 router.use('/about', (req, res) => {
     res.render('about', {
         PageTitle: "Trang chủ TNT News"

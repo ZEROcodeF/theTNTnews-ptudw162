@@ -5,7 +5,7 @@ var createConnection = () => {
     host: 'localhost', //db4free.net IP
     port: 3308,
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'tntnewsalphadb'
   });
 }
