@@ -38,7 +38,7 @@ router.post('/:id', (req, res, next) => {
     var postType = req.body.post_type;
     var postStatus = 'publish';
     var postCategory = req.body.post_category;
-    var postTime = moment(req.body.post_time).format('YYYY-MM-DD HH:mm:ss');
+    var postTime = moment(req.body.post_time,'HH:mm:ss DD/MM/YYYY').format('YYYY-MM-DD HH:mm:ss');
     var postEditor = req.user.acc_id;
 
     var post = {
