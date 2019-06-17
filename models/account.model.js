@@ -57,5 +57,10 @@ module.exports = {
 
   delete: id => {
     return db.delete('category', 'CatID', id);
+  },
+
+  addSubscription: (subid, subtime) => {
+    return db.load(`insert into subscription set sub_accid=${subid}, sub_time='${subtime}' on duplicate key update sub_time = '${subtime}'`)
   }
+
 };

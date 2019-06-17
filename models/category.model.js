@@ -21,6 +21,18 @@ module.exports = {
     return db.load(`select * from categoryeditor where categoryeditor_category = ${catId} and categoryeditor_editor = ${edtId}`);
   },
 
+  getCateInChargeMapWithEditor: (edtId) =>{
+    return db.load(`select * from category left join (select * from categoryeditor where categoryeditor_editor = ${edtId})ed on category_id = categoryeditor_category`);
+  },
+
+  deleteCateInChargeWithEditor: (edtId) =>{
+    return db.delete('categoryeditor','categoryeditor_editor',edtId);
+  },
+
+  addCateInChargeWithEditor: (entity) =>{
+    return db.add('categoryeditor',entity);
+  },
+
   all: () => {
     return db.load(`select * from category`);
   },

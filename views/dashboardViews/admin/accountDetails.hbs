@@ -1,0 +1,160 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
+{{/section}}
+{{#section 'js'}}
+<script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
+<script>
+    $(function(){
+        if($('#writerCheck').is(':checked')){
+            $('#inputPseudonym').show();
+        } else {
+            $('#inputPseudonym').hide();
+
+        }
+    }
+    )
+    $('.trim-text-change').on('focusout', function () {
+        $(this).val($.trim($(this).val().replace(/\s\s+/g, ' ')));
+    });
+    $('#inputBirthdate').datetimepicker({
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
+    });
+    $('#btnSubmitInfo').click(function () {
+        $('#fromAccountDetails').submit();
+    });
+    $('#btnDeleteInfo').click(function () {
+        $('#formDeleteAccount').submit();
+    });
+    $('#btnExtendVip').click(function () {
+        $('#formExtendVip').submit();
+    });
+    $('input[name="acc_permission"]').on('change', function () {
+        if ($('#writerCheck').is(':checked')) {
+            $('#inputPseudonym').show();
+        } else {
+            $('#inputPseudonym').hide();
+        }
+    });
+</script>
+{{/section}}
+
+<form id="fromAccountDetails" novalidate method="POST" action="update">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card mb-4 shadow">
+                    <div class="card-body">
+                        <h6 class="font-weight-bold text-dark">Quyền tài khoản</h6>
+                        <div class="d-flex justify-content-around form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="subscriberCheck"
+                                    name="acc_permission" value="subscriber"
+                                    {{#ifEquals AccInfo.acc_permission 'subscriber'}}checked{{/ifEquals}}>
+                                <label class="custom-control-label" for="subscriberCheck">Độc giả</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="writerCheck" name="acc_permission"
+                                    value="writer" {{#ifEquals AccInfo.acc_permission 'writer'}}checked{{/ifEquals}}>
+                                <label class="custom-control-label" for="writerCheck">Phóng viên</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="editorCheck" name="acc_permission"
+                                    value="editor" {{#ifEquals AccInfo.acc_permission 'editor'}}checked{{/ifEquals}}>
+                                <label class="custom-control-label" for="editorCheck">Biên tập viên</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h6 class="font-weight-bold text-dark">ID</h6>
+                            <input class="form-control custom-control trim-text-change" type="text" name="acc_id"
+                                value="{{AccInfo.acc_id}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <h6 class="font-weight-bold text-dark">Email</h6>
+                            <input class="form-control custom-control trim-text-change" type="text"
+                                placeholder="Dưới 50 ký tự" value="{{AccInfo.acc_email}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <h6 class="font-weight-bold text-dark">Họ và tên</h6>
+                            <input class="form-control custom-control trim-text-change" type="text"
+                                placeholder="Dưới 50 ký tự" value="{{AccInfo.acc_fullname}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <h6 class="font-weight-bold text-dark">Ngày tháng năm sinh</h6>
+                            <input type="text" class="form-control custom-control form-control-user"
+                                name="acc_birthdate" placeholder="Định dạng DD/MM/YYYY)"
+                                value="{{{formatDate AccInfo.acc_birthdate}}}" readonly>
+                        </div>
+                        <div id="inputPseudonym">
+                            <hr>
+                            <h6 class="font-weight-bold text-dark">Bút danh</h6>
+                            <div class="form-group">
+                                <input class="form-control custom-control trim-text-change" type="text"
+                                    name="acc_pseudonym" placeholder="Dưới 50 ký tự"
+                                    value="{{../AccInfo.acc_pseudonym}}"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{#ifEquals AccInfo.acc_permission 'editor'}}
+                <div class="card mb-4 shadow">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold">Quản lý Biên tập viên</h6>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="text-dark font-weight-bold">Chuyên mục phụ trách
+                        </h6>
+                        <div class="form-group custom-control custom-checkbox">
+                            {{#each ../InChargedCateMap}}
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input"
+                                    id="customCheckCates{{this.category_id}}" name="in_charged_cates[]"
+                                    {{#if this.categoryeditor_category}}checked{{/if}}>
+                                <label class="custom-control-label"
+                                    for="customCheckCates{{this.category_id}}">{{this.category_name}}</label>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{/ifEquals}}
+            </div>
+            <div class="col-xl-4">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success btn-md mb-4 w-100" id="btnSubmitInfo"><i
+                                    class="fas fa-check mr-2"></i>Cập
+                                nhật thông
+                                tin</button>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-outline-danger btn-md w-100" id="btnDeleteInfo"><i
+                                    class="fas fa-trash-alt mr-2"></i>Xóa tài khoản</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4 shadow">
+                    <div class="card-header">
+                        <h6 class="text-primary font-weight-bold">Quản lý VIP</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            {{#if Subscription}}
+                            <h6 class="text-dark font-weight-bold mb-4">Lần gia hạn cuối:
+                                {{formatTime Subscription.sub_time}}
+                            </h6>
+                            {{/if}}
+                            <button type="button" class="btn btn-warning" id="btnExtendVip">Gia hạn tài khoản</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form id="formExtendVip" method="POST" action="extendviptime/{{AccInfo.acc_id}}">
+</form>
+<form id="formDeleteAccount" method="POST" action="delete/{{AccInfo.acc_id}}">
+</form>

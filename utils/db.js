@@ -5,7 +5,7 @@ var createConnection = () => {
     host: 'localhost', //db4free.net IP
     port: 3308,
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'tntnewsalphadb'
   });
 }
@@ -58,7 +58,7 @@ module.exports = {
       });
     });
   },
-
+  
   update: (tableName, fieldName, entity) => {
     return new Promise((resolve, reject) => {
       var id = entity[fieldName];

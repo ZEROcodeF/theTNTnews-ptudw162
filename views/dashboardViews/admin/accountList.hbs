@@ -1,6 +1,3 @@
-<div class="m-3">
-    <a href="#" class="btn btn-block btn-primary text-white text-uppercase"><i class="fa fa-plus mr-3"></i>Thêm người dùng mới</a>
-</div>
 {{#if pages}}
 <div class="card shadow mb-4">
     <div class="card-body">
@@ -30,10 +27,7 @@
                         {{/ifEquals}}
                         <td class="align-middle">{{acc_permission}}</td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-md btn-danger m-1">
-                                <i class="fa fa-trash mr-1"></i> Xóa
-                            </button>
-                            <a href="/admin/accountdetail/{{acc_id}}" class="btn btn-md btn-primary m-1">
+                            <a href="/admin/accountdetails/{{acc_id}}" class="btn btn-md btn-primary m-1">
                                 <i class="fa fa-eye mr-1"></i> Xem chi tiết
                             </a>
                         </td>
