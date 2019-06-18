@@ -4,7 +4,7 @@ var postModel = require('../../models/post.model');
 var router = express.Router();
 
 router.get('/', (req, res, next) => {
-    var uId = 3;
+    var uId = req.user.acc_id;
 
     var page = req.query.page || 1;
 
@@ -32,7 +32,7 @@ router.get('/', (req, res, next) => {
             pages.push(obj);
         }
 
-        res.render('dashboardViews/editor/postList', {
+        res.render('dashboardViews/editor/postlist', {
             layout: 'dashboard.hbs',
             pages,
             PageTitle: 'Danh sách bài viết chờ duyệt',
