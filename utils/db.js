@@ -82,7 +82,7 @@ module.exports = {
       var sql = `update ${tableName} set ${fieldName} = ? where ${fieldName} = ?`;
       var connection = createConnection();
       connection.connect();
-      connection.query(sql, [fromVal, toVal], (error, value) => {
+      connection.query(sql, [toVal, fromVal], (error, value) => {
         if (error) {
           reject(error);
         } else {
