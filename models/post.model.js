@@ -123,6 +123,10 @@ module.exports = {
     return db.update('post', 'post_id', entity);
   },
 
+  updatePostToNonCategory: catId =>{
+    return db.updateSelf('post','post_category',catId,0);
+  },
+
   delete: id => {
     return db.delete('post', 'post_id', id);
   },

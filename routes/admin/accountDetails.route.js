@@ -59,7 +59,7 @@ router.post('/update', (req, res, next) => {
         acc_pseudonym: accPseudonym
     };
 
-    categoryModel.deleteCateInChargeWithEditor(userId).then(() => {
+    accountModel.delelteCategoryEditorById(userId).then(() => {
         accountModel.update(user).then(() => {
             if (cateCharged) {
                 console.log(cateCharged);

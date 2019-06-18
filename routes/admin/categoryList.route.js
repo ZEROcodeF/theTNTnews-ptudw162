@@ -1,5 +1,6 @@
 var express = require('express');
 var categoryModel = require('../../models/category.model');
+var postModel = require('../../models/post.model');
 
 var router = express.Router();
 
@@ -47,46 +48,53 @@ router.post('/edit', (req, res, next) => {
     var newParent = req.body.category_parent;
     var callbackURL = req.headers.referer;
 
-    categoryModel.categoryByName(catName).then(cnrows => {
-        if (cnrows.length === 0) {
-            if (catId === req.body.category_parent) { //Anti "parent === this parent" -> this is not allowed
-                res.redirect(callbackURL);
-            } else {
-                var cat = { category_id: catId, category_name: catName, category_parent: newParent };
-                categoryModel.categoryByParentId(catId).then(childRows => { //Check for category does have children
-                    if (childRows.length > 0) {
-                        var uf = function (c) { //If had, Children should also be "bring" into 'the new parent' of 'old parent' by this function
-                            var newc = { category_id: c.category_id, category_parent: newParent };
-                            categoryModel.update(newc);
-                        };
-                        Promise.all([childRows.map(uf)]).then(([]) => { //Mapping children with above function with Promise to wait all job to be done
-                            categoryModel.update(cat).then(() => { //'Cause of "Foreign Key Bindings", all children need to be updated before old parent
-                                res.redirect(callbackURL); //All things have done. Redirect to 'CallbackURL' 
-                            });
-                        });
-                    } else {
-                        categoryModel.update(cat).then(() => {
-                            res.redirect(callbackURL);
-                        })
-                    }
+    if (catId === req.body.category_parent) { //Anti "parent === this parent" -> this is not allowed
+        res.redirect(callbackURL);
+    } else {
+        var cat = { category_id: catId, category_name: catName, category_parent: newParent };
+        categoryModel.categoryByParentId(catId).then(childRows => { //Check for category does have children
+            if (childRows.length > 0) {
+                var uf = function (c) { //If had, Children should also be "bring" into 'the new parent' of 'old parent' by this function
+                    var newc = { category_id: c.category_id, category_parent: newParent };
+                    categoryModel.update(newc);
+                };
+                Promise.all([childRows.map(uf)]).then(([]) => { //Mapping children with above function with Promise to wait all job to be done
+                    categoryModel.update(cat).then(() => { //'Cause of "Foreign Key Bindings", all children need to be updated before old parent
+                        res.redirect(callbackURL); //All things have done. Redirect to 'CallbackURL' 
+                    });
                 });
+            } else {
+                categoryModel.update(cat).then(() => {
+                    res.redirect(callbackURL);
+                })
             }
-        }else{
-            res.redirect(callbackURL);
-        }
-    })
+        });
+    }
 });
 
 router.post('/add', (req, res, next) => {
     var catName = req.body.category_name.replace(/\s\s+/g, ' ').trim(); //Replace all uneccessary white spaces
     var catParent = req.body.category_parent;
 
-    var catClasses = ['cat_red','cat_green','cat_violet','cat_blue','cat_orange','cat_pink'];
-    var catClass = catClasses[Math.floor(Math.random()*catClasses.length)];
+    var catClasses = ['cat_red', 'cat_green', 'cat_violet', 'cat_blue', 'cat_orange', 'cat_pink'];
+    var catClass = catClasses[Math.floor(Math.random() * catClasses.length)];
 
-    categoryModel.addIgnore({category_name:catName,category_parent:catParent,category_class:catClass}).then(()=>{
+    categoryModel.addIgnore({ category_name: catName, category_parent: catParent, category_class: catClass }).then(() => {
         res.redirect('/admin/categorylist');
     });
 })
+
+router.post('/delete', (req, res, next) => {
+    var catId = req.body.category_id;
+    Promise.all([
+        categoryModel.deleteCateInChargeWithCategoryId(catId),
+        categoryModel.updateChildCatToParentCat(catId),
+        postModel.updatePostToNonCategory(catId)
+    ]).then(() => {
+        categoryModel.delete(catId).then(() => {
+            res.redirect('/admin/categorylist');
+        })
+    });
+});
 
 module.exports = router;
