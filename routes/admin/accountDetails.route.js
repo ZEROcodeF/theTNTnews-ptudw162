@@ -76,13 +76,21 @@ router.post('/update', (req, res, next) => {
 router.post('/delete/:id', (req, res, next) => {
     var uid = req.params.id;
 
-    accountModel.deleteCateInChargeWithEditor(uid).then(() => {
-        postModel.update
+    Promise.all([
+        accountModel.delelteCategoryEditorById(uid),
+        accountModel.delelteCommentById(uid),
+        accountModel.deleteSubscriptionById(uid),
+        accountModel.updateEditorToNonPerson(uid),
+        accountModel.updateWriterToNonPerson(uid)
+    ]).then(() => {
+        accountModel.delete(uid).then(() => {
+            res.redirect('/admin/accountlist');
+        });
     });
 });
 
 router.post('/extendviptime/:id', (req, res, next) => {
-    console.log('Gia han: '+req.params.id);
+    console.log('Gia han: ' + req.params.id);
     accountModel.addSubscription(req.params.id, moment().format('YYYY-MM-DD HH:mm:ss')).then(() => {
         res.redirect('/admin/accountlist')
     });

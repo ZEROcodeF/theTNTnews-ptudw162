@@ -55,12 +55,32 @@ module.exports = {
     return db.update('account', 'acc_id', entity);
   },
 
+  updateEditorToNonPerson: editorId =>{
+    return db.updateSelf('post','post_editor',editorId, 0);
+  },
+
+  updateWriterToNonPerson: writerId =>{
+    return db.updateSelf('post','post_writer', writerId, 0);
+  },
+
   delete: id => {
-    return db.delete('category', 'CatID', id);
+    return db.delete('account', 'acc_id', id);
   },
 
   addSubscription: (subid, subtime) => {
     return db.load(`insert into subscription set sub_accid=${subid}, sub_time='${subtime}' on duplicate key update sub_time = '${subtime}'`)
+  },
+
+  deleteSubscriptionById: uId => {
+    return db.delete('subscription','sub_accid',uId);
+  },
+
+  delelteCommentById: uId => {
+    return db.delete('postcomment','cmt_account',uId);
+  },
+
+  delelteCategoryEditorById: uId => {
+    return db.delete('categoryeditor','categoryeditor_editor',uId);
   }
 
 };

@@ -77,6 +77,22 @@ module.exports = {
     });
   },
 
+  updateSelf: (tableName, fieldName, fromVal, toVal) => {
+    return new Promise((resolve, reject) => {
+      var sql = `update ${tableName} set ${fieldName} = ? where ${fieldName} = ?`;
+      var connection = createConnection();
+      connection.connect();
+      connection.query(sql, [fromVal, toVal], (error, value) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(value.changedRows);
+        }
+        connection.end();
+      });
+    });
+  },
+
   delete: (tableName, idField, id) => {
     return new Promise((resolve, reject) => {
       var sql = `delete from ${tableName} where ${idField} = ?`;
