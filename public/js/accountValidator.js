@@ -3,12 +3,10 @@ $(function () {
     $('.trim-text-change').on('focusout', function () {
         $(this).val($.trim($(this).val().replace(/\s\s+/g, ' ')));
     });
-    $.validator.addMethod(
-        "dateFormat",
-        function (value, element) {
-            return true;
-        }
-    );
+
+    $('#txtBirthdate').on('change',function(){
+        console.log($(this).val());
+    })
 
     $('#txtBirthdate').datetimepicker({
         startDate: '2014/12/31',
@@ -45,8 +43,7 @@ $(function () {
                 maxlength: 50
             },
             birthdate: {
-                required: true,
-                dateFormat: true
+                required: true
             },
         },
         messages: {
@@ -73,8 +70,7 @@ $(function () {
                 maxlength: 'Bút danh phải dưới 50 ký tự!'
             },
             birthdate: {
-                required: 'Bạn cần phải nhập ngày tháng năm sinh hợp lệ',
-                dateFormat: 'Ngày tháng năm sinh phải theo dạng DD/MM/YYYY'
+                required: 'Bạn cần phải nhập ngày tháng năm sinh hợp lệ'
             },
         },
         errorElement: 'small',

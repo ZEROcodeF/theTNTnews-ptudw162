@@ -4,7 +4,7 @@
 {{#section 'js'}}
 <script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 <script src="/js/jquery/jquery.validate.min.js" type="text/javascript"></script>
-<script src="/js/accountValidator.js"></script>
+<script src="/js/accountValidator.min.js" type="text/javascript"></script>
 {{/section}}
 
 <form id="registerForm" novalidate method="POST" action="update">
@@ -23,7 +23,7 @@
             <h6 class="font-weight-bold text-dark">Ngày tháng năm sinh</h6>
             <div class="form-group">
                 <input type="text" class="form-control custom-control form-control-user" id="txtBirthdate"
-                    name="acc_birthdate" placeholder="Định dạng DD/MM/YYYY)"
+                    name="birthdate" placeholder="Định dạng DD/MM/YYYY)"
                     value="{{{formatDate AccInfo.acc_birthdate}}}">
             </div>
             {{#ifEquals UserPermission 'writer'}}
