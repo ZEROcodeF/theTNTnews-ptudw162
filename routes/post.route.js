@@ -26,8 +26,9 @@ router.get('/:id', auth.premiumCheck, (req, res, next) => { ///Mdw 'premiumCheck
                         //Renderpost
                         var activeNavCat = full_post_rows[0].category_parent == 0 ? full_post_rows[0].post_category : full_post_rows[0].category_parent;
                         Promise.all([tagModel.tagListByPostId(postId),
-                        commentModel.allCommentsByPostId(postId)])
-                            .then(([tags, comments]) => {
+                        commentModel.allCommentsByPostId(postId),
+                        postModel.increaseViewByPostId(postId)])
+                            .then(([tags, comments,result]) => {
                                 if (tags.length == 0) tags = [];
                                 if (commentModel.length == 0) comments = [];
                                 res.render('generalViews/singlePost', {
@@ -50,7 +51,8 @@ router.get('/:id', auth.premiumCheck, (req, res, next) => { ///Mdw 'premiumCheck
                 //Renderpost
                 var activeNavCat = full_post_rows[0].category_parent == 0 ? full_post_rows[0].post_category : full_post_rows[0].category_parent;
                 Promise.all([tagModel.tagListByPostId(postId),
-                commentModel.allCommentsByPostId(postId)])
+                commentModel.allCommentsByPostId(postId),
+                postModel.increaseViewByPostId(postId)])
                     .then(([tags, comments]) => {
                         if (tags.length == 0) tags = [];
                         if (commentModel.length == 0) comments = [];
