@@ -1,6 +1,9 @@
 var db = require('../utils/db');
 
 module.exports = {
+  categoryByName: name =>{
+    return db.load(`select * from category where category_name = ${name}`);
+  },
   categoryInfoList: (limit, offset) =>{
     return db.load(`select c.category_id, c.category_name, c.category_parent, c2.category_name as category_parentname from category c join category c2 on c.category_parent = c2.category_id where c.category_id !=0 limit ${limit} offset ${offset}`);
   },

@@ -5,12 +5,12 @@
         var catName = $(this).data('todo').category_name;
         var catParent = $(this).data('todo').category_parent;
         console.log('catid: ' + catId);
-        $('.modal-header #formTitle').text('Sửa chuyên mục ID: ' + catId);
-        $('.modal-body #inputCatId').val(catId);
-        $('.modal-body #inputCatName').val(catName);
+        $('#editCatForm .modal-header #formTitle').text('Sửa chuyên mục ID: ' + catId);
+        $('#editCatForm .modal-body #inputCatId').val(catId);
+        $('#editCatForm .modal-body #inputCatName').val(catName);
         $('#editCatForm').modal();
-        $('.parent-select').val(catParent);
-        $('.modal-body #inputCatName').select();
+        $('#editCatForm .parent-select').val(catParent);
+        $('#editCatForm .modal-body #inputCatName').select();
     });
 </script>
 {{/section}}
@@ -78,7 +78,7 @@
             <div class="modal-header">
                 <h5 id="formTitle" class="text-primary text-center font-weight-bold m-0 w-100"></h5>
             </div>
-            <form novalidate method="POST" action="categorylist/edit">
+            <form novalidate method="POST" class="categoryForm" action="categorylist/edit">
                 <div class="modal-body">
                     <input name="category_id" value="" id="inputCatId" hidden>
                     <input type="text" class="form-control mb-3" name="category_name" id="inputCatName" value="">
@@ -106,7 +106,7 @@
             <div class="modal-header">
                 <h5 id="formTitle" class="text-primary text-center font-weight-bold m-0 w-100">Thêm chuyên mục mới</h5>
             </div>
-            <form novalidate method="POST" action="categorylist/add">
+            <form novalidate method="POST" id="addCategoryForm" action="categorylist/add">
                 <div class="modal-body">
                     <input type="text" class="form-control" name="category_name" id="inputCatName" value=""
                         placeholder="Nhập tên chuyên mục mới">

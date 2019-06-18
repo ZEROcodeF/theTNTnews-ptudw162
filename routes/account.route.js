@@ -5,6 +5,7 @@ var bcrypt = require('bcrypt');
 var moment = require('moment');
 var notAuth = require('../middlewares/auth.middlewares').notAuthRequired;
 var getAuthInfo = require('../middlewares/auth.middlewares').isAuth;
+var dataValidate = require('../utils/validate');
 
 var router = express.Router();
 
@@ -94,11 +95,8 @@ router.post('/login', notAuth, (req, res, next) => {
 
 
 router.post('/register', notAuth, (req, res, next) => {
-    var saltRounds = 10;
-    var hash = bcrypt.hashSync(req.body.password, saltRounds);
-    var dob = moment(req.body.birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
-    var strPermission = '0';
+    var strPermission = '';
     var strPseudonym = '';
     if (req.body.iswriter) {
         strPermission = 'writer';
@@ -108,18 +106,29 @@ router.post('/register', notAuth, (req, res, next) => {
         strPermission = 'subscriber';
     }
 
-    var entity = {
-        acc_email: req.body.email,
-        acc_hpw: hash,
-        acc_fullname: req.body.fullname,
-        acc_birthdate: dob,
-        acc_pseudonym: strPseudonym,
-        acc_permission: strPermission
+    if (dataValidate.accountStringsValidate(req.body.email, strPermission, req.body.fullname, req.body.birthdate, req.body.password)) {
+
+        var saltRounds = 10;
+        var dob = moment(req.body.birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        var hash = bcrypt.hashSync(req.body.password, saltRounds);
+
+
+        var entity = {
+            acc_email: req.body.email,
+            acc_hpw: hash,
+            acc_fullname: req.body.fullname,
+            acc_birthdate: dob,
+            acc_pseudonym: strPseudonym,
+            acc_permission: strPermission
+        }
+
+        accountModel.add(entity).then(id => {
+            res.redirect('/account/login');
+        })
+    } else {
+        res.redirect('/account/register');
     }
 
-    accountModel.add(entity).then(id => {
-        res.redirect('/account/login');
-    })
 })
 
 router.get('/logout', (req, res, next) => {
@@ -160,25 +169,29 @@ router.get('/details', getAuthInfo, (req, res, next) => {
 router.post('/update', (req, res, next) => {
     if (req.user) {
         var userId = req.user.acc_id;
-        var accEmail = req.body.acc_email;
-        var accFullname = req.body.acc_fullname;
-        var accBirthDate = moment(req.body.acc_birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
-        accountModel.singleInfoById(userId).then(urows => {
-            if (urows.length > 0) {
-                var user = {
-                    acc_id: userId,
-                    acc_email: accEmail,
-                    acc_fullname: accFullname,
-                    acc_birthdate: accBirthDate
-                };
-                accountModel.update(user).then(() => {
-                    res.redirect('/account/details');
-                }).catch(err => { console.error(err); }
-                );
-            } else {
-                res.render('_nolayout/404', { layout: false });
-            }
-        });
+        var accEmail = req.body.email;
+        var accFullname = req.body.fullname;
+        if (dataValidate.accountStringsValidate(accEmail, req.user.acc_permission, accFullname, req.body.birthdate, '111111111111')) {
+            var accBirthDate = moment(req.body.birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+            accountModel.singleInfoById(userId).then(urows => {
+                if (urows.length > 0) {
+                    var user = {
+                        acc_id: userId,
+                        acc_email: accEmail,
+                        acc_fullname: accFullname,
+                        acc_birthdate: accBirthDate
+                    };
+                    accountModel.update(user).then(() => {
+                        res.redirect('/account/details');
+                    }).catch(err => { console.error(err); }
+                    );
+                } else {
+                    res.render('_nolayout/404', { layout: false });
+                }
+            });
+        } else {
+            res.redirect('/account/details');
+        }
     } else {
         res.redirect('/account/login');
     }
@@ -188,7 +201,7 @@ router.post('/updatepassword', (req, res, next) => {
     if (req.user) {
         var userId = req.user.acc_id;
         var oldpwd = req.body.old_password;
-        var newpwd = req.body.new_password;
+        var newpwd = req.body.password;
         console.log('update password of ', userId);
         accountModel.singleInfoById(userId).then(users => {
             if (users.length > 0) {
@@ -203,8 +216,7 @@ router.post('/updatepassword', (req, res, next) => {
 
                 } else {
                     console.log('Wrong old password or newpwd invalid');
-                    res.redirect('/account/details');
-                    next();
+                    res.render('dashboardViews/accountDetails', { layout: 'dashboard.hbs', errorPasswordInvalid: true });
                 }
             } else {
                 console.log('Waring UPDATE PWD: User is invalid');

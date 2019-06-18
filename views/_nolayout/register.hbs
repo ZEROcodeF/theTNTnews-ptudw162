@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group d-flex flex-column align-items-center">
                   <input type="text" class="form-control form-control-user" id="txtBirthdate" name="birthdate"
-                    placeholder="Ngày tháng năm sinh (dd/MM/yyyy)">
+                    placeholder="Ngày tháng năm sinh (dd/MM/yyyy)" value="31/12/2014">
                 </div>
                 <div class="form-group d-flex flex-column align-items-center text-center">
                   <div class="custom-control custom-checkbox small">
@@ -100,98 +100,7 @@
 
   <script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
   <script src="/js/jquery/jquery.validate.min.js" type="text/javascript"></script>
-  <script>
-    $(function () {
-      $.validator.addMethod(
-        "dateFormat",
-        function (value, element) {
-          return true;
-        }
-      );
-
-      $('#txtBirthdate').datetimepicker({
-        format: 'd/m/Y',
-        timepicker: false,
-        mask: true,
-      });
-
-      $('#registerForm').validate({
-        rules: {
-          email: {
-            required: true,
-            email: true,
-            maxlength: 50,
-            remote: {
-              url: '/account/is-email-available'
-            }
-          },
-          password: {
-            required: true,
-            minlength: 8
-          },
-          confirm: {
-            required: true,
-            equalTo: $('[name="password"]')
-          },
-          fullname: {
-            required: true,
-            maxlength: 50
-          },
-          pseudonym: {
-            required: $('#checkboxWriter:checked'),
-            maxlength: 50
-          },
-          birthdate: {
-            required: true,
-            dateFormat: true
-          },
-        },
-        messages: {
-          email: {
-            required: 'Bạn cần phải nhập Email hợp lệ',
-            maxlength: 'Email phải dưới 50 ký tự!',
-            email: 'Phải nhập đúng định dạng Email!',
-            remote: 'Your username has been taken, please take another.'
-          },
-          password: {
-            required: 'Bạn cần phải nhập mật khẩu hợp lệ',
-            minlength: 'Mật khẩu phải ít nhất 8 ký tự!'
-          },
-          confirm: {
-            required: 'Bạn cần phải nhập lại mật khẩu hợp lệ',
-            equalTo: 'Your password does not match.'
-          },
-          fullname: {
-            requied: 'Bạn cần phải nhập họ và tên hợp lệ',
-            maxlength: 'Họ tên phải dưới 50 ký tự!'
-          },
-          pseudonym: {
-            requied: 'Bạn cần phải nhập bút danh hợp lệ',
-            maxlength: 'Bút danh phải dưới 50 ký tự!'
-          },
-          birthdate: {
-            required: 'Bạn cần phải nhập ngày tháng năm sinh hợp lệ',
-            dateFormat: 'Ngày tháng năm sinh phải theo dạng DD/MM/YYYY'
-          },
-        },
-        errorElement: 'small',
-        errorClass: 'help-block text-danger',
-        highlight: function (e) {
-          $(e).removeClass('is-valid').addClass('is-invalid');
-        },
-        unhighlight: function (e) {
-          $(e).removeClass('is-invalid').addClass('is-valid');
-        }
-      });
-      $('#checkboxWriter').change(function(){
-        if ($(this).is(':checked')){
-          $('#txtPseudonym').prop('disabled',false);
-        } else{
-          $('#txtPseudonym').prop('disabled',true);
-        }
-      });
-    })
-  </script>
+  <script src='/js/accountValidator.js'></script>
 
 </body>
 

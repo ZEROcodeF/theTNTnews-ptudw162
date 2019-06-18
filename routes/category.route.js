@@ -30,13 +30,13 @@ router.get('/:id', premiumCheck, (req, res, next) => {
 
     var catFunc = postModel.fullInfoPublishPostByCat(id, limit, offset);
 
-    if(req.user && req.isPremiumUser){
+    if (req.user && req.isPremiumUser) {
       catFunc = postModel.fullInfoPublishPremiumPriorPostByCat(id, limit, offset);
     }
 
     Promise.all(
       [catFunc,
-      postModel.countFullInfoPublishPostByCat(id)]
+        postModel.countFullInfoPublishPostByCat(id)]
     ).then(([rows, totalRow]) => {
 
       var total = totalRow[0].total;

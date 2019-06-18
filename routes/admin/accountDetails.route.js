@@ -38,7 +38,7 @@ router.get('/:id', (req, res, next) => {
                 }
             })
         } else {
-            res.redirect('_noLayout/404', { layout: false });
+            res.render('_noLayout/404', { layout: false });
         }
     });
 });

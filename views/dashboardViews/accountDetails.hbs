@@ -3,44 +3,42 @@
 {{/section}}
 {{#section 'js'}}
 <script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
-<script>
-    $('.trim-text-change').on('focusout', function () {
-        $(this).val($.trim($(this).val().replace(/\s\s+/g, ' ')));
-    });
-    $('#inputBirthdate').datetimepicker({
-        format: 'd/m/Y',
-        timepicker: false,
-        mask: true,
-    });
-</script>
+<script src="/js/jquery/jquery.validate.min.js" type="text/javascript"></script>
+<script src="/js/accountValidator.js"></script>
 {{/section}}
 
-<form id="fromAccountDetails" novalidate method="POST" action="update">
+<form id="registerForm" novalidate method="POST" action="update">
     <div class="card mb-4 shadow">
         <div class="card-body">
             <h6 class="font-weight-bold text-dark">Email</h6>
             <div class="form-group">
-                <input class="form-control custom-control trim-text-change" type="text" name="acc_email" placeholder="Dưới 50 ký tự"
-                    value="{{AccInfo.acc_email}}">
+                <input class="form-control custom-control trim-text-change" type="text" name="email"
+                    placeholder="Dưới 50 ký tự" value="{{AccInfo.acc_email}}">
             </div>
             <h6 class="font-weight-bold text-dark">Họ và tên</h6>
             <div class="form-group">
-                <input class="form-control custom-control trim-text-change" type="text" name="acc_fullname" placeholder="Dưới 50 ký tự"
-                    value="{{AccInfo.acc_fullname}}"></input>
+                <input class="form-control custom-control trim-text-change" type="text" name="fullname"
+                    placeholder="Dưới 50 ký tự" value="{{AccInfo.acc_fullname}}"></input>
             </div>
             <h6 class="font-weight-bold text-dark">Ngày tháng năm sinh</h6>
             <div class="form-group">
-                <input type="text" class="form-control custom-control form-control-user" id="inputBirthdate" name="acc_birthdate"
-                    placeholder="Định dạng DD/MM/YYYY)" value="{{{formatDate AccInfo.acc_birthdate}}}">
+                <input type="text" class="form-control custom-control form-control-user" id="txtBirthdate"
+                    name="acc_birthdate" placeholder="Định dạng DD/MM/YYYY)"
+                    value="{{{formatDate AccInfo.acc_birthdate}}}">
             </div>
             {{#ifEquals UserPermission 'writer'}}
             <hr>
             <h6 class="font-weight-bold text-dark">Bút danh</h6>
             <div class="form-group">
-                <input class="form-control custom-control trim-text-change" type="text" name="acc_pseudonym"
+                <input class="form-control custom-control trim-text-change" type="text" name="pseudonym"
                     placeholder="Dưới 50 ký tự" value="{{../AccInfo.acc_pseudonym}}"></input>
             </div>
             {{/ifEquals}}
+            <div class="text-center">
+                {{#if errorPasswordInvalid}}
+                <h6 class="text-danger">Password sai hoặc mật khẩu mới không hợp lệ</h6>
+                {{/if}}
+            </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success" id="btnSubmitInfo"><i class="fas fa-check mr-2"></i>Cập
                     nhật thông
@@ -73,12 +71,12 @@
                     <hr>
                     <div class="form-group">
                         <h6 class="text-dark font-weight-bold">Mật khẩu mới</h6>
-                        <input type="password" class="form-control custom-control" name="new_password" value=""
+                        <input type="password" class="form-control custom-control" name="password" value=""
                             placeholder="Nhập mật khẩu mới...">
                     </div>
                     <div class="form-group">
                         <h6 class="text-dark font-weight-bold">Xác nhận mật khẩu mới</h6>
-                        <input type="password" class="form-control custom-control" name="" value=""
+                        <input type="password" class="form-control custom-control" name="confirm" value=""
                             placeholder="Xác nhận khẩu mới...">
                     </div>
                 </div>

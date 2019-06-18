@@ -1,5 +1,6 @@
 var express = require('express');
 var postModel = require('../models/post.model');
+var catModel = require('../models/category.model');
 
 var router = express.Router();
 
@@ -40,7 +41,7 @@ router.use('/tag', require('./tag.route'));
 
 router.use('/post', require('./post.route'));
 
-router.use('/search',require('./search.route'));
+router.use('/search', require('./search.route'));
 
 router.use('/about', (req, res) => {
     res.render('about', {
