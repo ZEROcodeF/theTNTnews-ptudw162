@@ -87,6 +87,16 @@ module.exports = {
   countEditorPostList: editorId => {
     return db.load(`select count(post_id) as total from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId})`);
   },
+
+  editorLastChangedPostList: (editorId, limit, offset) => {
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, acc_pseudonym as writer_pseudonym from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status!='wait' and post_editor = ${editorId} order by post_time desc limit ${limit} offset ${offset}`);
+  },
+
+  countEditorLastChangedPostList: editorId => {
+    return db.load(`select count(post_id) as total from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status!='wait' and post_editor = ${editorId}`);
+  },
+
+
   //END Editor.
 
   //BEGIN Admin:
