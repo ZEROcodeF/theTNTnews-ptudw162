@@ -17,25 +17,16 @@ router.get('/:id', (req, res, next) => {
                 if (subs.length > 0) {
                     Subscription = subs[0];
                 }
-                if (user.acc_permission == 'editor') {
-                    categoryModel.getCateInChargeMapWithEditor(user.acc_id).then(icrows => {
-                        console.log(icrows);
-                        res.render('dashboardViews/admin/accountDetails', {
-                            layout: 'dashboard.hbs',
-                            PageTitle: 'Chi tiết người dùng: ' + user.acc_fullname,
-                            AccInfo: user,
-                            Subscription,
-                            InChargedCateMap: icrows
-                        })
-                    });
-                } else {
+                categoryModel.getCateInChargeMapWithEditor(user.acc_id).then(icrows => {
+                    console.log(icrows);
                     res.render('dashboardViews/admin/accountDetails', {
                         layout: 'dashboard.hbs',
                         PageTitle: 'Chi tiết người dùng: ' + user.acc_fullname,
                         AccInfo: user,
-                        Subscription
+                        Subscription,
+                        InChargedCateMap: icrows
                     })
-                }
+                });
             })
         } else {
             res.render('_noLayout/404', { layout: false });
@@ -51,7 +42,7 @@ router.post('/update', (req, res, next) => {
 
     if (req.body.acc_permission == 'editor') cateCharged = req.body.in_charged_cates;
 
-    if (req.body.acc_permission == 'writer') cateCharged = req.body.acc_pseudonym;
+    if (req.body.acc_permission == 'writer') accPseudonym = req.body.acc_pseudonym;
 
     var user = {
         acc_id: userId,
@@ -76,16 +67,22 @@ router.post('/update', (req, res, next) => {
 router.post('/delete/:id', (req, res, next) => {
     var uid = req.params.id;
 
-    Promise.all([
-        accountModel.delelteCategoryEditorById(uid),
-        accountModel.delelteCommentById(uid),
-        accountModel.deleteSubscriptionById(uid),
-        accountModel.updateEditorToNonPerson(uid),
-        accountModel.updateWriterToNonPerson(uid)
-    ]).then(() => {
-        accountModel.delete(uid).then(() => {
+    accountModel.singleInfoById(uid).then(urows => {
+        if (urows.length > 0 && urows[0].acc_permission != 'admin') {
+            Promise.all([
+                accountModel.delelteCategoryEditorById(uid),
+                accountModel.delelteCommentById(uid),
+                accountModel.deleteSubscriptionById(uid),
+                accountModel.updateEditorToNonPerson(uid),
+                accountModel.updateWriterToNonPerson(uid)
+            ]).then(() => {
+                accountModel.delete(uid).then(() => {
+                    res.redirect('/admin/accountlist');
+                });
+            });
+        } else {
             res.redirect('/admin/accountlist');
-        });
+        }
     });
 });
 

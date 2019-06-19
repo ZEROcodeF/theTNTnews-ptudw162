@@ -4,15 +4,19 @@
 {{#section 'js'}}
 <script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 <script>
-    $(function(){
-        if($('#writerCheck').is(':checked')){
+    $(function () {
+        if ($('#editorCheck').is(':checked')) {
+            $('#editorCategoryCheck').show();
+        } else {
+            $('#editorCategoryCheck').hide();
+        }
+        if ($('#writerCheck').is(':checked')) {
             $('#inputPseudonym').show();
         } else {
             $('#inputPseudonym').hide();
 
         }
-    }
-    )
+    })
     $('.trim-text-change').on('focusout', function () {
         $(this).val($.trim($(this).val().replace(/\s\s+/g, ' ')));
     });
@@ -31,10 +35,18 @@
         $('#formExtendVip').submit();
     });
     $('input[name="acc_permission"]').on('change', function () {
+        if ($('#editorCheck').is(':checked')) {
+            $('#editorCategoryCheck').show();
+        } else {
+            $('#editorCategoryCheck').hide();
+        }
         if ($('#writerCheck').is(':checked')) {
             $('#inputPseudonym').show();
         } else {
             $('#inputPseudonym').hide();
+        }
+        if ($('#adminCheck').is(':checked')) {
+            $('#adminCheckedAttentionForm').modal();
         }
     });
 </script>
@@ -63,6 +75,11 @@
                                 <input type="radio" class="custom-control-input" id="editorCheck" name="acc_permission"
                                     value="editor" {{#ifEquals AccInfo.acc_permission 'editor'}}checked{{/ifEquals}}>
                                 <label class="custom-control-label" for="editorCheck">Biên tập viên</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="adminCheck" name="acc_permission"
+                                    value="admin">
+                                <label class="custom-control-label" for="adminCheck">Quản trị viên</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -97,8 +114,7 @@
                         </div>
                     </div>
                 </div>
-                {{#ifEquals AccInfo.acc_permission 'editor'}}
-                <div class="card mb-4 shadow">
+                <div id="editorCategoryCheck" class="card mb-4 shadow">
                     <div class="card-header">
                         <h6 class="text-primary font-weight-bold">Quản lý Biên tập viên</h6>
                     </div>
@@ -106,9 +122,9 @@
                         <h6 class="text-dark font-weight-bold">Chuyên mục phụ trách
                         </h6>
                         <div class="form-group custom-control custom-checkbox">
-                            {{#each ../InChargedCateMap}}
+                            {{#each InChargedCateMap}}
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input"
+                                <input type="checkbox" class="custom-control-input" value="{{this.category_id}}"
                                     id="customCheckCates{{this.category_id}}" name="in_charged_cates[]"
                                     {{#if this.categoryeditor_category}}checked{{/if}}>
                                 <label class="custom-control-label"
@@ -118,7 +134,6 @@
                         </div>
                     </div>
                 </div>
-                {{/ifEquals}}
             </div>
             <div class="col-xl-4">
                 <div class="card shadow mb-4">
@@ -158,3 +173,22 @@
 </form>
 <form id="formDeleteAccount" method="POST" action="delete/{{AccInfo.acc_id}}">
 </form>
+
+<div class="modal hide" id="adminCheckedAttentionForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-danger text-center font-weight-bold m-0 w-100">Cảnh báo!</h5>
+            </div>
+            <div class="modal-body">
+                <h6 class="text-dark m-0 w-100">Cấp quyền Admin cho tài khoản này đồng nghĩa với:</h6>
+                <h6 class="text-dark m-0 w-100 font-weight-bold">Sở hữu tất cả các quyền như bạn</h6>
+                <h6 class="text-dark m-0 w-100">Bạn <span class="font-weight-bold">không thể duyệt, xem chi tiết, sửa
+                        hay xóa</span> tài khoản này</h6>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tôi đã hiểu</button>
+            </div>
+        </div>
+    </div>
+</div>
