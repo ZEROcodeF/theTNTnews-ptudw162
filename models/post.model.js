@@ -75,21 +75,21 @@ module.exports = {
 
   //BEGIN Writer: 
   writerPostList: (filterString, writerId, limit, offset) => {
-    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterString}) order by post_time desc limit ${limit} offset ${offset}`);
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_editor, post_thumbnail, post_summary, post_denyreason, category_name, acc_fullname as editor_name from (select * from post left join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterString}) order by post_time desc limit ${limit} offset ${offset}`);
   },
 
   countWriterPostList: (filterType, writerId) => {
-    return db.load(`select count(post_id) as 'total' from (select * from post join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType})`);
+    return db.load(`select count(post_id) as 'total' from (select * from post left join account on post_editor = acc_id) as pa join category on post_category = category_id where post_writer = ${writerId} and (post_status = ${filterType})`);
   },
   //END Writer.
 
   //BEGIN Editor:
   editorPostList: (editorId, limit, offset) => {
-    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, acc_pseudonym as writer_pseudonym from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId}) order by post_time desc limit ${limit} offset ${offset}`);
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, acc_pseudonym as writer_pseudonym from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id join (select categoryeditor_category from categoryeditor where categoryeditor_editor = ${editorId}) as ce on categoryeditor_category = category_id where post_status='wait' order by post_time desc limit ${limit} offset ${offset}`);
   },
 
   countEditorPostList: editorId => {
-    return db.load(`select count(post_id) as total from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id where post_status='wait' and post_category = (select category_id from category join categoryeditor on category_id = categoryeditor_category where categoryeditor_editor = ${editorId})`);
+    return db.load(`select count(post_id) as total from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id join (select categoryeditor_category from categoryeditor where categoryeditor_editor = ${editorId}) as ce on categoryeditor_category = category_id where post_status='wait'`);
   },
 
   editorLastChangedPostList: (editorId, limit, offset) => {
@@ -105,11 +105,11 @@ module.exports = {
 
   //BEGIN Admin:
   adminPostList: (filterString, limit, offset) => {
-    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, a1.acc_pseudonym as writer_pseudonym, a2.acc_fullname as editor_name from post join account a1 on post_writer = a1.acc_id join account a2 on post_editor = a2.acc_id join category on post_category = category_id where post_status = ${filterString} order by post_time desc limit ${limit} offset ${offset}`);
+    return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, a1.acc_pseudonym as writer_pseudonym, a2.acc_fullname as editor_name from post join account a1 on post_writer = a1.acc_id left join account a2 on post_editor = a2.acc_id join category on post_category = category_id where post_status = ${filterString} order by post_time desc limit ${limit} offset ${offset}`);
   },
 
   countAdminPostList: (filterString) => {
-    return db.load(`select count(post_id) as total from post join account a1 on post_writer = a1.acc_id join account a2 on post_editor = a2.acc_id join category on post_category = category_id where post_status = ${filterString}`);
+    return db.load(`select count(post_id) as total from post join account a1 on post_writer = a1.acc_id left join account a2 on post_editor = a2.acc_id join category on post_category = category_id where post_status = ${filterString}`);
   },
 
   //END Admin

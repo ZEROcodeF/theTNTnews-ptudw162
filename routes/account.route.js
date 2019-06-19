@@ -107,12 +107,9 @@ router.post('/register', notAuth, (req, res, next) => {
     }
 
     if (dataValidate.accountStringsValidate(req.body.email, strPermission, req.body.fullname, req.body.birthdate, req.body.password)) {
-
         var saltRounds = 10;
         var dob = moment(req.body.birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
         var hash = bcrypt.hashSync(req.body.password, saltRounds);
-
-
         var entity = {
             acc_email: req.body.email,
             acc_hpw: hash,
@@ -121,7 +118,6 @@ router.post('/register', notAuth, (req, res, next) => {
             acc_pseudonym: strPseudonym,
             acc_permission: strPermission
         }
-
         accountModel.add(entity).then(id => {
             res.redirect('/account/login');
         })

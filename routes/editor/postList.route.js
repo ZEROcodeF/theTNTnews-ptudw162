@@ -17,12 +17,11 @@ router.get('/', (req, res, next) => {
         [postModel.editorPostList(uId, limit, offset),
         postModel.countEditorPostList(uId)]
     ).then(([rows, totalRow]) => {
-
+        
+        if(rows.length>0){
         var total = totalRow[0].total;
+        } else var total = 0;
 
-        rows.forEach(row => {
-            
-        });
 
         var nPages = Math.floor(total / limit);
         if (total % limit > 0) nPages++;
