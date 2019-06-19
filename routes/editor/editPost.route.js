@@ -9,27 +9,17 @@ var router = express.Router();
 
 router.get('/:id', (req, res, next) => {
     var postId = req.params.id;
-    postModel.singleEditPostById(postId).then(prows => {
-        if (prows.length > 0 && prows[0].post_status == 'wait') {
-            catModel.getCatWithEditor(prows[0].post_category, req.user.acc_id).then(editRows => {
-                if (editRows.length > 0) {
-                        tagModel.tagListByPostId(postId).then(trows => {
-                            res.render('dashboardViews/editor/editPost', {
-                                isEdit: true,
-                                layout: 'dashboard.hbs',
-                                PageTitle: 'Chỉnh sửa: ' + prows[0].post_title,
-                                Post: prows[0],
-                                Tags: trows,
-                                PostButtonTitle: '<i class="fas fa-spell-check mr-2"></i>Lưu lại và duyệt'
-                            });
-                        }).catch(next);
-                } else {
-                    res.render('_nolayout/404', { layout: false });
-                }
+    postModel.editorSinglePostById(req.user.acc_id, postId).then(prows => {
+        tagModel.tagListByPostId(postId).then(trows => {
+            res.render('dashboardViews/editor/editPost', {
+                isEdit: true,
+                layout: 'dashboard.hbs',
+                PageTitle: 'Chỉnh sửa: ' + prows[0].post_title,
+                Post: prows[0],
+                Tags: trows,
+                PostButtonTitle: '<i class="fas fa-spell-check mr-2"></i>Lưu lại và duyệt'
             });
-        } else {
-            res.render('_nolayout/404', { layout: false });
-        }
+        });
     });
 });
 
@@ -38,7 +28,7 @@ router.post('/:id', (req, res, next) => {
     var postType = req.body.post_type;
     var postStatus = 'publish';
     var postCategory = req.body.post_category;
-    var postTime = moment(req.body.post_time,'HH:mm:ss DD/MM/YYYY').format('YYYY-MM-DD HH:mm:ss');
+    var postTime = moment(req.body.post_time, 'HH:mm:ss DD/MM/YYYY').format('YYYY-MM-DD HH:mm:ss');
     var postEditor = req.user.acc_id;
 
     var post = {
@@ -79,13 +69,15 @@ router.post('/:id', (req, res, next) => {
 
 router.post('/reject/:id', (req, res, next) => {
     postModel.update(
-        { post_id: req.params.id, 
-            post_status: 'deny', 
+        {
+            post_id: req.params.id,
+            post_status: 'deny',
             post_time: moment().format('YYYY-MM-DD HH:mm:ss'),
             post_editor: req.params.id,
-            post_denyreason: req.body.post_denyreason }
+            post_denyreason: req.body.post_denyreason
+        }
     ).then(
-    res.redirect('/editor/postlist')
+        res.redirect('/editor/postlist')
     );
 });
 

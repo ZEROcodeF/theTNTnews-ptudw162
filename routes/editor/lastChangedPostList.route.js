@@ -3,49 +3,40 @@ var postModel = require('../../models/post.model');
 
 var router = express.Router();
 
-router.get('/',(req,res,next) =>{
+router.get('/', (req, res, next) => {
 	var idEditor = req.user.acc_id;
 
 	var page = req.query.page || 1;
 
-    if (page < 1) page = 1;
+	if (page < 1) page = 1;
 
-    var limit = 7;
-    var offset = (page - 1) * limit;
+	var limit = 7;
+	var offset = (page - 1) * limit;
 
-    Promise.all(
-        [postModel.editorLastChangedPostList(idEditor, limit, offset),
-        postModel.countEditorLastChangedPostList(idEditor)]
-    ).then(([rows, totalRow]) => {
-    	if(rows.length > 0)
-    	{
-    		var total = totalRow[0].total;
-    		rows.forEach(row => {
-            
-        	});
-    		var nPages = Math.floor(total / limit);
-    		if (total % limit > 0) nPages++;
-    		var pages = [];
-    		for (i = 1; i <= nPages; i++) {
-    			var obj = { value: i, active: i === +page };
-    			pages.push(obj);
-    		}
+	Promise.all(
+		[postModel.editorLastChangedPostList(idEditor, limit, offset),
+		postModel.countEditorLastChangedPostList(idEditor)]
+	).then(([rows, totalRow]) => {
+			var total = totalRow[0].total;
 
-    		res.render('dashboardViews/editor/postlist', {
-    			layout: 'dashboard.hbs',
-    			pages,
-    			PageTitle: 'Bài viết xử lý lần cuối',
-    			PostsInfo: rows
-    		});
-    		console.log(total + '  ' + pages);
-    	}
-    	else
-    	{
-    		res.render('_nolayout/404');
-    	}
-        
+			var nPages = Math.floor(total / limit);
+			if (total % limit > 0) nPages++;
+			var pages = [];
+			for (i = 1; i <= nPages; i++) {
+				var obj = { value: i, active: i === +page };
+				pages.push(obj);
+			}
 
-    }).catch(next);
+			res.render('dashboardViews/editor/postlist', {
+				layout: 'dashboard.hbs',
+				pages,
+				PageTitle: 'Bài viết xử lý lần cuối',
+				PostsInfo: rows
+			});
+			console.log(total + '  ' + pages);
+
+
+	}).catch(next);
 
 });
 

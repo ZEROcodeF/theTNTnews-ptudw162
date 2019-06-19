@@ -84,6 +84,10 @@ module.exports = {
   //END Writer.
 
   //BEGIN Editor:
+  editorSinglePostById: (editorId, postId) =>{
+    return db.load(`select * from post where post_category = (select categoryeditor_category from categoryeditor where categoryeditor_editor = ${editorId} and post_category = categoryeditor_category) and post_id = ${postId} and post_status = 'wait'`);
+  }, 
+
   editorPostList: (editorId, limit, offset) => {
     return db.load(`select post_id, post_type, post_status, post_category, post_title, post_time, post_writer, post_thumbnail, post_summary, category_name, acc_pseudonym as writer_pseudonym from (select * from post join account on post_writer = acc_id) as pa join category on post_category = category_id join (select categoryeditor_category from categoryeditor where categoryeditor_editor = ${editorId}) as ce on categoryeditor_category = category_id where post_status='wait' order by post_time desc limit ${limit} offset ${offset}`);
   },
