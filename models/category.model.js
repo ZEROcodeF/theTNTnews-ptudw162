@@ -25,7 +25,7 @@ module.exports = {
   },
 
   getCateInChargeMapWithEditor: (edtId) => {
-    return db.load(`select * from category left join (select * from categoryeditor where categoryeditor_editor = ${edtId})ed on category_id = categoryeditor_category`);
+    return db.load(`select * from category left join (select * from categoryeditor where categoryeditor_editor = ${edtId})ed on category_id = categoryeditor_category where category_id != 0`);
   },
 
   addCateInChargeWithEditor: (entity) => {
