@@ -19,6 +19,10 @@
 <script>
     $(function () {
         $('#imageUploader').fileinput({
+            resizeImage: true,
+            maxImageWidth: 1024,
+            maxImageHeight: 768,
+            resizePreference: 'width',
             theme: 'fa',
             dropZoneEnabled: true,
             allowedFileExtensions: ['png', 'jpg', 'gif'],

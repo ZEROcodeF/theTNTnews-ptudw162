@@ -37,28 +37,31 @@ router.get('/:id', (req, res, next) => {
 router.post('/update', (req, res, next) => {
     var userId = req.body.acc_id;
 
-    var accPseudonym = '';
+    var accPseudonym = ' ';
     var cateCharged = null;
 
     if (req.body.acc_permission == 'editor') cateCharged = req.body.in_charged_cates;
 
     if (req.body.acc_permission == 'writer') accPseudonym = req.body.acc_pseudonym;
 
-    var user = {
-        acc_id: userId,
-        acc_permission: req.body.acc_permission,
-        acc_pseudonym: accPseudonym
-    };
+    Promise.all([accountModel.delelteCategoryEditorById(userId),
+    accountModel.singleByPseudonym(accPseudonym),
+    accountModel.singleInfoById(userId)]).then(([results, pseurows, urows]) => {
+        if (urows.length > 0 && pseurows.length > 0) accPseudonym = urows[0].acc_pseudonym;
+        var user = {
+            acc_id: userId,
+            acc_permission: req.body.acc_permission,
+            acc_pseudonym: accPseudonym
+        };
 
-    accountModel.delelteCategoryEditorById(userId).then(() => {
         accountModel.update(user).then(() => {
             if (cateCharged) {
                 console.log(cateCharged);
                 Promise.all(cateCharged.map(catec => {
                     return categoryModel.addCateInChargeWithEditor({ categoryeditor_category: catec, categoryeditor_editor: userId });
-                })).then(() => { res.redirect('/admin/accountlist') });
+                })).then(() => { res.redirect('/admin/accountdetails/'+userId)});
             } else {
-                res.redirect('/admin/accountlist');
+                res.redirect('/admin/accountdetails/'+userId);
             }
         })
     });

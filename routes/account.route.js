@@ -168,14 +168,20 @@ router.post('/update', (req, res, next) => {
         var accEmail = req.body.email;
         var accFullname = req.body.fullname;
         if (dataValidate.accountStringsValidate(accEmail, req.user.acc_permission, accFullname, req.body.birthdate, '111111111111')) {
+            var accPseudonym = ' ';
+            if(req.user.acc_permission == 'writer') accPseudonym = req.body.acc_pseudonym;
             var accBirthDate = moment(req.body.birthdate, 'DD/MM/YYYY').format('YYYY-MM-DD');
-            accountModel.singleInfoById(userId).then(urows => {
+            Promise.all([accountModel.singleInfoById(userId),
+                accountModel.singleByPseudonym(accPseudonym)]).then(([urows,pseurows]) => {
                 if (urows.length > 0) {
+                    if(pseurows.length > 0) accPseudonym = urows[0].acc_pseudonym;
+                    console.log('accPseudony = ' + accPseudonym);
                     var user = {
                         acc_id: userId,
                         acc_email: accEmail,
                         acc_fullname: accFullname,
-                        acc_birthdate: accBirthDate
+                        acc_birthdate: accBirthDate,
+                        acc_pseudonym: accPseudonym
                     };
                     accountModel.update(user).then(() => {
                         res.redirect('/account/details');
