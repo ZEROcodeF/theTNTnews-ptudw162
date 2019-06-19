@@ -36,7 +36,7 @@ module.exports = {
   },
 
   singleInfoById: (id) =>{
-    return db.load(`select * from account where acc_id = ${id} and acc_permission != 'admin'`);
+    return db.load(`select * from account where acc_id = ${id}`);
   },
 
   all: () => {

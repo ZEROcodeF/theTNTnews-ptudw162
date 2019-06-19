@@ -1,5 +1,6 @@
 {{#section 'css'}}
-<link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="/css/jquery.datetimepicker.min.css" type="text/css">
+<link rel="stylesheet" href="/css/fileinput.min.css" type="text/css">
 <style>
     .del-on-click {
         background: #fff !important;
@@ -12,7 +13,20 @@
 </style>
 {{/section}}
 {{#section 'js'}}
+<script src="/js/fileinput/fileinput.min.js"></script>
+<script src="/js/fileinput/themes/fa/theme.min.js"></script>
+<script src="/js/fileinput/locales/vi.min.js"></script>
 <script>
+    $(function () {
+        $('#imageUploader').fileinput({
+            theme: 'fa',
+            dropZoneEnabled: true,
+            allowedFileExtensions: ['png', 'jpg', 'gif'],
+            uploadUrl: '/upload',
+            uploadAsync: false,
+            language: 'vi'
+        });
+    });
     var deleteThis = function (t) {
         t.parentNode.removeChild(t);
     }
@@ -101,7 +115,8 @@
                         <div class="form-group d-flex justify-content-around mb-4">
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" id="standardChecked" name="post_type"
-                                    value="standard" {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}}{{#if isEdit}}{{else}}checked{{/if}}>
+                                    value="standard"
+                                    {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}}{{#if isEdit}}{{else}}checked{{/if}}>
                                 <label class="custom-control-label" for="standardChecked">Tiêu chuẩn</label>
                             </div>
                             <div class="custom-control custom-radio">
@@ -139,8 +154,8 @@
                         </div>
                         <hr>
                         <div class="form-group">
-                            <button type="button" class="btn btn-outline-primary w-100" href="/writer/newpost/upload"><i
-                                    class="fas fa-file-upload mr-2"></i>Tải ảnh lên</button>
+                            <button type="button" class="btn btn-outline-primary w-100" data-toggle="modal"
+                                data-target="#uploadImageForm"><i class="fas fa-file-upload mr-2"></i>Tải ảnh lên</button>
                         </div>
                         <button type="submit"
                             class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
@@ -151,3 +166,21 @@
         </div>
     </div>
 </form>
+
+<div class="modal hide" id="uploadImageForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-primary text-center font-weight-bold m-0 w-100">Upload hình ảnh</h5>
+            </div>
+            <form method="POST" action>
+                <div class="modal-body">
+                    <input id="imageUploader" name="imageUpload" type="file" multiple>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
