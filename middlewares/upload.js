@@ -19,7 +19,7 @@ module.exports = function (app) {
           error: err.message
         });
       }   
-      res.json({initialPreview:`<img src='/img/uploads/${req.file.filename}' class='file-preview-image' style="max-width: 300px; height:auto; object-fit:cover">`});
+      res.json({initialPreview:`<img src='/img/uploads/${req.file.filename}' class='file-preview-image' style="max-width: 200px; height:auto; object-fit:cover">`});
     })
   })
 }

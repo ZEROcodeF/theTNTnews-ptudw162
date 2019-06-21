@@ -59,13 +59,14 @@
 <script src="/js/fileinput/fileinput.min.js"></script>
 <script src="/js/fileinput/themes/fa/theme.min.js"></script>
 <script src="/js/fileinput/locales/vi.min.js"></script>
+<script src="/js/fileinput/piexif.js"></script>
 <script>
     $(function () {
         $('#imageUploader').fileinput({
             resizeImage: true,
             maxImageWidth: 1024,
             maxImageHeight: 768,
-            resizePreference: 'width',
+            resizePreference: 'height',
             theme: 'fa',
             dropZoneEnabled: true,
             allowedFileExtensions: ['png', 'jpg', 'gif'],
@@ -79,6 +80,7 @@
     var getUrltoTinyMCE = function(){
         if($('.file-preview-frame .kv-file-content img')){
         var imgurl = $('.file-preview-frame .kv-file-content img').attr('src');
+        if(!imgurl.startsWith("data"))
         tinyMCE.execCommand('mceInsertContent', false, '<img src="' + imgurl + '"/>');
         }
     }
