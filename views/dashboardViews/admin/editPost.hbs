@@ -59,7 +59,7 @@
 <script src="/js/tinymce/customized.js"></script>
 {{/section}}
 
-<form id="editPostForm" novalidate method="POST" action="?forcePublish=0">
+<form id="editPostForm" method="POST" action="?forcePublish=0">
     <div class="col-lg-12">
         <div class="row">
             <div class="card shadow mb-4 w-100">
@@ -96,23 +96,23 @@
                     <div class="card-body">
                         <h6 class="font-weight-bold text-dark">Tiêu đề bài viết</h6>
                         <div class="form-group">
-                            <input class="form-control trim-text-change" type="text" name="post_title"
+                            <input class="form-control trim-text-change" type="text" required name="post_title"
                                 placeholder="Dưới 50 ký tự" value="{{Post.post_title}}">
                         </div>
                         <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (nhỏ)</h6>
                         <div class="form-group">
-                            <input class="form-control trim-text-change" type="text" name="post_thumbnail"
+                            <input class="form-control trim-text-change" type="text" required name="post_thumbnail"
                                 placeholder="URL ảnh nên khoảng 400px x 300px" value="{{Post.post_thumbnail}}"></input>
                         </div>
                         <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (lớn)</h6>
                         <div class="form-group">
-                            <input class="form-control trim-text-change" type="text" name="post_bigthumbnail"
+                            <input class="form-control trim-text-change" type="text" required name="post_bigthumbnail"
                                 placeholder="URL ảnh nên khoảng 1000px x 400px"
                                 value="{{Post.post_bigthumbnail}}"></input>
                         </div>
                         <h6 class="font-weight-bold text-dark">Tóm tắt</h6>
                         <div class="form-group">
-                            <textarea class="form-control trim-text-change" type="text" name="post_summary" rows="4"
+                            <textarea class="form-control trim-text-change" type="text" required name="post_summary" rows="4"
                                 placeholder="Tối đa 255 ký tự">{{Post.post_summary}}</textarea>
                         </div>
                         <h6 class="font-weight-bold text-dark">Nội dung bài viết</h6>
@@ -140,7 +140,7 @@
                         <div class="form-group d-flex justify-content-around mb-4">
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" id="standardChecked" name="post_type"
-                                    value="standard" {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}}>
+                                    value="standard" {{#ifEquals Post.post_type 'standard'}}checked{{/ifEquals}} {{#if ../isEdit}}{{else}}checked{{/if}}>
                                 <label class="custom-control-label" for="standardChecked">Tiêu chuẩn</label>
                             </div>
                             <div class="custom-control custom-radio">
