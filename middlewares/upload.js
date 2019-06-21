@@ -13,15 +13,13 @@ var upload = multer({ storage });
 
 module.exports = function (app) {
   app.post('/upload', (req, res, next) => {
-    upload.array('imageUpload')(req, res, err => {
+    upload.single('imageUpload')(req, res, err => {
       if (err) {
         return res.json({
           error: err.message
         });
-      }
-      res.json({
-          
-      });
+      }   
+      res.json({initialPreview:`<img src='/img/uploads/${req.file.filename}' class='file-preview-image' style="max-width: 300px; height:auto; object-fit:cover">`});
     })
   })
 }

@@ -28,6 +28,8 @@
             allowedFileExtensions: ['png', 'jpg', 'gif'],
             uploadUrl: '/upload',
             uploadAsync: false,
+            autoReplace: true,
+            maxFileCount: 1,
             language: 'vi'
         });
     });
@@ -48,6 +50,12 @@
             $('#txtNewTag').prop('placeholder', 'Tên nhãn không được trống!');
         }
     });
+    var getUrltoTinyMCE = function(){
+        if($('.file-preview-frame .kv-file-content img')){
+        var imgurl = $('.file-preview-frame .kv-file-content img').attr('src');
+        tinyMCE.execCommand('mceInsertContent', false, '<img src="' + imgurl + '"/>');
+        }
+    }
 </script>
 <script src="/js/tinymce/tinymce.min.js"></script>
 <script src="/js/tinymce/customized.js"></script>
@@ -159,7 +167,8 @@
                         <hr>
                         <div class="form-group">
                             <button type="button" class="btn btn-outline-primary w-100" data-toggle="modal"
-                                data-target="#uploadImageForm"><i class="fas fa-file-upload mr-2"></i>Tải ảnh lên</button>
+                                data-target="#uploadImageForm"><i class="fas fa-file-upload mr-2"></i>Tải ảnh
+                                lên</button>
                         </div>
                         <button type="submit"
                             class="btn btn-success text-white w-100 mb-4">{{{PostButtonTitle}}}</button>
@@ -182,7 +191,7 @@
                     <input id="imageUploader" name="imageUpload" type="file" multiple>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="getUrltoTinyMCE()">Đóng</button>
                 </div>
             </form>
         </div>

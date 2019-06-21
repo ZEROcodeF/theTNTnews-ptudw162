@@ -10,6 +10,7 @@
         cursor: pointer;
     }
 </style>
+<link rel="stylesheet" href="/css/fileinput.min.css" type="text/css">
 {{/section}}
 {{#section 'js'}}
 <script src="/js/jquery/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
@@ -54,6 +55,33 @@
         $('#editPostForm').prop('action', '?forcePublish=1');
         $('#editPostForm').submit();
     });
+</script>
+<script src="/js/fileinput/fileinput.min.js"></script>
+<script src="/js/fileinput/themes/fa/theme.min.js"></script>
+<script src="/js/fileinput/locales/vi.min.js"></script>
+<script>
+    $(function () {
+        $('#imageUploader').fileinput({
+            resizeImage: true,
+            maxImageWidth: 1024,
+            maxImageHeight: 768,
+            resizePreference: 'width',
+            theme: 'fa',
+            dropZoneEnabled: true,
+            allowedFileExtensions: ['png', 'jpg', 'gif'],
+            uploadUrl: '/upload',
+            uploadAsync: false,
+            autoReplace: true,
+            maxFileCount: 1,
+            language: 'vi'
+        });
+    });
+    var getUrltoTinyMCE = function(){
+        if($('.file-preview-frame .kv-file-content img')){
+        var imgurl = $('.file-preview-frame .kv-file-content img').attr('src');
+        tinyMCE.execCommand('mceInsertContent', false, '<img src="' + imgurl + '"/>');
+        }
+    }
 </script>
 <script src="/js/tinymce/tinymce.min.js"></script>
 <script src="/js/tinymce/customized.js"></script>
@@ -117,7 +145,7 @@
                         </div>
                         <h6 class="font-weight-bold text-dark">Nội dung bài viết</h6>
                         <div class="form-group">
-                            <textarea id="mytiny" name="post_content">
+                            <textarea required id="mytiny" name="post_content">
                                  {{Post.post_content}}
                             </textarea>
                         </div>
@@ -178,8 +206,9 @@
                         </div>
                         <hr>
                         <div class="form-group">
-                            <button type="button" class="btn btn-outline-primary w-100"><i
-                                    class="fas fa-file-upload mr-2"></i>Tải ảnh lên</button>
+                            <button type="button" class="btn btn-outline-primary w-100" data-toggle="modal"
+                                data-target="#uploadImageForm"><i class="fas fa-file-upload mr-2"></i>Tải ảnh
+                                lên</button>
                         </div>
                         <hr>
                         <h6 class="font-weight-bold text-dark">Trạng thái</h6>
@@ -238,3 +267,21 @@
     </div>
 </div>
 {{/if}}
+
+<div class="modal hide" id="uploadImageForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="text-primary text-center font-weight-bold m-0 w-100">Upload hình ảnh</h5>
+            </div>
+            <form method="POST" action>
+                <div class="modal-body">
+                    <input id="imageUploader" name="imageUpload" type="file" multiple>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="getUrltoTinyMCE()">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
