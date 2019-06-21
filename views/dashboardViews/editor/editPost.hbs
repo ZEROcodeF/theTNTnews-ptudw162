@@ -73,18 +73,18 @@
                     <div class="card-body">
                         <h6 class="font-weight-bold text-dark">Tiêu đề bài viết</h6>
                         <div class="form-group">
-                            <input class="form-control trim-text-change" type="text" name="post_title"
+                            <input class="form-control trim-text-change" type="text" required required name="post_title"
                                 placeholder="Dưới 50 ký tự" value="{{Post.post_title}}" disabled>
                         </div>
                         <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (nhỏ)</h6>
                         <div class="form-group">
-                            <input class="form-control trim-text-change" type="text" name="post_thumbnail"
+                            <input class="form-control trim-text-change" type="text" required name="post_thumbnail"
                                 placeholder="URL ảnh nên khoảng 400px x 300px" value="{{Post.post_thumbnail}}"
                                 disabled></input>
                         </div>
                         <h6 class="font-weight-bold text-dark">Ảnh đại diện bài viết (lớn)</h6>
                         <div class="form-group">
-                            <input class="form-control trim-text-change" type="text" name="post_bigthumbnail"
+                            <input class="form-control trim-text-change" type="text" required name="post_bigthumbnail"
                                 placeholder="URL ảnh nên khoảng 1000px x 400px" value="{{Post.post_bigthumbnail}}"
                                 disabled></input>
                         </div>
