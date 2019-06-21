@@ -44,7 +44,7 @@ router.post('/:id', (req, res, next) => {
     var postTitle = req.body.post_title;
     if (forcePublish == '1') {
         var postTime = moment().format('YYYY-MM-DD HH:mm:ss');
-    } else {
+    } else { 
         var postTime = moment(req.body.post_time,'HH:mm:ss DD-MM-YYYY').format('YYYY-MM-DD HH:mm:ss');
     }
     var postThumbnail = req.body.post_thumbnail;
